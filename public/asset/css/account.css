@@ -1,0 +1,67 @@
+@import url('https://fonts.googleapis.com/css2?family=Mulish:wght@200;300;400;500;600;700;800;900&display=swap');
+*{
+    padding: 0;
+    margin: 0;
+    box-sizing: border-box;
+}
+body{
+    font-family: 'Mulish', sans-serif;
+}
+.container{
+    max-width: 100%;
+    margin: 0 auto;
+    padding: 0 16px;
+}
+a{
+    text-decoration: none;
+}
+.account_det_sec{
+    /* margin-top: 30px; */
+    margin-bottom: 43px;
+    background: rgba(0, 128, 128, 0.1);
+    padding: 34px 0;
+}
+.account_det_sec .account_det{
+    display: flex;
+    align-items: center;
+}
+.account_det_sec .account_det .store_icon{
+    width: 100px;
+    margin-right: 42px;
+    border-radius: 50px;
+}
+.account_det_sec .account_det .acc_cont .stor_name{
+    font-weight: 400;
+font-size: 16px;
+line-height: 120%;
+color: #000000;
+}
+.account_det_sec .account_det .acc_cont .text{
+    font-weight: 400;
+font-size: 13px;
+line-height: 120%;
+color: #000000;
+margin: 9px 0px;
+}
+.account_det_sec .account_det .acc_cont .text:last-child{
+    margin-bottom: 0;
+}
+.account_link_sec .account_links{
+    display: flex;
+    flex-direction: column;
+    /* width: 50%; */
+}
+.account_link_sec .account_links .link{
+    margin-bottom: 26px;
+    font-weight: 400;
+    font-size: 16px;
+    line-height: 120%;
+    color: #008080;
+    position: relative;
+}
+.account_link_sec .account_links .link::after{
+    content: url('../images/right-arrow.svg');
+    position: absolute;
+    right: 0;
+    top: -2px;
+}

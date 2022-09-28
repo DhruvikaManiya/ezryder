@@ -1,0 +1,230 @@
+.pad-00{
+    padding: 0;
+}
+
+p {
+    margin-top: 0;
+    margin-bottom: 0;
+}
+
+.m-00{
+    margin: 0;
+}
+
+.pad-fig{
+    padding-left: 17px;
+    padding-right: 12px;
+}
+
+.cost-box{
+    background: rgba(0, 128, 128, 0.1);
+    border-radius: 5px;
+    padding-left: 10px;
+    padding-right: 12px;
+}
+
+.cost-box p{
+    font-weight: 400;
+    font-size: 20px;
+    color: #000000;
+    margin-bottom: 5px;
+}
+
+.top-mt-53{
+    margin-top: 53px;
+}
+
+.top-mt-27{
+    margin-top: 27px;
+}
+
+.top-mt-77{
+    margin-top: 77px;
+}
+
+.bot-mt-345{
+    margin-bottom: 345px;
+}
+
+.pos-rele{
+    position: relative;
+}
+
+.name-b {
+    position: absolute;
+    top: 28px;
+    right: 19px;
+}
+
+.top-pt-10{
+    padding-top: 12px;
+}
+
+.bot-pt-32{
+    padding-bottom: 35px;
+}
+
+.cost-ad p:nth-child(1){
+    font-weight: 400;
+    font-size: 20px;
+    color: #000000;
+}
+.cost-ad p:nth-child(2){
+    font-size: 16px;
+    line-height: 19px;
+    margin-top: 8px;
+}
+.btn-acp {
+    background: #008080;
+    border-radius: 5px;
+    padding-left: 10px;
+    padding-right: 22px;
+    padding-top: 8px;
+    padding-bottom: 8px;
+    text-align: center;
+}
+
+
+.btn-acp a{
+    width: 100%;
+    color: #FFFFFF;
+    font-weight: 500;
+    font-size: 18px;
+}
+
+.btn-acp button{
+    width: 100%;
+    color: #FFFFFF;
+    font-weight: 500;
+    font-size: 18px;
+    background: #008080;
+    border: none;
+    outline: none;
+}
+
+.top-mt-322{
+    margin-top: 322px;
+}
+
+.mb-17{
+    margin-bottom: 17px;
+}
+
+
+
+/* rent-2 start here */
+
+
+.name-a {
+    position: absolute;
+    top: 0px;
+    right: 38px;
+}
+
+.fw-700{
+    font-weight: 700 !important;
+}
+
+.call-box a{
+    background: rgba(0, 128, 128, 0.1);
+    padding: 12px;
+    padding-top: 9px;
+    font-weight: 400;
+    font-size: 20px;
+    color: #000000;
+}
+
+.top-mt-66{
+    margin-top: 66px;
+}
+
+.top-mt-8{
+    margin-top: 8px;
+}
+
+.left-ml-13{
+    margin-left: 13px;
+}
+
+.share1{
+    position: absolute;
+    top: 5px;
+    right: 30px;
+}
+.l-height-19{
+    line-height: 19px !important;
+}
+/* rent-2  end here*/
+
+
+
+/* rent-3  start here*/
+   
+
+.lf-pad-39{
+    padding: 0 39px;
+}
+
+.t-center{
+    text-align: center;
+}
+
+.top-mt-61{
+    margin-top: 61px;
+}
+
+.otp-box a{
+    font-weight: 400;
+    font-size: 20px;
+    color: #000000;
+}
+
+.btn-o a{
+    font-weight: 400 !important;
+    font-size: 20px;
+    color: #000000;
+    /* width: 100%; */
+    background: rgba(0, 128, 128, 0.1) !important;
+    padding: 13px 89px !important;
+}
+
+.btn-o a{
+    font-weight: 400;
+    font-size: 20px;
+    color: #000000;
+    /* width: 100%; */
+    background: rgba(0, 128, 128, 0.1) !important;
+    padding: 13px 89px !important;
+}
+
+.pr-space a{
+    padding: 13px 93px !important;
+}
+
+
+
+a:hover{
+    text-decoration: unset;
+}
+
+.top-mt-36{
+    margin-top: 36px;
+}
+
+.top-mt-55{
+    margin-top: 55px;
+}
+/* rent-3  end here*/
+
+
+
+
+
+
+
+
+
+
+  
+   
+  

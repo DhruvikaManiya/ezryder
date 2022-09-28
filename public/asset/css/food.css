@@ -1,0 +1,459 @@
+.container {
+    width: 100%;
+    padding: 0 16px;
+}
+
+h1, h2, h3, h4, h5, h6, p, a {
+    margin: 0;
+}
+
+.top_header {
+    width: 100%;
+    height: 56px;
+    background: #008080;
+    padding: 6px 0px;
+}
+
+.top_header .store_header {
+    width: 100%;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+}
+
+.top_header .store_header .store {
+    width: 75%;
+    display: flex;
+    align-items: center;
+}
+
+.top_header .store_header .store .location_icon {
+    width: 24px;
+    height: 24px;
+    margin-right: 11px;
+}
+
+.top_header .store_header .store .store_det .store_name {
+    font-weight: 400;
+    font-size: 20px;
+    line-height: 120%;
+    color: #FFFFFF;
+    margin-bottom: 4px;
+}
+
+.top_header .store_header .store .store_det .store_add {
+    font-weight: 700;
+    font-size: 13px;
+    line-height: 120%;
+    color: #FFFFFF;
+    opacity: 0.7;
+    margin-bottom: 0px;
+}
+
+
+.top_header .store_header .store_cart {
+    width: 25%;
+    display: flex;
+    align-items: center;
+    justify-content: flex-end;
+}
+
+.top_header .store_header .store_cart .search_icon {
+    width: 24px;
+    height: 24px;
+}
+
+.top_header .store_header .store_cart .cart_icon {
+    width: 24px;
+    height: 24px;
+    margin-left: 10px;
+}
+
+/* header style end */
+
+/* main rest and cat start */
+.reast_sec {
+    margin-top: 24px;
+}
+
+.restaurants_bx {
+    background: #E4F6F6;
+    border-radius: 5px;
+    padding: 0px 0px 8px 12px;
+    display: flex;
+    justify-content: space-between;
+}
+
+.restaurants_bx .content .title {
+    font-weight: 400;
+    font-size: 18px;
+    line-height: 120%;
+    color: #000000;
+    margin-top: 14px;
+}
+
+.restaurants_bx .content .para {
+    font-weight: 400;
+    font-size: 14px;
+    line-height: 120%;
+    color: #000000;
+    opacity: 0.5;
+    margin-bottom: 8px;
+}
+
+.restaurants_bx .content .view_all {
+    font-weight: 700;
+    font-size: 14px;
+    line-height: 120%;
+    color: #000000;
+}
+
+.category_sec {
+    margin-top: 20px;
+}
+
+.category_sec .cat_title {
+    font-weight: 700;
+    font-size: 20px;
+    line-height: 120%;
+    color: rgba(0, 0, 0, 0.8);
+}
+
+.category_sec .category_bxs {
+    margin-top: 14px;
+}
+
+.category_sec .category_bxs .top_bxs,
+.category_sec .category_bxs .bottom_bxs {
+    margin-bottom: 12px;
+    display: flex;
+    justify-content: space-between;
+    gap: 26px;
+}
+
+.category_sec .category_bxs .cat_bx {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    width: 25%;
+}
+
+.category_sec .category_bxs .cat_bx .food_icon {
+    width: 63px;
+    height: 63px;
+    margin-bottom: 4px;
+}
+
+.category_sec .category_bxs .cat_bx .food_title {
+    font-weight: 700;
+    font-size: 14px;
+    line-height: 120%;
+    text-align: center;
+    color: #008080;
+}
+
+/* main rest and cat end */
+
+/* slider start */
+.slider_sec {
+    margin: 20px 0px;
+    padding-left: 19px;
+}
+
+.pb-13 {
+    padding-bottom: 13px !important;
+}
+
+.pl-15 {
+    padding-left: 15px !important;
+}
+
+.mt-17 {
+    margin-top: 17px !important;
+}
+
+.slider_sec .restaurants_bx .title .span_1 {
+    font-weight: 400;
+    font-size: 25px;
+    line-height: 120%;
+    text-transform: uppercase;
+    color: #444444;
+}
+
+.slider_sec .restaurants_bx .title .span_2 {
+    font-weight: 700;
+    font-size: 25px;
+    line-height: 120%;
+    color: #444444;
+}
+
+.slider_sec .restaurants_bx .content .para {
+    font-weight: 400;
+    font-size: 13px;
+    line-height: 120%;
+    color: #000000;
+    opacity: 0.7;
+    margin-top: 1px;
+    margin-bottom: 10px;
+}
+
+.slider_sec .restaurants_bx .content .order_btn {
+    background: #008080;
+    border-radius: 5px;
+    padding: 4.5px 8px;
+    font-weight: 700;
+    font-size: 13px;
+    line-height: 120%;
+    color: #FFFFFF;
+}
+
+
+
+.swiper {
+    width: 100%;
+    height: 100%;
+}
+
+.swiper-slide {
+
+    /* Center slide text vertically */
+    display: -webkit-box;
+    display: -ms-flexbox;
+    display: -webkit-flex;
+    display: flex;
+    -webkit-box-pack: center;
+    -ms-flex-pack: center;
+    -webkit-justify-content: center;
+    justify-content: center;
+    -webkit-box-align: center;
+    -ms-flex-align: center;
+    -webkit-align-items: center;
+    align-items: center;
+}
+
+.swiper-slide img {
+    display: block;
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+}
+
+.swiper-slide {
+    width: 70%;
+}
+
+.swiper-wrapper {
+    width: 91% !important;
+}
+
+/* slider end */
+
+/* offer sec start */
+
+.offers_sec .offer_title {
+    font-weight: 700;
+    font-size: 17px;
+    line-height: 120%;
+    color: #000;
+    margin-bottom: 10px;
+}
+
+.offers_wrapper {
+    display: flex;
+    justify-content: space-between;
+    gap: 8px;
+    margin-bottom: 15px;
+}
+
+.offers_wrapper .offer_box {
+    width: 50%;
+    position: relative;
+    border-radius: 5px;
+}
+
+.offers_wrapper .offer_box .offers_img {
+    width: 100%;
+    height: 100%;
+    border-radius: 5px;
+}
+
+.offers_wrapper .offer_box .offer_content {
+    position: absolute;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    background: rgba(0, 0, 0, 0.37);
+    backdrop-filter: blur(4px);
+    padding: 4px 7px 4px 3px;
+}
+
+.offers_wrapper .offer_box .offer_content .food_name {
+    font-weight: 700;
+    font-size: 13px;
+    line-height: 120%;
+    color: #FFFFFF;
+}
+
+.offers_wrapper .offer_box .offer_content .offer_text {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+}
+
+.offers_wrapper .offer_box .offer_content .offer_text .rating {
+    font-weight: 700;
+    font-size: 12px;
+    line-height: 120%;
+    color: rgba(255, 255, 255, 0.8);
+    position: relative;
+    padding-left: 13px;
+}
+
+.offers_wrapper .offer_box .offer_content .offer_text .rating::before {
+    content: url('../images/star.svg');
+    position: absolute;
+    left: 0;
+}
+
+.offers_wrapper .offer_box .offer_content .offer_text .offer_avail {
+    font-weight: 700;
+    font-size: 12px;
+    line-height: 120%;
+    text-align: right;
+    color: rgba(255, 255, 255, 0.8);
+}
+
+/* offer sec end */
+
+/* food category start */
+
+.d_flex {
+    display: flex;
+}
+
+.ml-55 {
+    margin-left: 55px;
+}
+
+.mr-20 {
+    margin-right: 20px !important;
+}
+
+.align-item-center {
+    display: flex;
+    align-items: center;
+}
+
+/* food category end */
+
+
+/* food store start */
+
+
+.recomm_sec .food_title {
+    font-weight: 400;
+    font-size: 16px;
+    line-height: 120%;
+    color: #000000;
+    opacity: 0.5;
+    margin-top: 24px;
+    margin-bottom: 18px;
+}
+
+.recomm_sec .rec_title {
+    font-weight: 700;
+    font-size: 17px;
+    line-height: 120%;
+    color: #000000;
+    margin-bottom: 10px;
+}
+
+.recomm_box {
+    width: 100%;
+    background-color: #fff;
+    margin-bottom: 16px;
+}
+
+.recomm_box .recomm_img {
+    width: 100%;
+}
+
+.recomm_box .recomm_content {
+    border: 1px solid #008080;
+    border-radius: 5px;
+    border-top: none;
+    padding: 20px 9px 14px 11px;
+    margin-top: -10px;
+}
+
+.recomm_box .recomm_content .food_rate {
+    margin-bottom: 8px;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+}
+
+.recomm_box .recomm_content .food_rate .food_name,
+.recomm_box .recomm_content .food_rate .rate {
+    font-weight: 700;
+    font-size: 14px;
+    line-height: 120%;
+    color: #000000;
+    opacity: 0.7;
+}
+
+.recomm_box .recomm_content .recomm_text {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+}
+
+.recomm_box .recomm_content .recomm_text .rating {
+    display: flex;
+    align-items: center;
+    flex-direction: row;
+    position: relative;
+    padding-left: 15px;
+    font-weight: 700;
+    font-size: 14px;
+    line-height: 120%;
+    color: #000000;
+    opacity: 0.5;
+}
+
+.recomm_box .recomm_content .recomm_text .rating::before {
+    content: url("../images/star.svg");
+    position: absolute;
+    left: 0;
+    width: 17px;
+    opacity: 1 !important;
+}
+
+.recomm_box .recomm_content .recomm_text .add_btn {
+    padding: 4px 9px;
+    background: #008080;
+    border-radius: 5px;
+    font-weight: 700;
+    font-size: 13px;
+    line-height: 120%;
+    color: #FFFFFF;
+    display: flex;
+    align-items: center;
+}
+
+.recomm_box .recomm_img_box {
+    position: relative;
+}
+
+.recomm_box .recomm_img_box .heart_img {
+    position: absolute;
+    top: 0;
+    left: 0;
+}
+
+.recomm_box .recomm_content .recomm_text .add_btn .plus_icon {
+    width: 24px;
+    margin-right: 8px;
+}
+
+/* food store end */

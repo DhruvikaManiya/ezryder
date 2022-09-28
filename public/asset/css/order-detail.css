@@ -1,0 +1,298 @@
+* {
+    margin: 0;
+    padding: 0;
+}
+
+body {
+    font-family: 'Mulish', sans-serif;
+}
+
+.container {
+    width: 100%;
+    margin: 0 auto;
+    padding: 0;
+}
+
+.d-flex {
+    display: flex;
+}
+
+.text-a-r {
+    text-align: right;
+}
+
+.w-50 {
+    width: 50%;
+}
+
+.w-30 {
+    width: 30%;
+}
+
+.ml-40 {
+    margin-left: 40px;
+}
+
+.ml-10 {
+    margin-left: 10px;
+}
+
+.mt-20 {
+    margin-top: 20px;
+}
+
+.pt-7 {
+    padding-top: 7px;
+}
+
+.header {
+    background-color: #008080;
+    color: white;
+}
+
+.header_row {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding: 12px 16px;
+}
+
+.header_text h1 {
+    font-size: 25px;
+    font-weight: 400;
+    line-height: 120%;
+}
+
+.person_row {
+    display: flex;
+    justify-content: space-between;
+    padding-left: 18px;
+    padding-right: 16px;
+    padding-top: 23px;
+    padding-bottom: 24px;
+    align-items: center;
+}
+
+.person_name p {
+    /* font-size: 16px;
+    font-weight: 400;
+    color: #008080;
+    padding-left: 16px; */
+    position: absolute;
+    width: 105px;
+    height: 19px;
+    left: 50px;
+    top:7px;
+    margin-top: 74px;
+
+
+    /* para */
+
+    font-family: 'Mulish';
+    font-style: normal;
+    font-weight: 400;
+    font-size: 16px;
+    /* line-height: 120%; */
+    /* or 19px */
+
+    text-align: center;
+
+    /* teal 1 */
+
+    color: #008080;
+
+}
+
+
+
+
+
+/* .person_icon_img_1{
+    position: absolute;
+left: 13.28%;
+right: 13.28%;
+top: 11.13%;
+bottom: 11.13%;
+
+
+background: #008080;
+
+} */
+
+.person_data_time p {
+    text-align: right;
+    font-size: 13px;
+    font-weight: 400;
+    line-height: 120%;
+    color: #444444;
+    position: relative;
+    top: 10px;
+}
+
+.dmart_section {
+    background-color: rgba(0, 128, 128, 0.1);
+    padding-bottom: 33px;
+}
+
+.dmart_row1 {
+    display: flex;
+    padding-left: 18px;
+    padding-right: 17px;
+    padding-top: 10px;
+}
+
+
+.dmart_address {
+    padding-left: 15px;
+    width: 100%;
+}
+
+.dmart_address h3 {
+    font-size: 16px;
+    font-weight: 700;
+    line-height: 19.2px;
+    color: #008080;
+}
+
+.dmart_address p {
+    font-size: 13px;
+    font-weight: 400;
+    line-height: 120%;
+    color: #444444;
+}
+
+.product_name_row {
+    display: flex;
+    padding-left: 16px;
+    padding-right: 17px;
+    margin-top: 20px;
+}
+
+.product_wight_table {
+    width: 100%;
+}
+
+.product_wight_table tr td {
+    font-size: 13px;
+    font-weight: 400;
+    line-height: 120%;
+    color: #444444;
+}
+
+.product_price {
+    width: 50%;
+    display: flex;
+    justify-content: flex-end;
+}
+
+.item_count_row {
+    margin-top: 20px;
+    padding-left: 16px;
+    padding-bottom: 20px;
+    padding-right:15px;
+}
+
+.item_count_table {
+    padding-right: 35px;
+    width: 100%;
+}
+
+.item_count_table tr td:nth-child(2) {
+    text-align: right;
+    padding-right: 10px;
+}
+
+.item_count_table tr td {
+    font-size: 18px;
+    line-height: 23px;
+    font-weight: 500;
+    padding: 3px 0px;
+}
+
+.order_section {
+    background-color: rgba(0, 128, 128, 0.1);
+    padding: 23px 0px;
+}
+
+.order_row {
+    display: flex;
+    align-items: center;
+    padding-left: 26px;
+    padding-top: 21px;
+}
+
+.radio_btn_text p {
+    padding-left: 26px;
+    color: #444444;
+    font-size: 13px;
+    font-weight: 400;
+    line-height: 120%;
+}
+
+.diactive p {
+    color: #CACACA !important;
+}
+
+.pending_btn {
+    padding-top: 25px;
+    padding-bottom: 60px;
+    /* padding-right: 17px; */
+    text-align: center;
+}
+
+.btn_pending {
+    text-align: center;
+    /* float: right; */
+    font-size: 16px;
+    font-weight: 700;
+    line-height: 19.2px;
+    padding: 8px 17px;
+    background-color: #008080;
+    color: white;
+    border: none;
+    border-radius: 5px;
+}
+
+.footer {
+    background-color: #008080;
+}
+
+.footer_row {
+    padding: 12px 17px;
+    display: flex;
+    justify-content: space-between;
+
+}
+
+.footer_row p {
+    font-size: 16px;
+    font-weight: 400;
+    color: white;
+}
+
+.order {
+    width: 17%;
+    text-align: center;
+}
+
+.account {
+    width: 24%;
+    text-align: center;
+}
+.D293 p{
+    font-weight: 400;
+    font-size: 13px;
+    line-height: 120%;
+    color: #444444;
+    padding: 0px 57px 20px;
+
+}
+
+.loca-left img{
+    position: absolute;
+    right: 15px;
+}
+
+.status-spn span{
+    font-size: 18px !important;
+}
