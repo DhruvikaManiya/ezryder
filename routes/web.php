@@ -419,7 +419,7 @@ Route::get('/logout', 'HomeController@logout')->name('custome.logout');
 
 // driver rider app
 
-Route::group(['prefix' => 'rider-service', /*'middleware' => ['rider']*/], function () {
+Route::group(['prefix' => 'rider-service', 'middleware' => ['rider']], function () {
 
 
     route::get('/', 'Ridercontroller@login')->name('mobile.rider.login');
@@ -436,7 +436,14 @@ Route::group(['prefix' => 'rider-service', /*'middleware' => ['rider']*/], funct
     Route::get('/collect', 'Ridercontroller@collect')->name('mobile.rider.collect');
     Route::get('/collect2', 'Ridercontroller@collect2')->name('mobile.rider.collect2');
     Route::get('/account', 'Ridercontroller@account')->name('mobile.rider.account');
-    Route::get('document', 'Ridercontroller@document')->name('mobile.rider.document');
+
+
+    Route::group(['prefix' => 'document'], function () {
+        Route::get('/', 'Ridercontroller@document')->name('mobile.rider.document');
+
+        Route::post('/', 'Ridercontroller@document_store')->name('mobile.rider.add_document');
+    });
+
     Route::get('wallet', 'Ridercontroller@wallet')->name('mobile.rider.wallet');
     Route::get('vehicle', 'Ridercontroller@vehicle')->name('mobile.rider.vehicle');
     Route::get('profile', 'Ridercontroller@profile')->name('mobile.rider.profile');

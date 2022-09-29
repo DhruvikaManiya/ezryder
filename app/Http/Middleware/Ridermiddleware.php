@@ -40,7 +40,7 @@ class Ridermiddleware
                 return $next($request);
             } else {
 
-                return redirect()->route('mobile.rider.book-now');
+                return redirect()->route('mobile.rider.account');
             }
         }
 
