@@ -42,7 +42,7 @@
         <div class="docu_box">
             <div class="docu_boxone">
                 <div class="images">
-                    <img src="{{ {{ $document->id_proof_front==""? asset('asset/images/Group 5.svg'):url('storage/id-proof/' . $document->id_proof_front) }}" class="img-fluid select-image image1"
+                    <img src="{{ $document->id_proof_front==""? asset('asset/images/Group 5.svg'):url('storage/id-proof/' . $document->id_proof_front) }}" class="img-fluid select-image image1"
                         data-image="image1">
                     <input type="file" name="licence_front" id="image1" class="d-none image" accept="image/*">
                 </div>
@@ -50,7 +50,7 @@
             </div>
             <div class="docu_boxone">
                 <div class="images">
-                    <img src="{{ {{ $document->id_proof_front==""? asset('asset/images/Group 5.svg'):url('storage/id-proof/' . $document->id_proof_front) }}" class="img-fluid select-image image2"
+                    <img src="{{ $document->id_proof_front==""? asset('asset/images/Group 5.svg'):url('storage/id-proof/' . $document->id_proof_front) }}" class="img-fluid select-image image2"
                         data-image="image2">
                     <input type="file" name="licence_back" id="image2" class="d-none image" accept="image/*">
                 </div>
@@ -61,7 +61,7 @@
         <div class="docu_box">
             <div class="docu_boxone">
                 <div class="images">
-                    <img src="{{ {{ $document->id_proof_front==""? asset('asset/images/Group 5.svg'):url('storage/id-proof/' . $document->id_proof_front) }}" class="img-fluid select-image image1"
+                    <img src="{{ $document->id_proof_front==""? asset('asset/images/Group 5.svg'):url('storage/id-proof/' . $document->id_proof_front) }}" class="img-fluid select-image image1"
                         data-image="image1">
                     <input type="file" name="vehicle_front" id="image1" class="d-none image" accept="image/*">
                 </div>
@@ -69,7 +69,7 @@
             </div>
             <div class="docu_boxone">
                 <div class="images">
-                    <img src="{{ {{ $document->id_proof_front==""? asset('asset/images/Group 5.svg'):url('storage/id-proof/' . $document->id_proof_front) }}" class="img-fluid select-image image2"
+                    <img src="{{ $document->id_proof_front==""? asset('asset/images/Group 5.svg'):url('storage/id-proof/' . $document->id_proof_front) }}" class="img-fluid select-image image2"
                         data-image="image2">
                     <input type="file" name="vehicle_back" id="image2" class="d-none image" accept="image/*">
                 </div>
