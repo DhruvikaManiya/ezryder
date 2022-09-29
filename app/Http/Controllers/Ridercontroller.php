@@ -3,7 +3,9 @@
 namespace App\Http\Controllers;
 
 use App\User;
+use App\User_details;
 use App\User_document;
+use App\User_vehicle;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Hash;
@@ -142,13 +144,50 @@ class Ridercontroller extends Controller
     // account
     public function account()
     {
+
         return view('mobile.rider.account');
     }
 
+
     public function profile()
     {
-        return view('mobile.rider.profile');
+        $user = User::where('id',Auth::user()->id)->first();
+
+        return view('mobile.rider.profile', [
+            'title' => "Profile",
+            'user' => $user,
+        ]);
     }
+
+    public function profile_store(Request $request)
+    {
+        $validate = $request->validate([
+            'name' => 'required',
+            'phone' => 'required|digits:10',
+            'address' => 'required',
+            'area' => 'required',
+            'city' => 'required',
+            'pincode' => 'required|digits:6',
+            'state' => 'required',
+            'country' => 'required',
+        ]);
+
+
+        $profile = User::where('id',Auth::user()->id)->first();
+
+        if(!$profile){
+
+            User::create($validate);
+
+        }else{
+
+            User::where('id',Auth::user()->id)->update($validate);
+
+        }
+
+        return redirect()->route('mobile.rider.profile');
+    }
+
 
     public function wallet()
     {
@@ -182,10 +221,10 @@ class Ridercontroller extends Controller
 
             $file_name = str_replace(" ", "-", Auth::user()->name) . '-id-proof-front' . '.' . $extension;
 
-            $request->file('id_proof_front')->storeAs('id-proof', $file_name);
+            $request->file('id_proof_front')->storeAs('public/id-proof', $file_name);
 
             $validate['id_proof_front'] = $file_name;
-
+//            storeAs('public/company-logos/'
         }
 
         if ($request->has('id_proof_back')) {
@@ -194,7 +233,7 @@ class Ridercontroller extends Controller
 
             $file_name = str_replace(" ", "-", Auth::user()->name) . '-id-proof-back' . '.' . $extension;
 
-            $request->file('id_proof_back')->storeAs('id-proof', $file_name);
+            $request->file('id_proof_back')->storeAs('public/id-proof', $file_name);
 
             $validate['id_proof_back'] = $file_name;
 
@@ -206,7 +245,7 @@ class Ridercontroller extends Controller
 
             $file_name = str_replace(" ", "-", Auth::user()->name) . '-licence-front' . '.' . $extension;
 
-            $request->file('licence_front')->storeAs('licence', $file_name);
+            $request->file('licence_front')->storeAs('public/licence', $file_name);
 
             $validate['licence_front'] = $file_name;
 
@@ -218,7 +257,7 @@ class Ridercontroller extends Controller
 
             $file_name = str_replace(" ", "-", Auth::user()->name) . '-licence-back' . '.' . $extension;
 
-            $request->file('licence_back')->storeAs('licence', $file_name);
+            $request->file('licence_back')->storeAs('public/licence', $file_name);
 
             $validate['licence_back'] = $file_name;
 
@@ -229,7 +268,7 @@ class Ridercontroller extends Controller
 
             $file_name = str_replace(" ", "-", Auth::user()->name) . '-vehicle-front' . '.' . $extension;
 
-            $request->file('vehicle_front')->storeAs('vehicle', $file_name);
+            $request->file('vehicle_front')->storeAs('public/vehicle', $file_name);
 
             $validate['vehicle_front'] = $file_name;
 
@@ -241,7 +280,7 @@ class Ridercontroller extends Controller
 
             $file_name = str_replace(" ", "-", Auth::user()->name) . '-vehicle_back' . '.' . $extension;
 
-            $request->file('vehicle_back')->storeAs('vehicle', $file_name);
+            $request->file('vehicle_back')->storeAs('public/vehicle', $file_name);
 
             $validate['vehicle_back'] = $file_name;
 
@@ -269,7 +308,37 @@ class Ridercontroller extends Controller
 
     public function vehicle()
     {
-        return view('mobile.rider.vehicle');
+        $vehicle = User_vehicle::where('user_id', Auth::user()->id)->first();
+
+        return view('mobile.rider.vehicle',[
+            'title' => "Vehicle",
+            'vehicle' => $vehicle,
+        ]);
+    }
+
+   public function vehicle_store(Request $request)
+    {
+
+        $validate = $request->validate([
+
+            'vehicle_number' => 'required',
+            'vehicle_make' => 'required',
+            'vehicle_modal' => 'required',
+        ]);
+
+        $validate['user_id'] = Auth::user()->id;
+
+        $vehicle = User_vehicle::where('user_id', Auth::user()->id)->first();
+
+        if (!$vehicle) {
+
+            User_vehicle::create($validate);
+        } else {
+            User_vehicle::where('user_id', Auth::user()->id)->update($validate);
+        }
+
+        return redirect()->route('mobile.rider.vehicle');
+
     }
 
 

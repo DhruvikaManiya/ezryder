@@ -435,8 +435,12 @@ Route::group(['prefix' => 'rider-service', 'middleware' => ['rider']], function 
     Route::get('/drop', 'Ridercontroller@drop')->name('mobile.rider.drop');
     Route::get('/collect', 'Ridercontroller@collect')->name('mobile.rider.collect');
     Route::get('/collect2', 'Ridercontroller@collect2')->name('mobile.rider.collect2');
-    Route::get('/account', 'Ridercontroller@account')->name('mobile.rider.account');
 
+    Route::group(['prefix' => 'account'], function () {
+        Route::get('/', 'Ridercontroller@account')->name('mobile.rider.account');
+
+        Route::post('/', 'Ridercontroller@account_store')->name('mobile.rider.add_account');
+    });
 
     Route::group(['prefix' => 'document'], function () {
         Route::get('/', 'Ridercontroller@document')->name('mobile.rider.document');
@@ -445,8 +449,21 @@ Route::group(['prefix' => 'rider-service', 'middleware' => ['rider']], function 
     });
 
     Route::get('wallet', 'Ridercontroller@wallet')->name('mobile.rider.wallet');
-    Route::get('vehicle', 'Ridercontroller@vehicle')->name('mobile.rider.vehicle');
-    Route::get('profile', 'Ridercontroller@profile')->name('mobile.rider.profile');
+
+    Route::group(['prefix' => 'vehicle'], function () {
+
+        Route::get('/', 'Ridercontroller@vehicle')->name('mobile.rider.vehicle');;
+
+        Route::post('/', 'Ridercontroller@vehicle_store')->name('mobile.rider.add_vehicle');
+    });
+
+    Route::group(['prefix' => 'profile'], function () {
+
+        Route::get('/', 'Ridercontroller@profile')->name('mobile.rider.profile');
+
+        Route::post('/', 'Ridercontroller@profile_store')->name('mobile.rider.add_profile');
+    });
+
 
     Route::get('direction', 'Ridercontroller@direction')->name('mobile.rider.direction');
 
@@ -456,10 +473,6 @@ Route::group(['prefix' => 'rider-service', 'middleware' => ['rider']], function 
 });
 
 
-
-
-
- 
 // user rider app 
 Route::get('/rider', 'MobileController@rider')->name('mobile.rider');
 

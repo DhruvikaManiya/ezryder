@@ -56,4 +56,16 @@ class User extends Authenticatable
     {
         return $this->belongsTo('App\bank_details');
     }
+
+    public function user_detail(){
+
+        $this->hasOne(User_details::class);
+
+    }
+
+    public function user_vehicle(){
+
+        $this->hasOne(User_vehicle::class);
+
+    }
 }
