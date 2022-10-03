@@ -6,6 +6,7 @@ use App\User;
 use App\User_details;
 use App\User_document;
 use App\User_vehicle;
+use App\Vehicle_type;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Hash;
@@ -197,6 +198,9 @@ class Ridercontroller extends Controller
     public function document()
     {
         $user_document = User_document::where('user_id',Auth::user()->id)->first();
+
+//        echo  (isset($user_document) and $user_document->id_proof_front=="")?"T":"F";die;
+
         return view('mobile.rider.document',[
             'title'=>"Document",
             'document' => $user_document
@@ -206,14 +210,22 @@ class Ridercontroller extends Controller
     public function document_store(Request $request)
     {
 
-        $validate = $request->validate([
-            'id_proof_front' => 'required',
-            'id_proof_back' => 'required',
-            'licence_front' => 'required',
-            'licence_back' => 'required',
-            'vehicle_front' => 'required',
-            'vehicle_back' => 'required',
-        ]);
+
+        $check_detail = User_document::where('user_id', Auth::user()->id)->first();
+
+        if (!$check_detail) {
+
+
+            $validate = $request->validate([
+                'id_proof_front' => 'required',
+                'id_proof_back' => 'required',
+                'licence_front' => 'required',
+                'licence_back' => 'required',
+                'vehicle_front' => 'required',
+                'vehicle_back' => 'required',
+            ]);
+
+        }
 
         if ($request->has('id_proof_front')) {
 
@@ -262,6 +274,7 @@ class Ridercontroller extends Controller
             $validate['licence_back'] = $file_name;
 
         }
+
         if ($request->has('vehicle_front')) {
 
             $extension = $request->file('vehicle_front')->getClientOriginalExtension();
@@ -310,9 +323,12 @@ class Ridercontroller extends Controller
     {
         $vehicle = User_vehicle::where('user_id', Auth::user()->id)->first();
 
+        $type = Vehicle_type::get();
+
         return view('mobile.rider.vehicle',[
             'title' => "Vehicle",
             'vehicle' => $vehicle,
+            'type' => $type,
         ]);
     }
 
@@ -322,8 +338,14 @@ class Ridercontroller extends Controller
         $validate = $request->validate([
 
             'vehicle_number' => 'required',
+            'vehicle_name' => 'required',
             'vehicle_make' => 'required',
             'vehicle_modal' => 'required',
+            'vehicle_type_id' => 'required',
+            'number_of_seats' => 'required',
+            'distance' => 'required',
+            'charge' => 'required'
+
         ]);
 
         $validate['user_id'] = Auth::user()->id;
@@ -333,8 +355,11 @@ class Ridercontroller extends Controller
         if (!$vehicle) {
 
             User_vehicle::create($validate);
+
         } else {
+
             User_vehicle::where('user_id', Auth::user()->id)->update($validate);
+
         }
 
         return redirect()->route('mobile.rider.vehicle');

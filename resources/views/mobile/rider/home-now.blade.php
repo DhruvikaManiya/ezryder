@@ -47,138 +47,70 @@
         </div>
 
         <div id="Economy" class="tabcontent">
-          <div class="tab_content_bx">
-                <div class="img">
-                    <img src="{{asset('asset/images/taxi-icon.svg')}}" alt="">
+            @foreach($details as $item)
+                @if($item->vehicle_type_id==1)
+                <div class="tab_content_bx">
+                    <div class="img">
+                        <img src="{{asset('asset/images/taxi-icon.svg')}}" alt="">
+                    </div>
+                    <div class="car_details">
+                        <h4 class="car_name">{{$item->vehicle_name}}</h4>
+{{--                        <p class="stops">Multiple Stops</p>--}}
+                        <p class="stops">Economy</p>
+                        <p class="num_person">{{$item->number_of_seats}} Persons</p>
+                    </div>
+                    <div class="car_rate">
+                        <p class="rent">$ 340</p>
+                        <p class="rent_per_km">Rs {{$item->charge}}/{{$item->distance}} Kms</p>
+                    </div>
                 </div>
-                <div class="car_details">
-                    <h4 class="car_name">Maruti Swift</h4>
-                    <p class="stops">Multiple Stops</p>
-                    <p class="num_person">4 Persons</p>
-                </div>
-                <div class="car_rate">
-                    <p class="rent">$ 340</p>
-                    <p class="rent_per_km">$ 3/10 Kms</p>
-                </div>
-          </div>
-          <div class="tab_content_bx">
-                <div class="img">
-                    <img src="{{asset('asset/images/taxi-icon.svg')}}" alt="">
-                </div>
-                <div class="car_details">
-                    <h4 class="car_name">Maruti Swift</h4>
-                    <p class="stops">Multiple Stops</p>
-                    <p class="num_person">4 Persons</p>
-                </div>
-                <div class="car_rate">
-                    <p class="rent">$ 340</p>
-                    <p class="rent_per_km">$ 3/10 Kms</p>
-                </div>
-          </div>
-          <div class="tab_content_bx">
-                <div class="img">
-                    <img src="{{asset('asset/images/taxi-icon.svg')}}" alt="">
-                </div>
-                <div class="car_details">
-                    <h4 class="car_name">Maruti Swift</h4>
-                    <p class="stops">Multiple Stops</p>
-                    <p class="num_person">4 Persons</p>
-                </div>
-                <div class="car_rate">
-                    <p class="rent">$ 340</p>
-                    <p class="rent_per_km">$ 3/10 Kms</p>
-                </div>
-          </div>
+                @endif
+            @endforeach
         </div>
 
         <div id="Sudan" class="tabcontent"  style="display: none;">
-          <div class="tab_content_bx">
-                <div class="img">
-                    <img src="{{asset('asset/images/taxi-icon.svg')}}" alt="">
-                </div>
-                <div class="car_details">
-                    <h4 class="car_name">Sudan</h4>
-                    <p class="stops">Multiple Stops</p>
-                    <p class="num_person">4 Persons</p>
-                </div>
-                <div class="car_rate">
-                    <p class="rent">$ 340</p>
-                    <p class="rent_per_km">$ 3/10 Kms</p>
-                </div>
-          </div>
-          <div class="tab_content_bx">
-                <div class="img">
-                    <img src="{{asset('asset/images/taxi-icon.svg')}}" alt="">
-                </div>
-                <div class="car_details">
-                    <h4 class="car_name">Sudan</h4>
-                    <p class="stops">Multiple Stops</p>
-                    <p class="num_person">4 Persons</p>
-                </div>
-                <div class="car_rate">
-                    <p class="rent">$ 340</p>
-                    <p class="rent_per_km">$ 3/10 Kms</p>
-                </div>
-          </div>
-          <div class="tab_content_bx">
-                <div class="img">
-                    <img src="{{asset('asset/images/taxi-icon.svg')}}" alt="">
-                </div>
-                <div class="car_details">
-                    <h4 class="car_name">Sudan</h4>
-                    <p class="stops">Multiple Stops</p>
-                    <p class="num_person">4 Persons</p>
-                </div>
-                <div class="car_rate">
-                    <p class="rent">$ 340</p>
-                    <p class="rent_per_km">$ 3/10 Kms</p>
-                </div>
-          </div>
+            @foreach($details as $item)
+                @if($item->vehicle_type_id==2)
+                    <div class="tab_content_bx">
+                        <div class="img">
+                            <img src="{{asset('asset/images/taxi-icon.svg')}}" alt="">
+                        </div>
+                        <div class="car_details">
+                            <h4 class="car_name">{{$item->vehicle_name}}</h4>
+{{--                            <p class="stops">Multiple Stops</p>--}}
+                            <p class="stops">Sudan</p>
+
+                            <p class="num_person">{{$item->number_of_seats}} Persons</p>
+                        </div>
+                        <div class="car_rate">
+                            <p class="rent">$ 340</p>
+                            <p class="rent_per_km">Rs {{$item->charge}}/{{$item->distance}} Kms</p>
+                        </div>
+                    </div>
+                @endif
+            @endforeach
         </div>
 
         <div id="Luxury" class="tabcontent" style="display: none;">
-          <div class="tab_content_bx">
-                <div class="img">
-                    <img src="{{asset('asset/images/taxi-icon.svg')}}" alt="">
-                </div>
-                <div class="car_details">
-                    <h4 class="car_name">Luxury</h4>
-                    <p class="stops">Multiple Stops</p>
-                    <p class="num_person">4 Persons</p>
-                </div>
-                <div class="car_rate">
-                    <p class="rent">$ 340</p>
-                    <p class="rent_per_km">$ 3/10 Kms</p>
-                </div>
-          </div>
-          <div class="tab_content_bx">
-                <div class="img">
-                    <img src="{{asset('asset/images/taxi-icon.svg')}}" alt="">
-                </div>
-                <div class="car_details">
-                    <h4 class="car_name">Luxury</h4>
-                    <p class="stops">Multiple Stops</p>
-                    <p class="num_person">4 Persons</p>
-                </div>
-                <div class="car_rate">
-                    <p class="rent">$ 340</p>
-                    <p class="rent_per_km">$ 3/10 Kms</p>
-                </div>
-          </div>
-          <div class="tab_content_bx">
-                <div class="img">
-                    <img src="{{asset('asset/images/taxi-icon.svg')}}" alt="">
-                </div>
-                <div class="car_details">
-                    <h4 class="car_name">Luxury</h4>
-                    <p class="stops">Multiple Stops</p>
-                    <p class="num_person">4 Persons</p>
-                </div>
-                <div class="car_rate">
-                    <p class="rent">$ 340</p>
-                    <p class="rent_per_km">$ 3/10 Kms</p>
-                </div>
-          </div>
+            @foreach($details as $item)
+                @if($item->vehicle_type_id==3)
+                    <div class="tab_content_bx">
+                        <div class="img">
+                            <img src="{{asset('asset/images/taxi-icon.svg')}}" alt="">
+                        </div>
+                        <div class="car_details">
+                            <h4 class="car_name">{{$item->vehicle_name}}</h4>
+{{--                            <p class="stops">Multiple Stops</p>--}}
+                            <p class="stops">Luxury</p>
+                            <p class="num_person">{{$item->number_of_seats}} Persons</p>
+                        </div>
+                        <div class="car_rate">
+                            <p class="rent">$ 340</p>
+                            <p class="rent_per_km">Rs {{$item->charge}}/{{$item->distance}} Kms</p>
+                        </div>
+                    </div>
+                @endif
+            @endforeach
         </div>
 
         <a href="{{ route('mobile.rider.payment')}}" class="green_bg_btn">Button</a>

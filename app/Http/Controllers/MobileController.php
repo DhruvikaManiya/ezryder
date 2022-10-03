@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers;
 
+use App\User_vehicle;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Session;
@@ -641,7 +642,13 @@ class MobileController extends Controller
     }
     public function homenow(Type $var = null)
     {
-        return view('mobile.rider.home-now');
+        $vehicle = User_vehicle::get();
+
+
+        return view('mobile.rider.home-now',[
+            'title' => "Book Taxi",
+            "details" => $vehicle
+        ]);
     }
 
     // rider_payment
