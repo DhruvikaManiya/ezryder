@@ -68,4 +68,8 @@ class User extends Authenticatable
         $this->hasOne(User_vehicle::class);
 
     }
+
+    public function requests(){
+        return $this->hasMany(Requests::class,'rider_id','id');
+    }
 }

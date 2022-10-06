@@ -2,7 +2,9 @@
 
 namespace App\Http\Controllers;
 
+use App\Requests;
 use App\User_vehicle;
+use Carbon\Carbon;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Session;
@@ -640,16 +642,65 @@ class MobileController extends Controller
     {
         return view('mobile.rider.pickup-old');
     }
+
+    public function rider_store(Request $request){
+
+
+        $validate = $request->validate([
+            'pick_address' => 'required',
+            'drop_address' => 'required',
+        ]);
+
+        if ($request->has('btn_later')) {
+            $validate['is_schedule'] = 1;
+            $validate['time'] = Carbon::parse($request->time)->format("Y-m-d H:m:s");
+        }
+        if ($request->has('btn_now')) {
+            $validate['is_schedule'] = 0;
+            $validate['time'] = Carbon::now()->format("Y-m-d H:m:s");
+
+        }
+
+        $validate['rider_id']=Auth::user()->id;
+
+        Requests::create($validate);
+
+        return redirect()->route('mobile.homenow');
+
+    }
     public function homenow(Type $var = null)
     {
         $vehicle = User_vehicle::get();
 
+        $requests = Requests::where('rider_id',Auth::user()->id)->first();
+
+        if(!$requests){
+
+            return view('mobile.rider.pickup-old');
+        }
 
         return view('mobile.rider.home-now',[
             'title' => "Book Taxi",
-            "details" => $vehicle
+            "details" => $vehicle,
+            "requests" => $requests
         ]);
     }
+
+    public function home_now_store(Request $request, $id){
+
+        $validate = $request->validate([
+            'pick_address' => 'required',
+            'drop_address' => 'required',
+        ]);
+
+        $validate['vehicle_id'] = $request->vehicle_id;
+
+        Requests::where('id', $id)->update($validate);
+
+        return redirect()->route('mobile.rider');
+
+    }
+
 
     // rider_payment
     public function rider_payment(Request $request)

@@ -413,10 +413,6 @@ Route::get('/home', 'HomeController@index')->name('home');
 
 Route::get('/logout', 'HomeController@logout')->name('custome.logout');
 
-
-
-
-
 // driver rider app
 
 Route::group(['prefix' => 'rider-service', 'middleware' => ['rider']], function () {
@@ -427,6 +423,7 @@ Route::group(['prefix' => 'rider-service', 'middleware' => ['rider']], function 
     route::get('/register', 'Ridercontroller@register')->name('mobile.rider.register');
     route::post('/register', 'Ridercontroller@registerStore')->name('mobile.rider.registerStore');
     Route::get('/book-now', 'Ridercontroller@book_now')->name('mobile.rider.book-now');
+    Route::get('/book-view/{id}', 'Ridercontroller@book_now')->name('mobile.rider.book-view');
     Route::get('/booking-details', 'Ridercontroller@booking_details')->name('mobile.rider.bookingdetails');
     Route::get('/accept', 'Ridercontroller@accept')->name('mobile.rider.accept');
     Route::get('/driver_3', 'Ridercontroller@driver_mybooking')->name('mobile.rider.driver_mybook');
@@ -474,9 +471,25 @@ Route::group(['prefix' => 'rider-service', 'middleware' => ['rider']], function 
 
 
 // user rider app 
-Route::get('/rider', 'MobileController@rider')->name('mobile.rider');
+//Route::get('/rider', 'MobileController@rider')->name('mobile.rider');
 
-Route::get('/home-now', 'MobileController@homenow')->name('mobile.homenow');
+Route::group(['prefix' => 'rider'], function () {
+
+    Route::get('/', 'MobileController@rider')->name('mobile.rider');
+
+    Route::post('/', 'MobileController@rider_store')->name('mobile.rider_store');
+});
+
+
+//Route::get('/home-now', 'MobileController@homenow')->name('mobile.homenow');
+
+Route::group(['prefix' => 'home-now'], function () {
+
+    Route::get('/',  'MobileController@homenow')->name('mobile.homenow');
+
+    Route::put('/{id}',  'MobileController@home_now_store')->name('mobile.homenow_store');
+});
+
 
 Route::get('/rider-payment', 'MobileController@rider_payment')->name('mobile.rider.payment');
 

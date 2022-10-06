@@ -2,11 +2,13 @@
 
 namespace App\Http\Controllers;
 
+use App\Requests;
 use App\User;
 use App\User_details;
 use App\User_document;
 use App\User_vehicle;
 use App\Vehicle_type;
+use Carbon\Carbon;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Hash;
@@ -77,8 +79,13 @@ class Ridercontroller extends Controller
         }
     }
 
-    public function book_now()
+    public function book_now($id)
     {
+    $id = decrypt($id);
+        $requests = Requests::with('user')
+            ->where('id',$id)
+            ->first();
+echo "<pre>";print_r($requests);die;
         return view('mobile.rider.book-now');
     }
 
@@ -94,7 +101,18 @@ class Ridercontroller extends Controller
 
     public function home()
     {
-        return view('mobile.rider.home');
+        $vehicle = User_vehicle::where('user_id', Auth::user()->id)->first();
+
+        if (!$vehicle) {
+            return "Sorry you have not any request yet";
+        }
+
+        $requests = Requests::with('user')->where('vehicle_id', $vehicle->id)->get();
+
+        return view('mobile.rider.home', [
+            'title' => "View Request",
+            'requests' => $requests
+        ]);
     }
 
     public function pickup()
