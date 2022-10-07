@@ -30,7 +30,7 @@
                             <img src="{{ asset('asset/images/Group 5.svg') }}" class="img-fluid select-image image1"
                                 data-image="image1">
                         @endif
-                        <input type="file" name="id_front" id="id_front" class="d-none image">
+                        <input type="file" required   name="id_front" id="id_front"  class="d-none image">
                     </div>
                     <h4>Front</h4>
                 </div>
@@ -43,7 +43,7 @@
                             <img src="{{ asset('asset/images/Group 5.svg') }}" class="img-fluid select-image image2"
                                 data-image="image2">
                         @endif
-                        <input type="file" name="id_back" id="id_back" class="d-none image" accept="image/*">
+                        <input type="file" name="id_back" required  id="id_back" class="d-none image" accept="image/*">
                     </div>
                     <h4>Back</h4>
                 </div>
@@ -59,7 +59,7 @@
                         <img src="{{ asset('asset/images/Group 5.svg') }}" class="img-fluid select-image image1"
                             data-image="image1">
                         @endif
-                        <input type="file" name="licence_front" id="licence_front" class="d-none image" accept="image/*">
+                        <input type="file" name="licence_front" required  id="licence_front" class="d-none image" accept="image/*">
                     </div>
                     <h4>Front</h4>
                 </div>
@@ -72,7 +72,7 @@
                         <img src="{{ asset('asset/images/Group 5.svg') }}" class="img-fluid select-image image2"
                             data-image="image2">
                         @endif
-                        <input type="file" name="licence_back" id="licence_back" class="d-none image" accept="image/*">
+                        <input type="file" name="licence_back" required  id="licence_back" class="d-none image" accept="image/*">
                     </div>
                     <h4>Back</h4>
                 </div>
@@ -88,7 +88,7 @@
                         <img src="{{ asset('asset/images/Group 5.svg') }}" class="img-fluid select-image image1"
                             data-image="image1">
                         @endif
-                        <input type="file" name="vehicle_front" id="vehicle_front" class="d-none image" accept="image/*">
+                        <input type="file" name="vehicle_front" required  id="vehicle_front" class="d-none image" accept="image/*">
                     </div>
                     <h4>Front</h4>
                 </div>
@@ -101,7 +101,7 @@
                         <img src="{{ asset('asset/images/Group 5.svg') }}" class="img-fluid select-image image2"
                             data-image="image2">
                         @endif
-                        <input type="file" name="vehicle_back" id="vehicle_back" class="d-none image" accept="image/*">
+                        <input type="file" name="vehicle_back" required  id="vehicle_back" class="d-none image" accept="image/*">
                     </div>
                     <h4>Back</h4>
                 </div>

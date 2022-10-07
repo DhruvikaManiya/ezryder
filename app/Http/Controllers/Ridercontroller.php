@@ -70,7 +70,7 @@ class Ridercontroller extends Controller
             $user->save();
             if ($user) {
                 Auth::login($user);
-                return redirect()->route('mobile.rider.book-now')->with('success', 'Registration Successful');
+                return redirect()->route('mobile.rider.account')->with('success', 'Registration Successful');
             } else {
                 return redirect()->back()->with('error', 'Registration Failed');
             }
@@ -79,13 +79,18 @@ class Ridercontroller extends Controller
         }
     }
 
-    public function book_now($id)
+    public function book_now()
     {
-    $id = decrypt($id);
+
+        return view('mobile.rider.book-now');
+    }
+
+    public function view_book_now($id)
+    {
+        $id = decrypt($id);
         $requests = Requests::with('user')
-            ->where('id',$id)
+            ->where('id', $id)
             ->first();
-echo "<pre>";print_r($requests);die;
         return view('mobile.rider.book-now');
     }
 

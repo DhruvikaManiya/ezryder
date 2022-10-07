@@ -14,4 +14,8 @@ class Requests extends Model
         return $this->belongsTo(User::class,'rider_id','id');
     }
 
+    public function vehicle(){
+        return $this->belongsTo(User_vehicle::class,'vehicle_id','id');
+    }
+
 }

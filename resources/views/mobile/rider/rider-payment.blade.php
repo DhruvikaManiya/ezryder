@@ -14,24 +14,24 @@
         <div class="container">
             <div class="pickup_addr">
                 <h6 class="title">Pickup Address</h6>
-                <p id="pickupContent">D293, Laxmikdrupa, Arbadnagar, odahv, ahmedabad</p>
+                <p id="pickupContent">{{ $request->pick_address }}</p>
             </div>
             <div class="drop_addr">
                 <h6 class="title">Drop Address</h6>
-                <p id="dropContent">A510, Titanium city center, Anand nagar, raod, Prahlad nagar, Ahmedabad</p>
+                <p id="dropContent">{{ $request->drop_address }}</p>
             </div>
             <div class="tab_content_bx transparent">
                 <div class="img">
                     <img src="{{ asset('asset/images/taxi-icon.svg') }}" alt="">
                 </div>
                 <div class="car_details">
-                    <h4 class="car_name">Luxury</h4>
-                    <p class="stops">Multiple Stops</p>
-                    <p class="num_person">4 Persons</p>
+                    <h4 class="car_name">{{ $request->vehicle->user->name }}</h4>
+                    <p class="stops">@if($request->vehicle->vehicle_type_id==1) Economy @elseif($request->vehicle->vehicle_type_id==2) Sudan @else Luxury @endif </p>
+                    <p class="num_person">{{$request->vehicle->number_of_seats}} Persons</p>
                 </div>
                 <div class="car_rate">
                     <p class="rent">$ 340</p>
-                    <p class="rent_per_km">$ 3/10 Kms</p>
+                    <p class="rent_per_km">$ {{$request->vehicle->charge}}/{{$request->vehicle->distancegit }} Kms</p>
                 </div>
             </div>
 

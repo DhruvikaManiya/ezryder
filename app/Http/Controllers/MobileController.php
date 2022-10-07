@@ -672,7 +672,7 @@ class MobileController extends Controller
     {
         $vehicle = User_vehicle::get();
 
-        $requests = Requests::where('rider_id',Auth::user()->id)->first();
+        $requests = Requests::where('rider_id',Auth::user()->id)->orderby('created_at','desc')->first();
 
         if(!$requests){
 
@@ -697,7 +697,7 @@ class MobileController extends Controller
 
         Requests::where('id', $id)->update($validate);
 
-        return redirect()->route('mobile.rider');
+        return redirect()->route('mobile.rider.payment');
 
     }
 
@@ -705,7 +705,16 @@ class MobileController extends Controller
     // rider_payment
     public function rider_payment(Request $request)
     {
-       return view('mobile.rider.rider-payment');
+        $requests = Requests::with(['vehicle'=>function($q){
+            $q->with('user');
+        }])->where('rider_id',Auth::user()->id)->orderby('created_at','desc')->first();
+
+//        echo "<pre>";print_r($requests->toArray());die;
+
+        return view('mobile.rider.rider-payment',[
+           'title' => "",
+           'request' => $requests
+       ]);
     }
     // my_booking
     public function my_booking(Request $request)
