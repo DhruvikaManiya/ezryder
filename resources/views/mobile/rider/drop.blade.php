@@ -26,7 +26,7 @@
         <div class="row book_now">
             <div class="rider-4-idbox w-100">
                 <div class="id-price align-items-center d-flex justify-content-between w-100">
-                    <div class="id">ID: 123457</div>
+                    <div class="id">ID: {{ \Illuminate\Support\Carbon::parse($requests->requests->created_at)->format('mYd')  }}</div>
                     <div class="kms">12 Kms</div>
                     <div class="price">Price: $25</div>
                 </div>
@@ -37,17 +37,25 @@
 
     <div class="container">
         <div class="row book_now">
-            <div class="rider-4-group">
-                <h2 class="accept-status">Status: Pickup done by Driver</h2>
-                <div class="pickup">
-                    <h2 class="head">Drop Address</h2>
-                    <img src="{{ asset('asset/images/share.png') }}" alt="">
-                </div>
-                <p class="address">D293, Laxmikdrupa, Arbadnagar, Odahv, Ahmedabad</p>
-                <div class="btn rider-6-btn" onclick="window.location='{{ route('mobile.rider.collect') }}'">Drop Completed
-                </div>
+            <form method="post" action="{{route('mobile.rider.drop_complete')}}" >
+                @csrf
+                <div class="rider-4-group">
+                    <h2 class="accept-status">Status: Pickup done by Driver</h2>
+                    <div class="pickup">
+                        <h2 class="head">Drop Address</h2>
+                        <img src="{{ asset('asset/images/share.png') }}" alt="">
+                    </div>
+                    <p class="address">{{ $requests->requests->drop_address }}</p>
+<!--                    <div class="btn rider-6-btn" onclick="window.location='{{ route('mobile.rider.collect') }}'">Drop
+                        Completed
+                    </div>-->
 
-            </div>
+                    <button class="btn rider-6-btn" type="submit" name="request_id" value="{{ $requests->requests->id }}">
+                        Drop Completed
+                    </button>
+
+                </div>
+            </form>
         </div>
     </div>
 

@@ -13,7 +13,7 @@ class CreateBookTaxi extends Migration
      */
     public function up()
     {
-        Schema::drop('requests');
+//        Schema::drop('requests');
 
         Schema::create('requests', function (Blueprint $table) {
             $table->id();

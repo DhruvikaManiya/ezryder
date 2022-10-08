@@ -42,7 +42,6 @@ Auth::routes();
     // profile edit
     Route::get('profile1', 'MobileController@profile1')->name('mobileprofile');
     Route::post('profile_edit', 'MobileController@profile_edit')->name('mobile.profileedit');
-    
 
     Route::get('/product-list/{id}', 'MobileController@productList')->name('mobile.productlist');
     route::get('categoriesList', 'MobileController@categoriesList')->name('mobile.categorieslist');
@@ -53,13 +52,9 @@ Auth::routes();
     Route::post('forgotPassword', 'MobileController@postEmail')->name('mobile.postEmail');
     Route::post('verify_otp', 'MobileController@verifyotp')->name('mobile.verifyotp');
     Route::post('reset', 'MobileController@reset')->name('mobile.passupdate');
-
     Route::post('reset', 'MobileController@reset')->name('mobile.passwordupdate');
 
     //grocery payment
-    
-  
-
 
     //Add Cart// 
     Route::get('cart', 'MobileController@cart')->name('mobile.cart');
@@ -71,8 +66,6 @@ Auth::routes();
     Route::get('search', 'MobileController@search')->name('mobile.search');
     Route::post('search', 'MobileController@search_qry')->name('mobile.search_qry');
     Route::get('store/{id}', 'MobileController@store')->name('mobile.store');
-
-
 
     route::get('/orderdeatil','MobileController@orderdetail')->name('mobile.orderhistory');
     route::get('/orderdetailp/{id}','MobileController@orderdetailp')->name('mobile.orderdetailp');
@@ -89,10 +82,6 @@ Auth::routes();
     Route::Post('/orderdetailp/{id}','MobileController@ratting')->name('ratting-insert');
 
     Route::get('/profile', 'MobileController@profile')->name('mobile.profile');
-
-    
-
-
 
     Route::get('/rental-home', 'DriverController@rental_home')->name('mobile.rental-driver.rentalhome');
     Route::get('/ride-details', 'DriverController@ride_details')->name('mobile.rental-driver.ridedetails');
@@ -446,12 +435,17 @@ Route::group(['prefix' => 'rider-service', 'middleware' => ['rider']], function 
     route::post('/register', 'Ridercontroller@registerStore')->name('mobile.rider.registerStore');
     Route::get('/book-now', 'Ridercontroller@book_now')->name('mobile.rider.book-now');
     Route::get('/book-view/{id}', 'Ridercontroller@view_book_now')->name('mobile.rider.book-view');
+
+    Route::post("request_acceptance", 'Ridercontroller@request_acceptance')->name('mobile.rider.book-request');
+
     Route::get('/booking-details', 'Ridercontroller@booking_details')->name('mobile.rider.bookingdetails');
     Route::get('/accept', 'Ridercontroller@accept')->name('mobile.rider.accept');
     Route::get('/driver_3', 'Ridercontroller@driver_mybooking')->name('mobile.rider.driver_mybook');
     Route::get('/home', 'Ridercontroller@home')->name('mobile.rider.home');
     Route::get('/otp', 'Ridercontroller@otp')->name('mobile.rider.otp');
+    Route::post('verify_otp', 'Ridercontroller@verify_otp')->name('mobile.rider.verifyotp');
     Route::get('/drop', 'Ridercontroller@drop')->name('mobile.rider.drop');
+    Route::post('/drop-complete', 'Ridercontroller@drop_complete')->name('mobile.rider.drop_complete');
     Route::get('/collect', 'Ridercontroller@collect')->name('mobile.rider.collect');
     Route::get('/collect2', 'Ridercontroller@collect2')->name('mobile.rider.collect2');
 

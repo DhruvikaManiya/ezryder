@@ -47,7 +47,7 @@
         <div class="row book_now">
             <div class="rider-4-idbox w-100">
                 <div class="align-items-center d-flex id-price justify-content-between w-100">
-                    <div class="id">ID: 123457</div>
+                    <div class="id">ID: {{ \Illuminate\Support\Carbon::parse($requests->requests->created_at)->format('mYd')  }}</div>
                     <div class="kms">12 Kms</div>
                     <div class="price">Price: $25</div>
                 </div>
@@ -64,7 +64,7 @@
                     <h2 class="head">Pickup Address</h2>
                     <img src="{{ asset('asset/images/share.png') }}" alt="" class="mr-25">
                 </div>
-                <p class="address">D293, Laxmikdrupa, Arbadnagar, Odahv, Ahmedabad</p>
+                <p class="address">{{ $requests->requests->pick_address }}</p>
                 <div class="drop">
                     <select class="drop_down_select ff-inter">
                         <option>Drop Address</option>
@@ -77,15 +77,29 @@
     </div>
 
 
-    <section class="popup-main" style='display: none;'>
+    <section class="popup-main" @if($errors->any()) @else style='display: none;' @endif>
         <div class="popup">
             <div class="popup-content">
-                <div class="head">Enter OTP for Pickup Done</div>
-                <input type="number" class="otp">
 
-                <button type="submit" class="btn"
-                    onclick="window.location='{{ route('mobile.rider.drop') }}'">Submit</button>
 
+                @if ($errors->any())
+                    <div class="alert alert-danger">
+                        <ul>
+                            @foreach ($errors->all() as $error)
+                                <li>{{ $error }}</li>
+                            @endforeach
+                        </ul>
+                    </div>
+                @endif
+
+                <form method="post" action="{{route('mobile.rider.verifyotp')}}">
+                    @csrf
+                    <div class="head">Enter OTP for Pickup Done</div>
+
+                    <input type="number" class="otp" required name="otp">
+
+                    <button type="submit" class="btn">Submit</button>
+                </form>
             </div>
         </div>
     </section>

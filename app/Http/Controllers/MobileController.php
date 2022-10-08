@@ -693,7 +693,11 @@ class MobileController extends Controller
             'drop_address' => 'required',
         ]);
 
+        $vehicle_id = User_vehicle::where('id',$request->vehicle_id)->first();
+
         $validate['vehicle_id'] = $request->vehicle_id;
+
+        $validate['driver_id'] = $vehicle_id->user_id;
 
         Requests::where('id', $id)->update($validate);
 

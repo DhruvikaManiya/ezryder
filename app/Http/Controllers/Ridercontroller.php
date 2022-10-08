@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers;
 
+use App\RequestAction;
 use App\Requests;
 use App\User;
 use App\User_details;
@@ -81,8 +82,14 @@ class Ridercontroller extends Controller
 
     public function book_now()
     {
+        $vehicle = User_vehicle::with('user')->where('user_id', Auth::user()->id)->first();
 
-        return view('mobile.rider.book-now');
+        $requests = Requests::where('vehicle_id', $vehicle->id)->where('status', 1)->orderBy('created_at', 'desc')->first();
+
+        return view('mobile.rider.book-now', [
+            'title' => "Book Now",
+            'requests' => $requests,
+        ]);
     }
 
     public function view_book_now($id)
@@ -91,13 +98,104 @@ class Ridercontroller extends Controller
         $requests = Requests::with('user')
             ->where('id', $id)
             ->first();
-        return view('mobile.rider.book-now');
+
+        return view('mobile.rider.book-now-by-specific',
+            [
+                "title" =>"Specific",
+                "requests" =>$requests,
+                ]);
+    }
+
+    public function request_acceptance(Request $request){
+
+        $data['request_id'] = $request->request_id;
+
+        $data['is_accept'] = $request->accept;
+
+        if ($data['is_accept'] == 1) {
+
+            $data['otp'] = rand(1000, 9999);
+
+            $data['user_id'] = Auth::user()->id;
+
+            $data['is_accept_message'] = "Your request is accepted wait for otp";
+
+        }
+        if ($data['is_accept'] == 0) {
+
+            $data['is_accept_message'] = "Sorry your request is not accepted please try to another ride";
+
+        }
+
+        RequestAction::where('request_id',$request->request_id)->delete();
+
+        $request_data['status'] = 2;
+
+        $request_data['message'] = "Your Request has accepted wait for otp";
+
+        Requests::where('id',$request->request_id)->update($request_data);
+
+        RequestAction::create($data);
+
+        return redirect()->route('mobile.rider.otp');
+
     }
 
     public function otp()
     {
-        return view('mobile.rider.otp');
+        $requests = RequestAction::with('requests')->where('user_id',Auth::user()->id)->orderby('created_at','desc')->first();
+
+        if(!$requests){
+            return redirect()->route('mobile.rider.home');
+        }
+
+        return view('mobile.rider.otp',[
+            'title'=>"otp",
+            'requests' =>$requests
+        ]);
     }
+    public function verify_otp(Request $request)
+    {
+        $validate = $request->validate([
+            'otp' => 'required'
+        ]);
+
+        $otp = RequestAction::where('user_id', Auth::user()->id)->where('otp', $request->otp)->first();
+
+        if (!$otp) {
+
+            return redirect()->route('mobile.rider.home');
+
+        }
+
+        $startTime = Carbon::parse($otp->created_at);
+
+        $endTime = Carbon::now();
+
+        $totalDuration = $endTime->diffInMinutes($startTime);
+
+        if ($totalDuration < 10) {
+
+            $request_data['status'] = 3;
+
+            $request_data['message'] = "Your Pick has done wait for destiny";
+
+            Requests::where('id', $otp->request_id)->update($request_data);
+
+            return redirect()->route('mobile.rider.drop');
+
+        } else {
+            $id = $otp->request_id;
+
+            RequestAction::where('id', $otp->id)->delete();
+
+            return redirect()->route('mobile.rider.book-view', [encrypt($id)]);
+
+        }
+
+
+    }
+
 
     public function driver_mybooking()
     {
@@ -112,7 +210,7 @@ class Ridercontroller extends Controller
             return "Sorry you have not any request yet";
         }
 
-        $requests = Requests::with('user')->where('vehicle_id', $vehicle->id)->get();
+        $requests = Requests::with('user')->where('vehicle_id', $vehicle->id)->where('status', 1)->get();
 
         return view('mobile.rider.home', [
             'title' => "View Request",
@@ -127,7 +225,39 @@ class Ridercontroller extends Controller
 
     public function drop()
     {
-        return view('mobile.rider.drop');
+
+        $requests = RequestAction::with('requests')->where('user_id',Auth::user()->id)->orderby('created_at','desc')->first();
+
+        if(!$requests){
+            return redirect()->route('mobile.rider.home');
+        }
+
+        return view('mobile.rider.drop',[
+            'title' => "Drop",
+            'requests' =>$requests
+        ]);
+    }
+
+    public function drop_complete(Request $request){
+
+        $request_id = $request->request_id;
+
+
+        $requests = Requests::where('id',$request_id)->first();
+
+        if(!$requests){
+            return redirect()->route('mobile.rider.home');
+        }
+
+        $request_data['status'] = 4;
+
+        $request_data['message'] = "Your Request has complete";
+
+        Requests::where('id',$requests->id)->update($request_data);
+
+        return redirect()->route('mobile.rider.collect');
+
+
     }
 
     public function collect()

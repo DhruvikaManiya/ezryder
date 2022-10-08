@@ -19,7 +19,7 @@
                 <table>
                     <div class="frt-price-box-2 justi-s-b top-space30 p-both-25">
                         <div class="frt-b-data ml-11-m ">
-                            <p class="order-heading space-id"><b>ID :</b> {{ \Illuminate\Support\Carbon::parse($item->created_at)->format('Ymdhms')  }} </p>
+                            <p class="order-heading space-id"><b>ID :</b> {{ \Illuminate\Support\Carbon::parse($item->created_at)->format('mYd')  }} </p>
                             <a href="{{ route('mobile.rider.accept') }}">
                                 <p class="  order-heading font-weight-bold name-tag1"> <i class="bi bi-person icon-3"></i>
                                     {{ $item->user->name }}</p>
