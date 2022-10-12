@@ -10,6 +10,7 @@ use App\User_document;
 use App\User_vehicle;
 use App\Vehicle_type;
 use Carbon\Carbon;
+use Illuminate\Contracts\Encryption\DecryptException;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Hash;
@@ -84,6 +85,10 @@ class Ridercontroller extends Controller
     {
         $vehicle = User_vehicle::with('user')->where('user_id', Auth::user()->id)->first();
 
+        if(!$vehicle){
+            return redirect()->route('mobile.rider.account');
+        }
+
         $requests = Requests::where('vehicle_id', $vehicle->id)->where('status', 1)->orderBy('created_at', 'desc')->first();
 
         return view('mobile.rider.book-now', [
@@ -94,16 +99,27 @@ class Ridercontroller extends Controller
 
     public function view_book_now($id)
     {
-        $id = decrypt($id);
-        $requests = Requests::with('user')
-            ->where('id', $id)
-            ->first();
+        try {
+            $id = decrypt($id);
 
-        return view('mobile.rider.book-now-by-specific',
-            [
-                "title" =>"Specific",
-                "requests" =>$requests,
+            $id = decrypt($id);
+            $requests = Requests::with('user')
+                ->where('id', $id)
+                ->first();
+
+            return view('mobile.rider.book-now-by-specific',
+                [
+                    "title" =>"Specific",
+                    "requests" =>$requests,
                 ]);
+
+        } catch (DecryptException $e) {
+
+            return redirect()->route('mobile.rider.book-now');
+
+        }
+
+
     }
 
     public function request_acceptance(Request $request){
@@ -206,8 +222,8 @@ class Ridercontroller extends Controller
     {
         $vehicle = User_vehicle::where('user_id', Auth::user()->id)->first();
 
-        if (!$vehicle) {
-            return "Sorry you have not any request yet";
+        if(!$vehicle){
+            return redirect()->route('mobile.rider.account');
         }
 
         $requests = Requests::with('user')->where('vehicle_id', $vehicle->id)->where('status', 1)->get();

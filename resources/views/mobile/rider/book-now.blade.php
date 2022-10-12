@@ -39,13 +39,14 @@
     </div>
 
 
+    @isset($requests)
     <div class="container">
         <div class="row book_now ">
             <div class="rider-3-group">
                 <h2 class="head">Pickup Address</h2>
-                <p class="address">{{ $requests->pick_address }}</p>
+                <p class="address">@isset($requests) {{ $requests->pick_address }} @endisset</p>
                 <h2 class="head">Drop Address</h2>
-                <p class="address">{{ $requests->drop_address }}</p>
+                <p class="address">@isset($requests) {{ $requests->drop_address }} @endisset</p>
                 <h2 class="status mt-21 ptt-7">Payment Status: &nbsp; pending</h2>
             </div>
         </div>
@@ -59,12 +60,12 @@
                     @csrf
                     <div class="id-price">
                         <div class="id">
-                            ID: {{ \Illuminate\Support\Carbon::parse($requests->created_at)->format('mYd')  }}</div>
+                            ID:@isset($requests) {{ \Illuminate\Support\Carbon::parse($requests->created_at)->format('mYd')  }} @endisset </div>
                         <div class="kms">12 Kms</div>
                         <div class="price">Price: $25</div>
                     </div>
                     <div class="btn-group">
-                        <input type="hidden" name="request_id" value="{{$requests->id}}">
+                        <input type="hidden" name="request_id" value=" @isset($requests) {{ $requests->id }} @endif">
                         <button class="btn1" name="accept" value="0">Reject</button>
                         <button class="btn2" type="submit" name="accept" value="1">
                             Accept
@@ -74,8 +75,17 @@
             </div>
         </div>
     </div>
+    @else
 
+        <div class="container">
+            <div class="row book_now ">
+                <div class="rider-3-group">
+                    <h2 class="head">No request  you have !</h2>
+                    </div>
+            </div>
+        </div>
 
+    @endif
 
 
 
