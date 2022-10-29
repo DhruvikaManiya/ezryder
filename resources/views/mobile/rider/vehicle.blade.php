@@ -43,41 +43,8 @@
                        value="{{ (isset($vehicle) and $vehicle->vehicle_name!="")?$vehicle->vehicle_name:'' }}"
                        placeholder="Name" required>
 
-                <label class="control-label1 mt-13">Make</label><br>
-                <select class="select_make" name="vehicle_make" required>
-                    <option value="Select Make">Select Make</option>
-                    <option {{(isset($vehicle) and $vehicle->vehicle_make=="hero")?"selected":''}} value="hero">Hero
-                    </option>
-                    <option {{(isset($vehicle) and $vehicle->vehicle_make=="tvs")?"selected":''}} required value="tvs">
-                        TVS
-                    </option>
-                    <option {{(isset($vehicle) and $vehicle->vehicle_make=="royal")?"selected":''}} required
-                            value="royal">Royal Enfield
-                    </option>
-                    <option {{(isset($vehicle) and $vehicle->vehicle_make=="honda")?"selected":''}} required
-                            value="honda">Honda
-                    </option>
-                    <option {{(isset($vehicle) and $vehicle->vehicle_make=="bajaj")?"selected":''}} required
-                            value="bajaj">Bajaj
-                    </option>
-                </select>
-
-                <label class="control-label1 mt-13">Modal  </label><br>
-                <select class="select_make" name="vehicle_modal" required>
-                    <option required value="Select model">Select Modal</option>
-                    <option {{(isset($vehicle) and $vehicle->vehicle_modal=="splendor")?"selected":''}} required
-                            value="splendor">SPLENDOR PLUS
-                    </option>
-                    <option {{(isset($vehicle) and $vehicle->vehicle_modal=="tvs")?"selected":''}} required
-                            value="tvs">                         TVS XL100
-                    </option>
-                    <option {{(isset($vehicle) and $vehicle->vehicle_modal=="bajaj")?"selected":''}} required
-                            value="bajaj">Bajaj Pulsar NS200
-                    </option>
-                </select>
-
                 <label class="control-label1 mt-13">Type</label><br>
-                <select class="select_make" name="vehicle_type_id" required>
+                <select class="select_make" onchange="get_brand_item('{{route('mobile.rider.brand')}}')" name="vehicle_type_id" id="vehicle_type_id" required>
                     <option required value="Select model">Select Type</option>
                     @foreach($type as $item)
 
@@ -86,38 +53,35 @@
                     @endforeach
                 </select>
 
-                <label class="control-label1">Number of Seats</label>
-                <input type="number" min="2" max="10" class="form_control1" placeholder="1" name="number_of_seats"
-                       value="{{ (isset($vehicle) and $vehicle->number_of_seats!="")?$vehicle->number_of_seats:'' }}" required>
+                <label class="control-label1 mt-13">Make</label><br>
+                <select class="select_make" onchange="get_model_item('{{route('mobile.rider.model')}}')" name="vehicle_make"  id="vehicle_make" required>
+                    <option value="">Select Make</option>
+                    @foreach($brand as $item)
+                        <option {{(isset($vehicle) and $vehicle->vehicle_make == $item->id)?"selected":''}} value="{{ $item->id }}"> {{ $item->name }}</option>
+                    @endforeach
+                </select>
 
-                <label class="control-label1 mt-13" >Charge (In Rs)</label>
-                <input type="number" min="30"  class="form_control1" placeholder="1" name="charge"
-                       value="{{ (isset($vehicle) and $vehicle->charge!="")?$vehicle->charge:'' }}" required>
-
+                <label class="control-label1 mt-13">Modal  </label><br>
+                <select class="select_make" name="vehicle_modal" id="vehicle_modal" onchange="get_charge_item('{{route('mobile.rider.charge')}}')" required>
+                    <option value="Select model">Select Modal</option>
+                    @foreach($model as $item)
+                        <option {{(isset($vehicle) and $vehicle->vehicle_modal == $item->id)?"selected":''}} value="{{ $item->id }}"> {{ $item->name }}</option>
+                    @endforeach
+                </select>
 
                 <label class="control-label1 mt-13" >Distance (in Km)</label>
-                <input type="number" min="2" class="form_control1" placeholder="10" name="distance"
+                <input type="number" readonly class="form_control1" placeholder="10" name="distance" id="distance"
                        value="{{ (isset($vehicle) and $vehicle->distance!="")?$vehicle->distance:'' }}" required>
 
+                <label class="control-label1 mt-13" >Charge (In Rs)</label>
+                <input type="number"  readonly  class="form_control1" placeholder="1" name="charge" id="charge"
+                       value="{{ (isset($vehicle) and $vehicle->charge!="")?$vehicle->charge:'' }}" required>
 
-                {{--                <label class="control-label1">Add Vehicle number</label>--}}
-                {{--                <input type="text" class="form_control1" name="vehicle_number" value="{{ (isset($vehicle) and $vehicle->vehicle_number!="")?$vehicle->vehicle_number:'' }}" placeholder="GJ 12k 343" required>--}}
+                <label class="control-label1">Number of Seats</label>
+                <input type="number" min="2" max="10" class="form_control1" placeholder="1" name="number_of_seats" id="number_of_seats"
+                       value="{{ (isset($vehicle) and $vehicle->number_of_seats!="")?$vehicle->number_of_seats:'' }}" required>
 
 
-
-                {{--                <h2><b>Add your id proof</b></h2>--}}
-                {{--                <label class="control-label1 mt-13">Image</label><br>--}}
-                {{--                <div class="docu_box">--}}
-                {{--                    <div class="docu_boxone">--}}
-                {{--                        <div class="images">--}}
-                {{--                            <img src="{{  asset('asset/images/Group 5.svg') }}" class="img-fluid select-image image1"--}}
-                {{--                                 data-image="image1">--}}
-                {{--                            <input type="file" name="id_proof_front" id="image1" class="d-none image" accept="image/*">--}}
-                {{--                        </div>--}}
-
-                {{--                    </div>--}}
-
-                {{--                </div>--}}
 
                 <button class="theme-bg btn nexBtn btn1 mb-5 mt-4 fs-25">Save</button>
             </form>

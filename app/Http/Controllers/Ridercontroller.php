@@ -9,6 +9,9 @@ use App\User_details;
 use App\User_document;
 use App\User_vehicle;
 use App\Vehicle_type;
+use App\VehicleCharge;
+use App\VehicleMake;
+use App\VehicleModel;
 use Carbon\Carbon;
 use Illuminate\Contracts\Encryption\DecryptException;
 use Illuminate\Http\Request;
@@ -162,7 +165,9 @@ class Ridercontroller extends Controller
         $requests = RequestAction::with('requests')->where('user_id',Auth::user()->id)->orderby('created_at','desc')->first();
 
         if(!$requests){
+
             return redirect()->route('mobile.rider.home');
+
         }
 
         return view('mobile.rider.otp',[
@@ -494,11 +499,55 @@ class Ridercontroller extends Controller
 
         $type = Vehicle_type::get();
 
+        $brand = VehicleMake::get();
+
+        $model = VehicleModel::get();
+
         return view('mobile.rider.vehicle',[
             'title' => "Vehicle",
             'vehicle' => $vehicle,
             'type' => $type,
+            'brand' => $brand,
+            'model' => $model,
         ]);
+    }
+
+
+    public function get_brand(Request $request)
+    {
+        $type_id = $request->type_id;
+
+        $get_brand = VehicleMake::where('vehicle_type_id',$type_id)->get();
+
+        return response()->json($get_brand);
+
+    }
+
+    public function get_model(Request $request)
+    {
+        $brand_id = $request->brand_id;
+
+        $get_brand = VehicleModel::where('make_id',$brand_id)->get();
+
+        return response()->json($get_brand);
+
+    }
+
+    public function get_charge(Request $request)
+    {
+        $model_id = $request->model_id;
+
+        $brand_id = $request->brand_id;
+
+        $type_id = $request->type_id;
+
+//        return $model_id."---".$brand_id."--".$type_id;
+
+        $charge = VehicleCharge::where('make_id',$brand_id)->where('type_id',$type_id)->where('model_id',$model_id)->first();
+
+        return response()->json($charge);
+
+
     }
 
    public function vehicle_store(Request $request)

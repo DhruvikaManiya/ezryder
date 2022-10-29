@@ -466,9 +466,16 @@ Route::group(['prefix' => 'rider-service', 'middleware' => ['rider']], function 
 
     Route::group(['prefix' => 'vehicle'], function () {
 
-        Route::get('/', 'Ridercontroller@vehicle')->name('mobile.rider.vehicle');;
+        Route::get('/', 'Ridercontroller@vehicle')->name('mobile.rider.vehicle');
 
         Route::post('/', 'Ridercontroller@vehicle_store')->name('mobile.rider.add_vehicle');
+
+        Route::get('/get-brand', 'Ridercontroller@get_brand')->name('mobile.rider.brand');
+
+        Route::get('/get-model', 'Ridercontroller@get_model')->name('mobile.rider.model');
+
+        Route::get('/get-charge', 'Ridercontroller@get_charge')->name('mobile.rider.charge');
+
     });
 
     Route::group(['prefix' => 'profile'], function () {
