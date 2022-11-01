@@ -48,7 +48,7 @@
         </article>
         <button class="btn-type1">
             <p>Register</p>
-            
+
             <img src="/assets/rightArrow.png" alt="" />
         </button>
     </form>
