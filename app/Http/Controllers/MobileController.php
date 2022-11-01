@@ -730,4 +730,8 @@ class MobileController extends Controller
     {
         return view('mobile.rider.rider-booking-details');
     }
+
+    public function driver_register(Request $request){
+        return view('mobile.driver.register');
+    }
 }

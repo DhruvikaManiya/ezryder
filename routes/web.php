@@ -187,7 +187,13 @@ Auth::routes();
         route::get('/rider-details','MobileController@riderdetails')->name('mobile.rider.details');
 
 
+
     });
+
+Route::get('driver-register', 'MobileController@driver_register')->name('mobile.driver_register');
+
+
+
 
 
 Route::group(['prefix' => 'vendor', 'middleware' => ['vendor']], function () {
@@ -249,8 +255,6 @@ Route::group(['prefix' => 'vendor', 'middleware' => ['vendor']], function () {
 
 });
 
-
-
 Route::prefix('delivery')->group(function () {
     Route::get('/', 'DeliveryController@login')->name('delivery.login');
     Route::get('register', 'DeliveryController@register')->name('delivery.register');
@@ -263,10 +267,6 @@ Route::prefix('delivery')->group(function () {
     // bankdetail
     Route::get('bankdetail', 'DeliveryController@bankdetail')->name('delivery.bankdetail');
 });
-
-
-
-
 
 // vendor food
 
@@ -344,11 +344,6 @@ Route::group(['prefix' => 'delivery', 'middleware' => ['delivery']], function ()
     Route::get('bankdetail', 'DeliveryController@bankdetail')->name('mobile.delivery.bankdetail');
 });
 
-
-
-
-
-
 Route::prefix('food-delivery')->group(function () {
     Route::get('/', 'FoodDeliveryController@login')->name('food.delivery.login');
     Route::get('/home', 'FoodDeliveryController@home')->name('food.delivery.home');
@@ -363,12 +358,7 @@ Route::prefix('food-delivery')->group(function () {
     Route::get('bankdetail', 'FoodDeliveryController@bankdetail')->name('food.delivery.bankdetail');
 });
 
-
-
 Route::get('/home', 'HomeController@index')->name('home');
-
-
-
 
 //-------------------ADMIN ROUTES--------------------------------
 Route::prefix('admin')->group(function () {
