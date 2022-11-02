@@ -21,6 +21,7 @@ class CreateVehicleChargesTable extends Migration
             $table->integer('distance')->comment('distance for 1 km')->default('1');
             $table->integer('rider_charge')->comment('charge for 1 km');
             $table->integer('customer_charge')->comment('charge for 1 km');
+            $table->integer('number');
             $table->timestamps();
         });
     }

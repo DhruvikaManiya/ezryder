@@ -34,7 +34,7 @@
       <article class="carSpecification padding-lr">
         <div class="rideType">
           <h4>Ezyder<span>Standard</span></h4>
-          <img src="{{ url('asset/images//car.png') }}" alt="" />
+          <img src="{{ url('asset/images/car.png') }}" alt="" />
           <h4>Ride Type<span>Shared</span></h4>
         </div>
         <button class="price">$5.45</button>
