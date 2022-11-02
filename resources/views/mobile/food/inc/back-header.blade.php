@@ -9,7 +9,7 @@
             </div>
             <div class="store_cart">
                 @if(Route::currentRouteName() != 'mobile.food.foodcart')
-                    <img class="search_icon" src="{{asset('asset/images/Group 185.svg')}}" alt="">
+                    <img class="search_icon" src="{{asset('asset/images/Group 185.svg')}}" alt="" onclick="window.location='{{ route('mobile.food.search') }}'">
                     <img class="cart_icon" src="{{asset('asset/images/clarity_shopping-cart.svg')}}" alt="">
                 @endif
             </div>

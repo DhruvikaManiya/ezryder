@@ -38,6 +38,8 @@
             <div class="account_links">
                 <a href="{{route('mobile.pharma.profile')}}" class="link">Profile</a>
                 <a href="{{route('mobile.pharma.orderhistory')}}" class="link">Orders</a>
+                <a href="{{route('mobile.pharma.wishlist')}}" class="link">Wishlist</a>
+
                 <a href="{{route('mobile.logout')}}" class="link">Logout</a>
             </div>
         </div>

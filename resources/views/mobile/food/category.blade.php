@@ -61,7 +61,7 @@
                                 <ul>
                                     @foreach ($cate->subcategory as $sub)
                                         <li>
-                                            <a href="#">{{ $sub->name }}</a>
+                                            <a href="{{ route('mobile.food.sub-food-store',$sub->id) }}">{{ $sub->name }}</a>
                                             <img src="{{ asset('asset/images/arrow-black.png') }}">
                                         </li>
                                     @endforeach

@@ -1,21 +1,8 @@
 @extends('layouts.pharmacies')
 
-
+@section('header_title','Category')
 @section('content')
-    <header class="header_top">
-        <div class="container">
-            <div class="header_wrapper">
-                <div class="left">
-                    <img class="left_arrow_icon" src="{{ asset('asset/images/Arrow-left.svg') }}" alt="">
-                    <h4 class="header_title">Medicines</h4>
-                </div>
-                <div class="right">
-                    <img class="search_icon" src="{{ asset('asset/images/Group 185.svg') }}" alt="">
-                    <img class="cart_icon" src="{{ asset('asset/images/clarity_shopping-cart.svg') }}" alt="">
-                </div>
-            </div>
-        </div>
-    </header>
+   @include('mobile.vendor.inc.back-header')
 
     <section class="slider_sec">
         <div class="swiper mySwiper">
@@ -26,7 +13,7 @@
                       
                         {{-- <a class="slide_menu_link active" href="#">All</a> --}}
                         @foreach ($sucategories as $subcate )
-                        <a class="slide_menu_link" href="#">{{$subcate->name}}</a>
+                        <a class="slide_menu_link" href="{{route('mobile.pharma.pharma_list',$subcate->id)}}">{{$subcate->name}}</a>
                         {{-- <a class="slide_menu_link" href="#">Cosmetics</a> --}}
                               
                         @endforeach

@@ -1,78 +1,67 @@
 <!DOCTYPE html>
 <html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Ezryder</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+    <link
+      href="https://fonts.googleapis.com/css2?family=Mulish:ital,wght@0,300;0,500;0,700;1,300;1,500;1,700;0,1000&display=swap"
+      rel="stylesheet"
+    />
+    <link rel="stylesheet" href="{{ asset('asset/css/common.css') }}">
+    <link rel="stylesheet" href="{{ asset('asset/css/customStyling.css') }}">
+    <link rel="stylesheet" href="{{ asset('asset/css/ezryder.css') }}">
+    
+  </head>
+  <body>
+    <div class="main-container auth" id="loginFinal">
+      <h1>EZRYDER</h1>
+      <p>Welcome Store Owners</p>
+      <form action="{{ route('vendor.login_check') }}" method="post">
+        <article>
+          <label for="email">Your Email</label>
+          <input
+            type="email"
+            name="email"
+            id="email"
+            placeholder="Enter your email"
+          />
+        </article>
+        <article>
+          <label for="password">Password</label>
+          <input
+            type="password"
+            name="password"
+            id="password"
+            placeholder="Enter your password"
+          />
+        </article>
+        <article id="forgot-password">
+          <p>Forgot password?</p>
+        </article>
+        <button id="login">
+          <p>Log in</p>
+          <span>
+            <img src="{{ asset('asset/images/whitearrow.png') }}" alt="logo" class="logo_img">
+            </span>
+        </button>
+      </form>
+      <article id="register-box">
+        <p id="no-account">Don't have an account?</p>
+        <button id="register">
+          <p><a class="btn-secondary" href="{{ route('vendor.register') }}" value="Register" class="login_btn">Register</a></p>
+          <span><img src="{{ asset('asset/images/dark_right_arrow.png') }}" alt="logo" class="logo_img"></span>
+        </button>
 
-<head>
-    <meta charset="UTF-8">
-    <meta http-equiv="X-UA-Compatible" content="IE=edge">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <meta name='viewport' content='width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=0'/>
-    <title>Login</title>
+        
+      </article>
 
-    <link rel="stylesheet" href="{{ asset('asset/css/login.css') }}">
-    <style>
-        .alert {
-            color: red;
-            padding: 5px;
-            text-transform: capitalize;
-        }
-        .success{
-            color: green;
-            padding: 5px;
-            text-transform: capitalize;
-            text-align: center;
-            margin-bottom: 10px;
-        }
-    </style>
-</head>
 
-<body>
-    <section class="login_sec">
-        <div class="container">
-            <div class="login_logo">
-                <img src="{{ asset('asset/images/login-logo.svg') }}" alt="logo" class="logo_img">
-            </div>
-            <div class="login_form_sec inp-clrrr">
-                @if (\Session::has('success'))
-                <div class="success ">
-                    {!! \Session::get('success') !!}
-                </div>
-            @endif
-                <form action="{{ route('vendor.login_check') }}" method="post">
-                    @csrf
-                    <div class="form_group">
-                        <label class="label" for="email">Email</label>
-                        <input class="input" name="email" type="email" placeholder="Enter email"
-                            value="{{ old('email') }}" required>
-                        @if (\Session::has('email'))
-                            <div class="alert ">
 
-                                {!! \Session::get('email') !!}
-                            </div>
-                        @endif
-                    </div>
-                    <div class="form_group">
-                        <label class="label" for="email">Password</label>
-                        <input class="input" name="password" type="password" placeholder="Password" required>
-                        @if (\Session::has('password'))
-                            <div class="alert ">
-                                {!! \Session::get('password') !!}
-                            </div>
-                        @endif
-                    </div>
-                    <div class="form_group">
-                        <button type="submit" name="submit" class="login_btn">Login</button>
-                    </div>
-                    <div class="form_group">
-                        <a href="{{ route('vendor.register') }}" value="Register" class="login_btn">Register</a>
-                    </div>
-                    <div class="form_group">
-                        <a href="{{ route('vendor.forgotpassword') }}"
-                            style="color: #008080; text-align: center;">Forget Password ?</a>
-                    </div>
-                </form>
-            </div>
-        </div>
-    </section>
-</body>
+    </div>
 
+  </body>
 </html>

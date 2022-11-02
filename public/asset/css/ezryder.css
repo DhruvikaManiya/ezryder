@@ -1,0 +1,118 @@
+.auth button span {
+    padding-right: 10px;
+    font-size: 22px;
+}
+
+.back_arrow {
+	padding-right: 10px;
+}
+
+.btn-secondary {
+	text-decoration: none;
+	color: #5D8080;
+}
+
+.auth form input, .auth form select {
+    
+    color: #5D8080;
+    font-style: normal;
+}
+
+input::placeholder {
+    font-style: italic;
+    
+    color: #B0B8B8;
+}
+
+/*
+#registerFinal #goBack-container p span, #forgotPassword #goBack-container p span, #linkSendMessage #goBack-container p span {
+    font-size: 22px;
+    
+}*/
+/*
+.footer-conttainer {
+    width: 100%;
+
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    
+
+    
+
+}*/
+
+/*.footer-conttainer article{
+    
+   
+    text-align: center;
+    color: #008080;
+    padding-top: 20px;
+    padding-bottom: 10px;
+   
+
+}*/
+
+a {
+    text-decoration: none;
+}
+
+.service a {
+    text-decoration: none;
+}
+
+/*.btn-secondary {
+    color: #5D8080;
+    text-decoration: none;
+    font-size: 16px;
+    text-align: left;
+    background-color: #ACD2D2;
+    margin: 24px 32px;
+    padding: 16px 16px;
+    border-radius: 4px;
+    font-weight: 500;
+    display: flex;
+    justify-content: space-between;
+  }*/
+
+  .btn-secondary {
+    color: #5D8080;
+    text-decoration: none;
+    font-size: 16px;
+    text-align: left;
+    /*background-color: #ACD2D2;*/
+    margin: 24px 32px;
+    padding: 16px 16px;
+    border-radius: 4px;
+    font-weight: 800;
+    width: 326px;
+    
+  }
+
+  .btn-secondary span {
+    float: right;
+  }
+
+  .btn-primary {
+    color: #D1E4E5;
+    text-decoration: none;
+    font-size: 16px;
+    text-align: left;
+    background-color: #008080;
+    margin: 24px 32px;
+    padding: 16px 16px;
+    border-radius: 4px;
+    font-weight: 800;
+    
+  }
+
+  .btn-primary span {
+    float: right;
+  }
+
+  .back-arrow-btn{
+    padding: 0 16px;
+  }
+
+
+

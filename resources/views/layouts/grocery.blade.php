@@ -157,7 +157,98 @@
             });
         }
     </script>
+    <script>
+        $('body').on('click', '#wishlist', function() {
+            var id = $(this).data('id');
+            var user_id = {{ Auth::user()->id }};
+            console.log(id, user_id);
+            $.ajax({
+                url: "{{ route('wishlist.store') }}",
+                method: "POST",
+                data: {
+                    id: id,
+                    user_id: user_id,
+                    _token: "{{ csrf_token() }}"
 
+                },
+                success: function(response) {
+                    console.log(response);
+
+                    if (response.status == 'add') {
+                        console.log('#wishlist' + id);
+                        $('.wishlist' + id).attr('style', 'display:none !important');
+                        $('.wishlistRemove' + id).attr('style', 'display:block !important');
+                    } else {
+                        $('.wishlist' + id).attr('style', 'display:block !important');
+                        $('.wishlistRemove' + id).attr('style', 'display:none !important');
+                    }
+                }
+            });
+        });
+    </script>
+    <script>
+        var lat = 0;
+        var long = 0;
+
+        function getLocation() {
+            if (navigator.geolocation) {
+                navigator.geolocation.getCurrentPosition(showPosition);
+            } else {
+                alert("Allow to premition.");
+            }
+        }
+
+        function showPosition(position) {
+            lat = position.coords.latitude;
+            long = position.coords.longitude;
+
+            $.ajax({
+                url: "{{ route('mobile.nearbystore') }}",
+                method: "POST",
+                data: {
+                    lat: lat,
+                    long: long,
+                    _token: "{{ csrf_token() }}"
+
+                },
+                success: function(response) {
+                    $('#store_details').empty();
+                    // console.log(response.data);
+                    $.each(response.data, function(key, value) {
+                     
+                        var html = '<div class="swiper-slide">\
+                                        <div class="item d-flex justify-content-start" id="store_url" data-id='+value.id+'>';
+                        if (value.profile != null) {
+                            html += '<img src="' + value.profile + '">';
+                        } else {
+                            html += '<img src="/asset/images/store-icon.svg">';
+                        }
+
+                        html += '<div class="storeContent p-2">\
+                                                     <h3>' + value.name + '</h3>\
+                                                     <p>' + value.address + '</p>\
+                                                 </div>\
+                                             </div>\
+                                         </div>';
+                        $('#store_details').append(html);
+                    });
+
+                    var swiper = new Swiper(".storeSwiper", {
+                        slidesPerView: 1,
+                        spaceBetween: 20,
+                    });
+                    
+                }
+            });
+        }
+
+        window.onload = getLocation;
+
+        $('body').on('click', '#store_url', function() {
+            var id = $(this).data('id');
+            window.location.href = "{{ url('mobile/store') }}/" + id;
+        });
+    </script>
     @yield('js')
 </body>
 

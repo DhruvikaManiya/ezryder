@@ -18,7 +18,8 @@ class CreateCartsTable extends Migration
             $table->integer('user_id');
             $table->integer('product_id');
             $table->integer('quantity')->default(1);
-            $table->softDeletes();
+            $table->integer('store_id');
+            $table->integer('store_type_id');
             $table->timestamps();
         });
     }

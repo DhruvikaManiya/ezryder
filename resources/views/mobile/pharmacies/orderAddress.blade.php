@@ -39,7 +39,7 @@
     </style>
 @endsection
 @section('content')
-@include('mobile.pharmacies.inc.header')
+    @include('mobile.pharmacies.inc.header')
     <section class="cart pt-5">
         <div class="container-fluid">
             <div class="delivery-option d-flex justify-content-between mb-4">
@@ -64,52 +64,62 @@
                 <h3>Delivery Address</h3>
 
             </div>
-            <form action="{{route('mobile.pharma.payment')}}" class="checkOut p_0" method="POST">
+            <form action="{{ route('mobile.pharma.payment') }}" class="checkOut p_0" method="POST">
                 @csrf
                 <input type="hidden" name="order_id" value="{{ $order->id }}">
                 <div class="d-flex justify-content-between mb-4">
-                    <div class="form-check w-100">
-                        <input type="number" placeholder="House No" class="form-addr-input" name="home_no" required>
-                        @error('home_no')
-                            <p style="color: red;">{{ $message }}</p>
-                        @enderror
-                    </div>
-
-                    <div class="form-check w-100">
-                        <input type="text" placeholder="Street" class="form-addr-input" name="street" required> 
-                        @error('street')
+                    @if ($order_type == 1)
+                        <div class="form-check w-100">
+                            <input type="number" placeholder="House No" class="form-addr-input" name="home_no" required>
+                            @error('home_no')
                                 <p style="color: red;">{{ $message }}</p>
                             @enderror
-                    </div>
+                        </div>
+                    @else
+                        <div class="form-check w-100">
+                            <input type="number" placeholder="Office No" class="form-addr-input" name="home_no" required>
+                            @error('home_no')
+                                <p style="color: red;">{{ $message }}</p>
+                            @enderror
+                        </div>
+                    @endif
+                    <div class="form-check w-100">
+                        <input type="text" placeholder="Street" class="form-addr-input" name="street" required>
+                        @error('street')
+                            <p style="color: red;">{{ $message }}</p>
+                        @enderror
+                </div>
+               
                 </div>
                 <div class="d-flex justify-content-between mb-4">
                     <div class="form-check w-100">
-                        <textarea type="text" placeholder="Address" class="form-addr-input" name="address" rows="2" cols="" required></textarea>
+                        <textarea type="text" placeholder="Address" class="form-addr-input" name="address" rows="2" cols=""
+                            required></textarea>
                         @error('address')
-                                <p style="color: red;">{{ $message }}</p>
-                            @enderror
+                            <p style="color: red;">{{ $message }}</p>
+                        @enderror
                     </div>
                 </div>
                 <div class="d-flex justify-content-between mb-4">
                     <div class="form-check">
                         <input type="text" class="form-addr-input" placeholder="City" name="city" required>
                         @error('city')
-                                <p style="color: red;">{{ $message }}</p>
-                            @enderror
+                            <p style="color: red;">{{ $message }}</p>
+                        @enderror
                     </div>
                     <div class="form-check">
                         <input type="text" class="form-addr-input" placeholder="State" name="state" required>
                         @error('state')
-                                <p style="color: red;">{{ $message }}</p>
-                            @enderror
+                            <p style="color: red;">{{ $message }}</p>
+                        @enderror
                     </div>
                 </div>
                 <div class="d-flex justify-content-between mb-4">
                     <div class="form-check w-100">
-                        <input type="number" placeholder="PIN Code" class="form-addr-input" name="pin" required> 
+                        <input type="number" placeholder="PIN Code" class="form-addr-input" name="pin" required>
                         @error('pin')
-                                <p style="color: red;">{{ $message }}</p>
-                            @enderror
+                            <p style="color: red;">{{ $message }}</p>
+                        @enderror
                     </div>
                 </div>
                 <button class="theme-bg btn nexBtn mb-5 mt-5">Next</button>

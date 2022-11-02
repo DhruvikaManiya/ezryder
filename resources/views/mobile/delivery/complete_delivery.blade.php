@@ -30,7 +30,8 @@
             </div>
             <div class="dmart_address ml-10">
                 <h3>{{ $order->user->name }}</h3>
-                <p class="pt-7">{{ $order->user->address }}, {{ $order->user->area }}, {{ $order->user->city }}, {{ $order->user->state }}, {{ $order->user->country }}, <br> {{ $order->user->pincode }}</p>
+                {{-- @dd($order->order_addres) --}}
+                <p class="pt-7">{{ $order->order_addres->house_no }}, {{$order->order_addres->address1 }}, {{ $order->order_addres->address2 }}, {{ $order->order_addres->city }}, <br> {{ $order->order_addres->state }} , {{ $order->order_addres->pincode }}</p>
             </div>
             <div>
                 <img src="{{asset('asset/images/share.png')}}" alt="">

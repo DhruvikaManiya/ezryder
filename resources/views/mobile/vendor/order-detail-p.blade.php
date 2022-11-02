@@ -37,9 +37,10 @@
             font-weight: 600;
             text-align: left;
         }
-        .accepted{
+
+        .accepted {
             color: #FFFFFF !important;
-            
+
         }
     </style>
 
@@ -88,37 +89,55 @@
                     <h3>{{ $order->order_addres->address1 }}</h3>
                     <p class="pt-7">{{ $order->order_addres->address2 }}</p>
                 </div>
-                <div>
+                {{-- <div>
                     <img src="{{ asset('asset/images/share.png') }}" alt="">
-                </div>
+                </div> --}}
             </div>
             @php
-             $products='App\Ordered_product'::whereIn('id',json_decode($order->ordered_products))->get();
-            $total= 0;
+                $products = ('App\Ordered_product')::whereIn('id', json_decode($order->ordered_products))->get();
+                $total = 0;
             @endphp
 
             @foreach ($products as $product)
                 <div class="product_name_row">
-                    <img src="{{asset($product->product->p_image)}}" style="height:60px;width:50px;">
+                    <img src="{{ asset($product->product->p_image) }}" style="height:60px;width:50px;">
                     <div class="dmart_address">
-                        <p>{{$product->product->name}}</p>
+                        <p>{{ $product->product->name }}</p>
+                        <p>MRP:<del>${{ $product->product->MRP }}</del></p>
                         <div class="product_wight">
                             <table class="product_wight_table">
                                 <tr>
-                                    <td width="70%">{{$product->product->units}}{{$product->product->measurement}} - ${{$product->product->price}}</td>
-                                    <td>X {{$product->quantity}}</td>
-                                    <td class="text-a-r">${{($product->product->price)*($product->quantity)}} </td>
+                                    <td width="70%">{{ $product->product->units }}{{ $product->product->measurement }}
+                                        -
+                                        ${{ $product->product->Sellar_price + ($product->product->Sellar_price * $product->product->admin_charge) / 100 }}
+                                    </td>
+                                    <td>X {{ $product->quantity }}</td>
+                                    <td class="text-a-r">
+                                        ${{ $product->quantity * ($product->product->Sellar_price + ($product->product->Sellar_price * $product->product->admin_charge) / 100) }}
+                                    </td>
                                 </tr>
                             </table>
                         </div>
                     </div>
                 </div>
                 @php
-                    $total += ($product->product->price)*($product->quantity)
+                    $t = $product->quantity * ($product->product->Sellar_price + ($product->product->Sellar_price * $product->product->admin_charge) / 100);
+                @endphp
+
+                @php
+                    $total += $product->quantity * $product->product->MRP;
+                @endphp
+                @php
+                    $prod = (($product->product->Sellar_price + ($product->product->Sellar_price * $product->product->admin_charge) / 100) * 100) / $product->product->MRP;
+                    $discount = 100 - $prod;
+                    $order_dis = $product->quantity * (($product->product->MRP * $discount) / 100);
+                    
+                    //    $discount = round($discount);
+                    
                 @endphp
             @endforeach
 
-         
+
         </div>
     </section>
 
@@ -130,37 +149,69 @@
                 <table class="item_count_table">
                     <tr>
                         <td>Item Count </td>
-                        <td>{{count(json_decode($order->ordered_products))}}</td>
+                        <td>{{ count(json_decode($order->ordered_products)) }}</td>
                     </tr>
                     <tr>
                         <td>Order Item Total</td>
-                        <td>${{$total}}</td>
+                        <td>${{ $total }}</td>
                     </tr>
                     <tr>
                         <td>Order Delivery Charges </td>
                         <td>$ 0</td>
                     </tr>
                     <tr>
-                        <td>Coupon</td>
-                        <td>-$ {{$total-$order->total}}</td>
+                        <td>Discount on your porduct</td>
+                        <td>-$ {{ $order_dis }}
+                            <hr>
+                        </td>
+
                     </tr>
                     <tr>
-                        <td>Net Payable Amount</td>
-                        <td>$ {{$order->total}}</td>
+                        {{-- <td>Net Payable Amount</td> --}}
+                        <td>Total order Amount</td>
+                        <td>$ {{ $t }}</td>
                     </tr>
                 </table>
                 <div class="status status-spn">
-                    <h3><span>Status</span> : {{$order->status == 1 ? 'Pending' : ($order->status == 2 ? 'Delivered' : ($order->status == 4 ? 'Accepted' : 'Cancelled'))}}</h3>
-                    @if($order->status==1 )
-                    
-                    <div class="d-flex just-c-e">
+
+                    <h3><span>Status</span> :
+                        @if ($order->status == 0)
+                        <span class="badge badge-warning">Pending</span>
+                    @elseif($order->status == 1)
+                        <span class="badge badge-info">Processing</span>
+                    @elseif($order->status == 2)
+                        <span class="badge badge-success">Delivered</span>
+                    @elseif($order->status == 3)    
+                        <span class="badge badge-danger">Cancelled</span>
+                    @elseif($order->status == 4)    
+                        <span class="badge badge-success"> Vendor Accepted</span>
+                    @elseif($order->status == 5)
+                        <span class="badge badge-success">Delivery-boy  Accepted</span>
+                    @endif </h3>
+
+                    @if ($order->status == 0)
+
+                <div class="d-flex just-c-e">
                         <button class="theme-bg btn nexBtn fs-25 mb-5 mt-5 btn-w save"><a href="{{route('vendor.order-detail-p_accepted',$order->id)}}" class="accepted">Accepted</a></button>
                         <button class="theme-bg btn nexBtn fs-25 mb-5 mt-5 btn-w save"><a href="{{route('vendor.order-detail-p_deny',$order->id)}}" class="accepted">Deny</a></button>
                     </div>
-                   
-                    @endif
+                    @elseif($order->status == 1)
+                    <div class="d-flex just-c-e">
+                        <button class="theme-bg btn nexBtn fs-25 mb-5 mt-5 btn-w save"><a href="{{route('vendor.order-details-p_processed',$order->id)}}" class="accepted">Accepted</a></button>
+                    </div>
+                   {{-- @elseif($order->status == 4)
+                     <div class="d-flex just-c-e">
+                        <button class="theme-bg btn nexBtn fs-25 mb-5 mt-5 btn-w save"><a href="{{route('vendor.order-details-d-accpeted',$order->id)}}" class="accepted">Accepted</a></button>
+                        <button class="theme-bg btn nexBtn fs-25 mb-5 mt-5 btn-w save"><a href="{{route('vendor.order-detail-p_deny',$order->id)}}" class="accepted">Cancel</a></button>
+                     </div> --}}
+                    @elseif($order->status == 5)
+                    <div class="d-flex just-c-e">
+                        <button class="theme-bg btn nexBtn fs-25 mb-5 mt-5 btn-w save"><a href="{{route('vendor.order-detail-p_delivered',$order->id)}}" class="accepted">Delivered</a></button>
+                    </div>
+                         @endif
 
-                  
+
+
                 </div>
             </div>
         </div>

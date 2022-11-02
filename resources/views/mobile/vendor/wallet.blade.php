@@ -1,55 +1,48 @@
-@extends('layouts.vendor')
-@section('header_title', 'Wallet')
-@section('css')
-<link rel="stylesheet" href="{{ asset('asset/css/account.css') }}">
-@endsection
+@extends('layouts.users_app_products')
+
 @section('content')
-@include('mobile.vendor.inc.back-header')
-<div class="container">
-    <div class="wallet">
-        <div class="total_wallet btn-w">
-            <h1 class="total m-0">$ 5600</h1>
+
+    <div class="main-container no-padding navStyle" id="earnings">
+      <article id="top-nav">
+        <div class="reviewBackButton">
+          <p>Earnings</p>
         </div>
-        <button class="btn withdraw_btn btn-w fs-25">Withdraw</button>
-        <div class="wallet_history">
-            <h2 class="title">History</h2>
-            <table class="h-table w100 tab-height mt28 v-data">
-                <thead>
-                    <tr>
+        <p>
+          <span>3</span>
+          <img src="/pages/assets/homeScreen/shoppingBag.png" alt="" />
+        </p>
+      </article>
 
-                        <th>Date</th>
-                        <th>Amount</th>
-                    </tr>
-                </thead>
-
-                <tbody>
-                    <tr>
-
-                        <td>09-03-2022</td>
-                        <td>200</td>
-                    </tr>
-                    <tr>
-
-                        <td>09-03-2022</td>
-                        <td>200</td>
-                    </tr>
-                    <tr>
-
-                        <td>09-03-2022</td>
-                        <td>200</td>
-                    </tr>
-                    <tr>
-
-                        <td>09-03-2022</td>
-                        <td>200</td>
-                    </tr>
-
-                </tbody>
-
-            </table>
-
-
+      <article class="balance-card">
+        <img src="/pages/assets/Reviews/walletBig.png" alt=""/>
+        <h1>$30.89</h1>
+        <button>Withdraw to bank</button>
+      </article>
+      <article class="withdrawal-history">
+        <h1>Withdrawal History</h1>
+        <div class="withdrawal-box">
+          <p class="number">#  12342434</p>
+          <p class="date">12-10-2022</p>
+          <p class="amount">$300.89</p>
         </div>
-    </div>
+        <div class="withdrawal-box">
+          <p class="number">#  12342434</p>
+          <p class="date">12-10-2022</p>
+          <p class="amount">$300.89</p>
+        </div>
+        <div class="withdrawal-box">
+          <p class="number">#  12342434</p>
+          <p class="date">12-10-2022</p>
+          <p class="amount">$300.89</p>
+        </div>
+        <div class="withdrawal-box">
+          <p class="number">#  12342434</p>
+          <p class="date">12-10-2022</p>
+          <p class="amount">$300.89</p>
+        </div>
+      </article>
+@include('layouts.partials.vendor_footer_nav')
 </div>
+      
+
 @endsection

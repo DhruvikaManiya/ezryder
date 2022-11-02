@@ -1,0 +1,581 @@
+/* Common Classes */
+/* ----------------------------- */
+.topNav {
+  margin: 60px 30px 20px 30px;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+}
+.topNav h2 img {
+  padding-right: 10px;
+}
+.topNav h2 {
+  font-weight: 800;
+  font-size: 16px;
+  line-height: 20px;
+  color: #5d8080;
+  display: flex;
+  align-items: center;
+}
+/* ----------------------------- */
+
+.bottomNav {
+  display: grid;
+  grid-template-columns: 1fr 1fr 1fr 1fr;
+  position: fixed;
+  max-width: 480px;
+  bottom: 0px;
+  width: 100%;
+  height: 86px;
+  background: white;
+}
+
+.bottomNav article {
+  display: grid;
+  place-items: center;
+  padding-bottom: 26px;
+  padding-top: 13px;
+}
+.bottomNav .selected {
+  background-color: #008080;
+  color: white;
+}
+.bottomNav .selected img {
+  filter: brightness(0) saturate(100%) invert(100%) sepia(0%) saturate(909%)
+    hue-rotate(137deg) brightness(116%) contrast(100%);
+}
+/* ----------------------------- */
+
+.header1 {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  margin-right: 30px;
+}
+.header1 button {
+  padding: 2px 16px;
+  border-color: transparent;
+  border-radius: 16px;
+  background: linear-gradient(88.74deg, #004166 3.62%, #116899 98.3%);
+  color: white;
+}
+/* ----------------------------- */
+
+.header2 {
+  font-weight: 800;
+  font-size: 24px;
+  line-height: 30px;
+  color: #4a6363;
+}
+/* ----------------------------- */
+
+.header3 {
+  font-weight: 700;
+  font-size: 24px;
+  line-height: 16px;
+  color: #5d8080;
+}
+/* ----------------------------- */
+.header4 {
+  font-weight: 700;
+  font-size: 14px;
+  line-height: 16px;
+  color: #5d8080;
+}
+/* ----------------------------- */
+.header5 {
+  font-weight: 400;
+  font-size: 14px;
+  line-height: 16px;
+  color: #5d8080;
+}
+/* ----------------------------- */
+.header-blue {
+  color: #005280;
+}
+/* ----------------------------- */
+
+/* ----------------------------- */
+.btn-offline {
+  background: #933838 !important;
+}
+/* ----------------------------- */
+
+.h1-type1 {
+  font-weight: 800;
+  font-size: 32px;
+  line-height: 33px;
+  color: #5d8080;
+}
+/* ----------------------------- */
+
+.input-label-container1 {
+  display: flex;
+  flex-direction: column;
+}
+/* ----------------------------- */
+
+.label-type1 {
+  margin-bottom: 4px;
+  font-weight: 500;
+  font-size: 14px;
+  line-height: 18px;
+  line-height: 18px;
+  color: #465252;
+}
+.label-type2 {
+  font-weight: 700;
+  font-size: 16px;
+  line-height: 16px;
+  color: #5d8080;
+}
+/* ----------------------------- */
+
+.input-type1,
+.select-type1 {
+  background: #ffffff;
+  border: 1px solid #b2d1d1;
+  box-shadow: inset 0px -4px 12px rgba(178, 209, 209, 0.25);
+  border-radius: 4px;
+  color: #b0b8b8;
+  padding: 16px;
+  font-style: italic;
+}
+/* ----------------------------- */
+
+.btn-type1 {
+  background: #008080;
+  box-shadow: 0px 8px 16px -4px rgba(0, 128, 128, 0.5);
+  border-radius: 12px;
+  border-color: transparent;
+  color: #ffffff;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  width: 100%;
+  padding: 16px;
+}
+.btn-type1 p {
+  flex-grow: 1;
+  font-weight: 600;
+  font-size: 20px;
+  line-height: 25px;
+}
+.btn-type1 img {
+  filter: brightness(0) saturate(100%) invert(100%) sepia(100%) saturate(2%)
+    hue-rotate(126deg) brightness(104%) contrast(101%);
+}
+/* ----------------------------- */
+.btn-type2 {
+  border-radius: 4px;
+  padding: 12px 16px;
+  border-color: transparent;
+  font-weight: 700;
+  font-size: 15px;
+  line-height: 19px;
+}
+.btn-lightGreen {
+  background-color: #b5dbdb;
+  color: #4a6363;
+}
+.btn-darkBlue {
+  background: #005280;
+  color: white;
+}
+
+.btn-full {
+  margin: 20px 0;
+  width: 100%;
+}
+/* ----------------------------- */
+
+.btn-color-lightGreen {
+  background-color: #b5dbdb;
+  font-weight: 800;
+  font-size: 19px;
+  line-height: 24px;
+  text-align: center;
+  color: #5d8080;
+}
+.btn-color-lightGreen img {
+  filter: brightness(0) saturate(100%) invert(51%) sepia(16%) saturate(556%)
+    hue-rotate(131deg) brightness(89%) contrast(89%);
+}
+/* ----------------------------- */
+
+.btn-radiusSmall {
+  border-radius: 4px !important;
+}
+/* ----------------------------- */
+
+.form-type1 {
+  display: flex;
+  flex-direction: column;
+  gap: 12px;
+}
+/* ----------------------------- */
+
+.contentContainer {
+  padding-bottom: 100px;
+}
+/* ----------------------------- */
+
+.box-type1 {
+  margin-bottom: 16px;
+}
+.box-type1 .header2 {
+  margin-bottom: 10px;
+}
+.box-type1 article {
+  display: flex;
+  justify-content: space-between;
+}
+.box-type1 article div {
+  background: white;
+  border-radius: 8px;
+  width: 100px;
+  height: 100px;
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+  padding: 16px;
+  font-size: 14px;
+  line-height: 16px;
+  color: #5d8080;
+}
+.box-type1 .value {
+  text-align: right;
+}
+/* ----------------------------- */
+.box-type2 {
+  padding: 16px;
+  border-radius: 8px;
+  background: white;
+  margin-bottom: 24px;
+}
+
+/* ----------------------------- */
+
+/* Page Styling */
+/* registerFinal Page */
+/* ----------------------------- */
+#registerFinal .form-type1 {
+  margin-top: 24px;
+  margin-bottom: 20px;
+}
+#registerFinal .forgotPassword {
+  font-weight: 500;
+  font-size: 14px;
+  line-height: 18px;
+  color: #465252;
+  text-align: center;
+  padding: 16px;
+}
+#registerFinal .loginBtn {
+  margin-bottom: 24px;
+}
+/* ----------------------------- */
+
+/* deliveryBoyHome Page */
+#deliveryBoyHome .notif-type1 {
+  margin-top: 28px;
+  margin-bottom: 16px;
+}
+/* ----------------------------- */
+
+/* deliveryBoyHome2 Page */
+#deliveryBoyHome2 .notif-type1 {
+  margin-top: 28px;
+  margin-bottom: 16px;
+}
+#deliveryBoyHome2 .notif-type1 p {
+  text-align: left;
+}
+/* ----------------------------- */
+
+/* deliveryBoyHome3 Page */
+#deliveryBoyHome3 .notif-type1 {
+  margin: 36px 0 26px 0;
+}
+#deliveryBoyHome3 .bottomPlaceboard {
+  background: linear-gradient(88.74deg, #004166 3.62%, #116899 98.3%), #ffffff;
+  padding-top: 30px;
+  padding-bottom: 20px;
+  color: white;
+  position: absolute;
+  width: 100%;
+  bottom: 0;
+}
+#deliveryBoyHome3 .bottomPlaceboard .topBox {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+}
+#deliveryBoyHome3 .bottomPlaceboard .topBox span {
+  font-weight: 700;
+}
+#deliveryBoyHome3 .bottomPlaceboard .topBox button {
+  font-weight: 400;
+  font-size: 16px;
+  line-height: 20px;
+  color: #014166;
+  padding: 4px 16px;
+  border-radius: 8px;
+  border-color: transparent;
+}
+#deliveryBoyHome3 .bottomPlaceboard .middleBox {
+  display: flex;
+  justify-content: center;
+  text-align: center;
+  align-items: center;
+  margin-top: 24px;
+  margin-bottom: 24px;
+  position: relative;
+}
+#deliveryBoyHome3 .bottomPlaceboard .middleBox article {
+  justify-self: center;
+}
+#deliveryBoyHome3 .bottomPlaceboard .middleBox img {
+  filter: brightness(0) saturate(100%) invert(100%) sepia(0%) saturate(909%)
+    hue-rotate(137deg) brightness(116%) contrast(100%);
+  position: absolute;
+  right: 0;
+}
+#deliveryBoyHome3 .bottomPlaceboard .bottomBox {
+  text-align: center;
+}
+#deliveryBoyHome3 .bottomPlaceboard .h3-light {
+  font-weight: 300;
+}
+/* ----------------------------- */
+#deliveryBoyAcceptOrder .contentContainer .imgContainer img {
+  width: 100%;
+  margin-bottom: 24px;
+}
+#deliveryBoyAcceptOrder .contentContainer .header3 {
+  margin: 12px 0 20px 0;
+}
+#deliveryBoyAcceptOrder .contentContainer .details {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+}
+#deliveryBoyAcceptOrder .contentContainer .details .call {
+  justify-self: right;
+  font-weight: 700;
+  font-size: 16px;
+  line-height: 16px;
+  color: #005280;
+}
+#deliveryBoyAcceptOrder .contentContainer .header4 {
+  margin-bottom: 10px;
+}
+#deliveryBoyAcceptOrder .contentContainer .btnContainer {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  place-items: center;
+  margin-top: 30px;
+}
+#deliveryBoyAcceptOrder .contentContainer .btnContainer button {
+  width: 80%;
+}
+#deliveryBoyAcceptOrder .contentContainer .btn-full {
+  margin: 20px 0;
+  width: 100%;
+}
+#deliveryBoyAcceptOrder .contentContainer .div-flex {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+}
+#deliveryBoyAcceptOrder .contentContainer .store {
+  margin-top: 12px;
+}
+#deliveryBoyAcceptOrder .contentContainer .store p {
+  display: flex;
+  gap: 10px;
+}
+#deliveryBoyAcceptOrder .contentContainer .input-full {
+  width: 100%;
+}
+#deliveryBoyAcceptOrder .contentContainer .message {
+  display: flex;
+  flex-direction: column;
+}
+#deliveryBoyAcceptOrder .contentContainer .message button {
+  margin-top: 12px;
+  width: 50%;
+  align-self: flex-end;
+}
+#deliveryBoyAcceptOrder .cash{
+  margin-top: 28px;
+}
+/* ----------------------------- */
+#doc1 .h1-type1 {
+  margin-bottom: 20px;
+}
+#doc2 .header1 {
+  margin-bottom: 20px;
+}
+#doc2 .contentContainer img {
+  width: 100%;
+}
+/* ----------------------------- */
+
+#selectVehicle form article {
+  margin-top: 32px;
+  display: flex;
+  align-items: center;
+  gap: 8px;
+}
+#selectVehicle form article input {
+  width: 25px;
+  height: 25px;
+  accent-color: #005280;
+}
+
+/* ----------------------------- */
+#ratings .content-container .review {
+  display: flex;
+  align-items: center;
+}
+#ratings .content-container .review .header4 {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  margin-top: 12px;
+}
+/* ----------------------------- */
+
+#earnings .content-container h1:first-child {
+  margin-bottom: 50px;
+}
+#earnings .content-container .balance-card {
+  display: grid;
+  place-items: center;
+  row-gap: 12px;
+}
+#earnings .content-container .balance-card button {
+  display: block;
+}
+#earnings .content-container .withdrawal-history .header2 {
+  margin-bottom: 18px;
+}
+#earnings .content-container .withdrawal-history .withdrawal-box {
+  display: flex;
+  justify-content: space-between;
+}
+/* ----------------------------- */
+
+#vendorListOfOrders .content-container .items {
+  margin-top: 18px;
+}
+#vendorListOfOrders .content-container .items .item {
+  padding: 14px 30px;
+  background: white;
+  border: 1px solid #ddebeb;
+  box-shadow: 0px 8px 16px -8px rgba(178, 209, 209, 0.25);
+  display: flex;
+  justify-content: space-between;
+}
+
+/* ----------------------------- */
+#checkList .content-container .header3 {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  font-weight: 700;
+  font-size: 16px;
+  line-height: 16px;
+}
+#checkList .content-container .header-darkblue {
+  color: #005280;
+}
+#checkList .content-container form {
+  margin-top: 24px;
+}
+#checkList .content-container form article {
+  display: grid;
+  gap: 10px;
+  margin-bottom: 24px;
+}
+#checkList .content-container form article div {
+  display: flex;
+  align-items: center;
+}
+#checkList .content-container form .radioFlex {
+  display: flex;
+  align-items: center;
+}
+#checkList .content-container form label {
+  font-weight: 700;
+  font-size: 16px;
+  line-height: 16px;
+  color: #5d8080;
+}
+#checkList .content-container form input {
+  width: 25px;
+  height: 25px;
+  accent-color: #005280;
+}
+#checkList .content-container .input-type1 {
+  width: 100%;
+}
+/* ----------------------------- */
+#account .content-container {
+  margin-top: 100px;
+  margin-bottom: 100px;
+}
+#account .content-container .btn-container {
+  margin-top: 24px;
+  display: flex;
+  flex-direction: column;
+  gap: 16px;
+}
+#account .content-container .btn-container .btn {
+  background: white !important;
+  color: #5d8080;
+  border: transparent;
+  width: 100%;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  border-radius: 8px;
+  padding: 12px 16px;
+  font-weight: 600;
+  font-size: 16px;
+  line-height: 20px;
+}
+#account .content-container .btn-container .btn img {
+  filter: invert(51%) sepia(25%) saturate(360%) hue-rotate(131deg)
+    brightness(88%) contrast(90%);
+}
+#account .topNav {
+  height: 150px;
+  background: #008080;
+  padding: 0px 30px 20px 30px;
+  margin: 0;
+}
+#account #profileImg {
+  position: absolute;
+  z-index: 3;
+  top: 60px;
+  left: 30px;
+}
+
+#account .content-container .details {
+  display: grid;
+  row-gap: 7px;
+}
+
+#account .editNav {
+  position: absolute;
+  top: 160px;
+
+  z-index: 3;
+  display: flex;
+  /* gap: 60px; */
+  width: 100%;
+  justify-content: space-between;
+  padding-left: 200px;
+  padding-right: 30px;
+}

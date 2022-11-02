@@ -17,6 +17,13 @@ class Deliverymiddleware
     public function handle($request, Closure $next)
     {
         
+        if (Auth::check()) {
+            if (Auth::user()->type != 3) {
+                Auth::logout(); 
+            }
+        }
+
+
         $url = [
             'mobile.delivery.login',
             'mobile.delivery.register',
@@ -29,11 +36,6 @@ class Deliverymiddleware
             'mobile.delivery.passwordupdate',
         ];
 
-        if (Auth::check()) {
-            if (Auth::user()->type != 3) {
-                Auth::logout(); 
-            }
-        }
 
       
 

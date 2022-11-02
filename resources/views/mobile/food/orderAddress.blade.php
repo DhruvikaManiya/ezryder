@@ -68,12 +68,21 @@
                 @csrf
                 <input type="hidden" name="order_id" value="{{ $order->id }}">
                 <div class="d-flex justify-content-between mb-4">
-                    <div class="form-check w-100">
-                        <input type="number" placeholder="House No" class="form-addr-input" name="home_no" required>
-                        @error('home_no')
-                            <p style="color: red;">{{ $message }}</p>
-                        @enderror
-                    </div>
+                    @if ($order_type == 1)
+                        <div class="form-check w-100">
+                            <input type="number" placeholder="House No" class="form-addr-input" name="home_no" required>
+                            @error('home_no')
+                                <p style="color: red;">{{ $message }}</p>
+                            @enderror
+                        </div>
+                    @else
+                        <div class="form-check w-100">
+                            <input type="number" placeholder="Office No" class="form-addr-input" name="home_no" required>
+                            @error('home_no')
+                                <p style="color: red;">{{ $message }}</p>
+                            @enderror
+                        </div>
+                    @endif
 
                     <div class="form-check w-100">
                         <input type="text" placeholder="Street" class="form-addr-input" name="street" required> 

@@ -1,81 +1,42 @@
-@extends('layouts.vendor')
-@section('header_title','Reviews')
-@section('css')
-<link rel="stylesheet" href="{{asset('asset/css/account.css')}}">
-@endsection
+@extends('layouts.users_app_products')
+
 @section('content')
-@include('mobile.vendor.inc.back-header')
-
-<section class="account">
-    <div class="container-max p-both">
-        <div class="rw">
-            <div class="col-12 pad-00 pb-3">
-                <div class="frt-price-box d-flex justi-s-b top-space30">
-                    <div>
-                        <img src="{{ asset('asset/images/banana.jpeg') }}" alt="">
-                    </div>
-                    <div class="frt-b-data ml-11-m ml-3" >
-                        <p>Banana </p>
-                            <span class="fa fa-star checked"></span>
-                            <span class="fa fa-star checked"></span>
-                            <span class="fa fa-star checked"></span>
-                            <span class="fa fa-star checked"></span>
-                            <span class="fa fa-star"></span>
-                            <p>4.1 average based on 254 reviews.</p>
-                    </div>
-                </div>
-                <div class="col-12 pad-00 pb-3">
-                    <div class="frt-price-box d-flex justi-s-b top-space30">
-                        <div>
-                            <img src="{{ asset('asset/images/captican.jpeg') }}" alt="">
-                        </div>
-                        <div class="frt-b-data ml-11-m ml-3" >
-                            <p>Capcicum </p>
-                                <span class="fa fa-star checked"></span>
-                                <span class="fa fa-star checked"></span>
-                                <span class="fa fa-star checked"></span>
-                                <span class="fa fa-star checked"></span>
-                                <span class="fa fa-star"></span>
-                                <p>4.1 average based on 254 reviews.</p>
-                        </div>
-                    </div>
-                    <div class="col-12 pad-00 pb-3">
-                        <div class="frt-price-box d-flex justi-s-b top-space30">
-                            <div>
-                                <img src="{{ asset('asset/images/graps.jpeg') }}" alt="">
-                            </div>
-                            <div class="frt-b-data ml-11-m ml-3" >
-                                <p>Grapes </p>
-                                    <span class="fa fa-star checked"></span>
-                                    <span class="fa fa-star checked"></span>
-                                    <span class="fa fa-star checked"></span>
-                                    <span class="fa fa-star checked"></span>
-                                    <span class="fa fa-star"></span>
-                                    <p>4.1 average based on 254 reviews.</p>
-                            </div>
-                        </div>
-                        <div class="col-12 pad-00 pb-3">
-                            <div class="frt-price-box d-flex justi-s-b top-space30">
-                                <div>
-                                    <img src="{{ asset('asset/images/apple.jpeg') }}" alt="" >
-                                </div>
-                                <div class="frt-b-data ml-11-m ml-3" >
-                                    <p>Apple </p>
-                                        <span class="fa fa-star checked"></span>
-                                        <span class="fa fa-star checked"></span>
-                                        <span class="fa fa-star checked"></span>
-                                        <span class="fa fa-star checked"></span>
-                                        <span class="fa fa-star"></span>
-                                        <p>4.1 average based on 254 reviews.</p>
-                                </div>
-                            </div>
-
-
-
-            </div>
+<div class="main-container no-padding" id="Reviews">
+      <article id="top-nav">
+        <div class="reviewBackButton">
+          <img src="/pages/assets/loginScreen/leftArrow.png" alt="" />
+          <p>Reviews</p>
         </div>
+        <p>
+          <span>3</span>
+          <img src="/pages/assets/homeScreen/shoppingBag.png" alt="" />
+        </p>
+      </article>
+
+      <div class="review">
+        <img src="/pages/assets/Reviews/img1.png" alt="" />
+
+        <div class="review-comment">
+          <p>
+            Best store and great services, they store staffs is very helpful.
+          </p>
+          <h4>Brijesh Mishra</h4>
+        </div>
+      </div>
+
+      <div class="review">
+        <img src="/pages/assets/Reviews/img2.png" alt="" />
+
+        <div class="review-comment">
+          <p>I got my products on time and with great packing. Thanks.</p>
+          <h4>Ramesh Prajapati</h4>
+        </div>
+      </div>
+
+      
     </div>
-</section>
+
+
 
 
 @endsection

@@ -13,7 +13,7 @@
                 <div class="swiper-slide mr-20">
                     <div class="top_bxs d_flex">
                         @foreach($sucategories as $subcategory)
-                        <a href="{{ route('mobile.food.foodstore',$subcategory->id) }}" class="cat_bx">
+                        <a href="{{ route('mobile.food.sub-food-store',$subcategory->id) }}" class="cat_bx">
                             <img class="food_icon" src="{{ $subcategory->subcate_image }}" alt="">
                             <h6 class="food_title">{{ $subcategory->name }}</h6>
                         </a>

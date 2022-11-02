@@ -6,12 +6,33 @@
             </div>
             
             <span class="text-white ff-25">@yield('header_title')</span>
+            {{-- <div class="notification">
+                <a href="{{route('vendor.notification_store')}}">
+                    <div class="notBtn" >
+                      
+                        <div class="head-right d-flex align-items-center justify-content-center">
+                            @if (count($notifications) > 0)
+                          
+                            <i class="fas fa-bell" style="margin-top:-20px;color:#f5f5f5;"></i>
+                            <span class="number" style="margin-top:-4px;margin-left:-5px;color:#f5f5f5;">{{count($notifications)}}</span>
+                           @else
+                             <i class="fas fa-bell" style="margin-top:-20px;color:#f5f5f5;"></i>
+                            {{-- <span class="number" style="margin-top:-4px;margin-left:-5px;color:#f5f5f5;"></span> 
+                                
+                            @endif
+                       
+                            
+                        </div>
+                      
+                    </div>
+                </a>
+            </div> --}}
 
         </div>
 
             @if(Request::route()->getName() == 'vendor.order-detail')
             <div class="head-right d-flex align-items-center justify-content-center loca-left">
-               <img src="{{asset('asset/images/loca.svg')}}" alt="" onclick="window.location='#'">
+               {{-- <img src="{{asset('asset/images/loca.svg')}}" alt="" onclick="window.location='#'"> --}}
             </div>
             @endif
 

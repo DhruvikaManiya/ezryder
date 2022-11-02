@@ -1,175 +1,106 @@
-@extends('layouts.vendor')
+@extends('layouts.users_app_products')
 
-@section('header_title', 'Order Details')
+@section('content')
 
-@section('css')
-    <link rel="stylesheet" href="{{ asset('asset/css/order-detail.css') }}">
-    <style>
-        .save {
-            display: block;
-            background: #008080;
-            border-radius: 5px;
-            padding: 13px;
-            width: 40%;
-            /* margin-right: 20%; */
-            text-align: center;
-            font-weight: 500;
-            font-size: 18px;
-            line-height: 23px;
-            color: #FFFFFF;
-        }
+    <div
+      class="main-container no-padding navStyle orderHistory"
+      id="addBankDetails"
+    >
+      <article id="top-nav">
+        <div class="reviewBackButton">
+        <a class="back-arrow-btn" href="/vendor/orders">
+          <img src="{{ asset('asset/images/back_arrow.svg') }}" alt="" />
+          </a>
+          <p>Order #{{ $order->id }}</p>
+        </div>
+        <p>
+          <span>3</span>
+          <img src="/pages/assets/homeScreen/shoppingBag.png" alt="" />
+        </p>
 
-        .d-flex {
-            display: flex;
-        }
-
-        .just-c-e {
-            justify-content: space-evenly;
-        }
-
-        .error-box {
-            padding: 10px;
-            margin-bottom: 10px;
-        }
-
-        .error-mgs {
-            color: rgb(167, 14, 14);
-            font-weight: 600;
-            text-align: left;
-        }
-        .accepted{
-            color: #FFFFFF !important;
+        
+      </article>
+      <article class="box">
+        <div class="items">
+          <div class="details">
             
-        }
-    </style>
+              @foreach ($order_items as $item)
+            <article>
+              <div>
+                <img src="/pages/assets/viewCart/img2.png" alt="">
+                <p>{{ $item->product_id }}</p>
+              </div>
+              <div>
+                <p class="value">${{ $item->seller_total_price }}</p>
+                <p class="count">{{ $item->qty }}</p>
+              </div>
+            </article>
+                
+
+              @endforeach
+              
+             
+            
+            
+            
+            
+            <hr />
+            <article class="total">
+              <p>Grand Total</p>
+              <p class="value">${{ $order->seller_total_price }}</p>
+            </article>
+          </div>
+        </div>
+        <div class="billSummary">
+          <h1>Order Summary</h1>
+          <div class="details">
+            <article class="itemTotal">
+              <p>Item total </p>
+              <p class="value">${{ $order->seller_total_price }}</p>
+            </article>
+            
+            <article>
+              <p>Govt. Taxes</p>
+              <p class="value">${{ $order->seller_govt_taxes }}</p>
+            </article>
+            
+           
+           
+            <hr />
+            <article class="total">
+              <p>Net Total</p>
+              <p class="value">${{ $order->seller_total_with_govt_taxes }}</p>
+            </article>
+          </div>
+        </div>
+
+        
+
+        <div class="address">
+          <h1>Delivery Status</h1>
+          <p>{{ config('global.delivery_status')[$order->delivery_status] }}</p>
+        </div>
+
+        @if( $order->delivery_status == 0)
+          
+         <a href="/vendor/update_order_status/{{ $order->id }}/1">Accept Order</a>
+          <a href="/vendor/update_order_status/{{ $order->id }}/6">Reject Order</a>
+
+        @endif
+
+        @if( $order->delivery_status == 1 ||  $order->delivery_status == 2)
+          
+          <a href="/delivery/update_order_status/{{ $order->id }}/3">Ready For Pickup</a>
+
+        @endif
+
+
+       
+
+
+      </article>
+    </div>
 
 @endsection
-@section('content')
-    @include('mobile.vendor.inc.back-header')
 
 
-    {{-- <section>
-    <div class="header">
-        <div class="container">
-            <div class="header_row">
-                <div class="header_text">
-                    <h1>Order #2901</h1>
-                </div>
-                <div class="header_icon">
-                    <img src="{{asset('asset/images/location-icon.png')}}">
-                </div>
-            </div>
-        </div>
-    </div> --}}
-
-    <section class="person_section">
-        <div class="container">
-            <div class="person_row">
-                <div class="person_name d-flex w-50">
-                    <div class="person_icon_img">
-                        <img src="{{ asset('asset/images/person_icon.png') }}">
-                    </div>
-                    <p>{{ $order->user->name }}</p>
-                </div>
-                <div class="person_data_time w-50">
-                    <p> {{ date('d-m-Y H:i:s', strtotime($order->created_at)) }}</p>
-                </div>
-            </div>
-        </div>
-    </section>
-    {{-- @dd($order->order_addres) --}}
-    <section class="dmart_section">
-        <div class="container">
-            <div class="dmart_row1">
-                <div class="dmart_circle_img">
-                    <img src="{{ asset('asset/images/circle.png') }}">
-                </div>
-                <div class="dmart_address ml-10">
-                    <h3>{{ $order->order_addres->address1 }}</h3>
-                    <p class="pt-7">{{ $order->order_addres->address2 }}</p>
-                </div>
-                <div>
-                    <img src="{{ asset('asset/images/share.png') }}" alt="">
-                </div>
-            </div>
-            @php
-             $products='App\Ordered_product'::whereIn('id',json_decode($order->ordered_products))->get();
-            $total= 0;
-            @endphp
-
-            @foreach ($products as $product)
-                <div class="product_name_row">
-                    <img src="{{asset($product->product->p_image)}}" style="height:60px;width:50px;">
-                    <div class="dmart_address">
-                        <p>{{$product->product->name}}</p>
-                        <div class="product_wight">
-                            <table class="product_wight_table">
-                                <tr>
-                                    <td width="70%">{{$product->product->units}}{{$product->product->measurement}} - ${{$product->product->price}}</td>
-                                    <td>X {{$product->quantity}}</td>
-                                    <td class="text-a-r">${{($product->product->price)*($product->quantity)}} </td>
-                                </tr>
-                            </table>
-                        </div>
-                    </div>
-                </div>
-                @php
-                    $total += ($product->product->price)*($product->quantity)
-                @endphp
-            @endforeach
-
-         
-        </div>
-    </section>
-
-
-
-    <section class="item_count_section">
-        <div class="container">
-            <div class="item_count_row">
-                <table class="item_count_table">
-                    <tr>
-                        <td>Item Count </td>
-                        <td>{{count(json_decode($order->ordered_products))}}</td>
-                    </tr>
-                    <tr>
-                        <td>Order Item Total</td>
-                        <td>${{$total}}</td>
-                    </tr>
-                    <tr>
-                        <td>Order Delivery Charges </td>
-                        <td>$ 0</td>
-                    </tr>
-                    <tr>
-                        <td>Coupon</td>
-                        <td>-$ {{$total-$order->total}}</td>
-                    </tr>
-                    <tr>
-                        <td>Net Payable Amount</td>
-                        <td>$ {{$order->total}}</td>
-                    </tr>
-                </table>
-               
-            </div>
-        </div>
-    </section>
-
-
-
-
-
-    {{-- <footer class="footer">
-        <div class="container">
-            <div class="footer_row">
-                <div class="order">
-                    <img src="{{asset('asset/images/shopping-cart.png')}}">
-                    <p>Orders</p>
-                </div>
-                <div class="account">
-                    <img src="{{asset('asset/images/user.png')}}">
-                    <p>Accounts</p>
-                </div>
-            </div>
-        </div>
-    </footer> --}}
-    </section>

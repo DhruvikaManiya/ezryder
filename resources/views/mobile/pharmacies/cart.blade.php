@@ -28,39 +28,38 @@
         @endphp
         @foreach ($carts as $cart)
 
-            <div class="row border-bottom mb-5 pb-5 prodct-items">
-                <div class="col-4">
-                    <img src="{{ asset($cart->product->p_image) }}" class="product-image">
-                </div>
-                <div class="col-6 pl-5">
-                    <div class="product-footer d-flex justify-content-between flex-column">
-                        <h3 class="cart-title mb-1">{{ $cart->product->name }}</h3>
-                        <!-- <h6>{{ $cart->user->name }}</h6> -->
-                        <p class="qty mb-2">1 pcs</p>
-                        <div class="price d-flex align-items-center mb-2">
-
-                            <span class="dis-price d-flex align-items-center text-muted"
-                                id='actual-price{{ $cart->id }}'><s>${{ $cart->quantity * $cart->product->price }}</s></span>
-                            <span
-                                id='discount-price{{ $cart->id }}'>${{ $cart->quantity * ($cart->product->price - ($cart->product->price * $cart->product->Dis_price) / 100) }}</span>
-                        </div>
-                        <div class="add-cart d-flex align-items-center justify-content-between ">
-                            <span class="plus-icon mr-0 ml-2" id="mins-cart" data-id="{{ $cart->id }}"><img
-                                    src="{{ asset('asset/images/mini.svg') }}"></span>
-                            <span id="qty{{ $cart->id }}">{{ $cart->quantity }}</span>
-
-                            <span class="plus-icon" id="plus-cart" data-id="{{ $cart->id }}"><img
-                                    src="{{ asset('asset/images/Group 70.svg') }}"></span>
-                        </div>
-                    </div>
-
-                </div>
+        <div class="row border-bottom mb-5 pb-5 prodct-items">
+            <div class="col-4">
+                <img src="{{ asset($cart->product->p_image) }}" class="product-image">
             </div>
-            @php
-                $total += $cart->quantity * ($cart->product->price - ($cart->product->price * $cart->product->Dis_price) / 100);
-            @endphp
-        @endforeach
+            <div class="col-6 pl-5">
+                <div class="product-footer d-flex justify-content-between flex-column">
+                    <h3 class="cart-title mb-1">{{ $cart->product->name }}</h3>
+                    <!-- <h6>{{ $cart->user->name }}</h6> -->
+                    {{-- <p class="qty mb-2">1 pcs</p> --}}
+                    <div class="price d-flex align-items-center mb-2">
 
+                        <span class="dis-price d-flex align-items-center text-muted"
+                            id='actual-price{{ $cart->id }}'><s>${{ $cart->quantity * $cart->product->MRP }}</s></span>
+                        <span
+                            id='discount-price{{ $cart->id }}'>${{ $cart->quantity * ($cart->product->Sellar_price + ($cart->product->Sellar_price * $cart->product->admin_charge) / 100) }}</span>
+                    </div>
+                    <div class="add-cart d-flex align-items-center justify-content-between ">
+                        <span class="plus-icon mr-0 ml-2" id="mins-cart" data-id="{{ $cart->id }}"><img
+                                src="{{ asset('asset/images/mini.svg') }}"></span>
+                        <span id="qty{{ $cart->id }}">{{ $cart->quantity }}</span>
+
+                        <span class="plus-icon" id="plus-cart" data-id="{{ $cart->id }}"><img
+                                src="{{ asset('asset/images/Group 70.svg') }}"></span>
+                    </div>
+                </div>
+
+            </div>
+        </div>
+        @php
+            $total += $cart->quantity * ($cart->product->Sellar_price + ($cart->product->Sellar_price * $cart->product->admin_charge) / 100);
+        @endphp
+    @endforeach
 
 
 
@@ -96,7 +95,7 @@
 
         $.ajax({
 
-            url: "{{ route('mobile.food.plustocart') }}",
+            url: "{{ route('mobile.pharma.plustocart') }}",
             // type: "POST",
             data: {
                 // "_token": "{{ csrf_token() }}",
@@ -121,7 +120,7 @@
 
         $.ajax({
 
-            url: "{{ route('mobile.food.mistocart') }}",
+            url: "{{ route('mobile.pharma.mistocart') }}",
             // type: "POST",
             data: {
                 // "_token": "{{ csrf_token() }}",

@@ -8,7 +8,8 @@
         <div class="col-12 pad-00">
             <div class="counter-box-tab space-m-30">
                 <p class="top-space-p17"> <span>Total Orders :</span>{{$compelete_order}}</p>
-                <p class="top-space-p26"><span>Total Products :</span> {{Count($product)}}</p>
+
+                <p class="top-space-p26"><span>Total Products :</span> {{($product)->count()}}</p>
             </div>
 
             <div class="sold-box1 p-topspace-47">

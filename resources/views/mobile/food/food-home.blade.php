@@ -36,33 +36,33 @@
     <section class="slider_sec">
         <div class="swiper mySwiper">
             <div class="swiper-wrapper">
-                <div class="swiper-slide">
-                    <div class="restaurants_bx pb-13 pl-15">
-                        <div class="content">
-                            <h4 class="title mt-17">
-                                <span class="span_1">Grab</span><br />
-                                <span class="span_2">60% OFF</span>
-                            </h4>
-                            <p class="para">In publishing and graphic design, Lorem ipsum is a placeholder text</p>
-                            <a href="#" class="order_btn">Order Now</a>
-                        </div>
-                        <img class="restaur_img1" src="{{ asset('asset/images/Ellipse-9.svg') }}" alt="">
-                    </div>
-                </div>
-                <div class="swiper-slide">
-                    <div class="restaurants_bx pb-13 pl-15">
-                        <div class="content">
-                            <h4 class="title mt-17">
-                                <span class="span_1">Grab</span><br />
-                                <span class="span_2">60% OFF</span>
-                            </h4>
-                            <p class="para">In publishing and graphic design, Lorem ipsum is a placeholder text</p>
-                            <a href="#" class="order_btn">Order Now</a>
-                        </div>
-                        <img class="restaur_img1" src="{{ asset('asset/images/Ellipse-9.svg') }}" alt="">
-                    </div>
-                </div>
-            </div>
+                @foreach ($slider as $sliders )
+               @if ($sliders->type==2)
+                 <div class="swiper-slide">
+                     <div class="restaurants_bx pb-13 pl-15">
+                       <div class="content">
+                      {{-- <div class="content">
+                             <h4 class="title mt-17">
+                                 <span class="span_1">Grab</span><br />
+                                 <span class="span_2">60% OFF</span>
+                             </h4>
+                             <p class="para">In publishing and graphic design, Lorem ipsum is a placeholder text</p>
+                             <a href="#" class="order_btn">Order Now</a>
+                       </div> --}}
+                       <img class="restaur_img1" src="{{ $sliders->image }}" alt="">
+                     
+                  
+                 </div>
+                     </div>
+                 </div>
+               @endif
+                 
+               @endforeach
+             
+                     </div>
+                 
+          
+                
             <!-- <div class="swiper-pagination"></div> -->
         </div>
 
@@ -71,11 +71,13 @@
     <section class="offers_sec">
         <div class="container">
             <h4 class="offer_title">Best Offers Around You</h4>
+            {{-- @dd($stores) --}}
             @foreach ($stores as $store)
+          
                 <div class="offers_wrapper" onclick="window.location='{{ route('mobile.food.foodstore',$store->id) }}'">
                     <div class="offer_box">
                         <a href="#">
-                            @if (isset($store->profile))
+                            @if ($store->profile !='')
                             <img class="offers_img" src="{{ asset($store->profile) }}" alt="" style="max-height: 119px;width: 100%;">
                             @else   
                             <img class="store_icon" src="{{ asset('asset/images/store-icon.svg') }}" alt="store icon" style="max-height: 119px;width: 100%;">

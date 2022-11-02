@@ -17,9 +17,10 @@ class vendormiddleware
      */
     public function handle($request, Closure $next)
     {
+       
         if (Auth::check()) {
-            if (!Auth::user()->type == 2) {
-                Auth::logout();
+            if (Auth::user()->type != 2) {
+                Auth::logout(); 
             }
         }
 

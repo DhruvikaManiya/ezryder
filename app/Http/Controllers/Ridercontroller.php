@@ -9,9 +9,6 @@ use App\User_details;
 use App\User_document;
 use App\User_vehicle;
 use App\Vehicle_type;
-use App\VehicleCharge;
-use App\VehicleMake;
-use App\VehicleModel;
 use Carbon\Carbon;
 use Illuminate\Contracts\Encryption\DecryptException;
 use Illuminate\Http\Request;
@@ -55,6 +52,7 @@ class Ridercontroller extends Controller
 
     public function registerStore(Request $request)
     {
+        
         $this->validate($request, [
             'name' => 'required',
             'email' => 'required|email',
@@ -62,6 +60,7 @@ class Ridercontroller extends Controller
             'phone' => 'required|numeric|unique:users|digits:10',
             'confirm_password' => 'required|same:password',
         ]);
+
         $user = User::where('email', $request->email)->where('type', 4)->first();
 
         if (!$user) {
@@ -373,8 +372,6 @@ class Ridercontroller extends Controller
     {
         $user_document = User_document::where('user_id',Auth::user()->id)->first();
 
-//        echo  (isset($user_document) and $user_document->id_proof_front=="")?"T":"F";die;
-
         return view('mobile.rider.document',[
             'title'=>"Document",
             'document' => $user_document
@@ -410,7 +407,7 @@ class Ridercontroller extends Controller
             $request->file('id_proof_front')->storeAs('public/id-proof', $file_name);
 
             $validate['id_proof_front'] = $file_name;
-//            storeAs('public/company-logos/'
+
         }
 
         if ($request->has('id_proof_back')) {
@@ -499,55 +496,11 @@ class Ridercontroller extends Controller
 
         $type = Vehicle_type::get();
 
-        $brand = VehicleMake::get();
-
-        $model = VehicleModel::get();
-
         return view('mobile.rider.vehicle',[
             'title' => "Vehicle",
             'vehicle' => $vehicle,
             'type' => $type,
-            'brand' => $brand,
-            'model' => $model,
         ]);
-    }
-
-
-    public function get_brand(Request $request)
-    {
-        $type_id = $request->type_id;
-
-        $get_brand = VehicleMake::where('vehicle_type_id',$type_id)->get();
-
-        return response()->json($get_brand);
-
-    }
-
-    public function get_model(Request $request)
-    {
-        $brand_id = $request->brand_id;
-
-        $get_brand = VehicleModel::where('make_id',$brand_id)->get();
-
-        return response()->json($get_brand);
-
-    }
-
-    public function get_charge(Request $request)
-    {
-        $model_id = $request->model_id;
-
-        $brand_id = $request->brand_id;
-
-        $type_id = $request->type_id;
-
-//        return $model_id."---".$brand_id."--".$type_id;
-
-        $charge = VehicleCharge::where('make_id',$brand_id)->where('type_id',$type_id)->where('model_id',$model_id)->first();
-
-        return response()->json($charge);
-
-
     }
 
    public function vehicle_store(Request $request)

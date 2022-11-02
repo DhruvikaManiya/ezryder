@@ -19,7 +19,7 @@ class CreateOrderedProductsTable extends Migration
             $table->integer('user_id');
             $table->integer('product_id');
             $table->integer('quantity');
-            // price with float value
+        //    $table->integer('order_id');
             $table->float('price');
             $table->softDeletes();
 

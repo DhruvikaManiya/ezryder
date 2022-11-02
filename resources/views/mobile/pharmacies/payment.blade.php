@@ -34,7 +34,7 @@
                 <h3>Select Payment</h3>
 
             </div>
-            <form action="{{ route('mobile.pharma.order') }}" class="checkOut">
+            <form action="{{ route('mobile.pharma.payment-post') }}" class="checkOut" method="POST">
               @csrf
               <input type="hidden" name="order_id" value="{{ $order_addres->order_id }}">
                 <div class="d-flex justify-content-between mb-4">

@@ -106,6 +106,89 @@
 
         });
     </script>
+    <script>
+              $('body').on('click', '#addCart', function() {
+                  var id = $(this).data('id');
+                  addToCart(id, flag = 1);
+       
+              });
+       
+       
+              function addToCart(id, flag) {
+                  console.log(flag);
+                  $.ajax({
+                      url: "{{ route('cart.store') }}",
+                      method: "POST",
+                      data: {
+                          id: id,
+                          _token: "{{ csrf_token() }}",
+                          flag: flag
+                      },
+                      success: function(response) {
+                          console.log(response.message);
+       
+                          if (response.success) {
+                              $('#iscart' + id).show();
+                              $('.addCart' + id).attr('style', 'display:none !important');
+       
+                              if (response.message == 'delete') {
+       
+                                  for (var i = 0; i < response.data.length; i++) {
+                                      console.log($('.addCart' + response.data[i].product_id));
+                                      $('#iscart' + response.data[i].product_id).attr('style',
+                                          'display:none !important');
+                                      $('.addCart' + response.data[i].product_id).attr('style',
+                                          'display:block !important');
+       
+                                  }
+       
+                              }
+                          } else {
+       
+                              var conform = confirm(
+                                  'After adding this product your cart will be empty. Do you want to continue?');
+       
+                              if (conform) {
+                                  addToCart(id, flag = 0);
+                              }
+       
+                          }
+                      }
+                  });
+              }
+          </script>
+          <script>
+
+            $('body').on('click', '#wishlist', function() {
+                var id = $(this).data('id');
+                var user_id = {{ Auth::user()->id }};
+                console.log(id, user_id);
+                $.ajax({
+                    url: "{{ route('food.wishlist.store') }}",
+                    method: "POST",
+                    data: {
+                        id: id,
+                        user_id: user_id,
+                        _token: "{{ csrf_token() }}"
+    
+                    },
+                    success: function(response) {
+                        console.log(response);
+                        
+                        if (response.status == 'add') {
+                            console.log('#wishlist' + id);
+                            $('.wishlist' + id).attr('style', 'display:none !important');
+                            $('.wishlistRemove' + id).attr('style', 'display:block !important');
+                        }
+    
+                        else {
+                            $('.wishlist' + id).attr('style', 'display:block !important');
+                            $('.wishlistRemove' + id).attr('style', 'display:none !important');
+                        }
+                    }
+                });
+            });
+        </script>
     @yield('js')
 </body>
 

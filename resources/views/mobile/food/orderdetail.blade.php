@@ -25,7 +25,7 @@
         @foreach($order as $orders)
             
           <tr>
-            <th scope="row" onclick="window.location='{{ route('mobile.orderdetailp',$orders->id) }}'">{{ $orders->id }}</th>
+            <th scope="row" onclick="window.location='{{ route('mobile.food.orderdetailp',$orders->id) }}'">{{ $orders->id }}</th>
             <td>
             {{-- get only date --}}
               {{ date('d-m-Y', strtotime($orders->created_at)) }}
@@ -33,7 +33,7 @@
             </td>
             <td>
             
-            {{ $orders->status==0?'Pending':($orders->status == 1?'Processing':($orders->status == 4 ?'Accepted':'Cancelled')) }}
+              {{ $orders->status== 0 ?'Pending':($orders->status == 1?'Processing':($orders->status == 2?'Delivered':($orders->status == 5 ?'Accepted':'Cancelled'))) }}
             </td>
             <td>${{ $orders->total}}</td>
           </tr>

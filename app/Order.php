@@ -16,6 +16,10 @@ class Order extends Model
     {
         return $this->belongsTo('App\User');
     }
+    public function store()
+    {
+        return $this->belongsTo('App\Store','store_id');
+    }
 
     // product
     public function order_addres()
@@ -34,4 +38,8 @@ class Order extends Model
     // {
     //     return $this->hasOne('App\ordered_products','order_id');
     // }
+    public function orderItems()
+    {
+        return $this->hasMany('App\OrderItem','order_id');
+    }
 }

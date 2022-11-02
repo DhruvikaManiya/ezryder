@@ -1,96 +1,78 @@
-<!DOCTYPE html>
-<html lang="en">
+@extends('layouts.delivery_boy')
 
-<head>
-    <meta charset="UTF-8">
-    <meta http-equiv="X-UA-Compatible" content="IE=edge">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <meta name='viewport' content='width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=0'/>
-    <title>Register</title>
 
-    <link rel="stylesheet" href="{{ asset('asset/css/login.css') }}">
-    <style>
-        .error-box {
-            padding: 10px;
-            margin-bottom: 10px;
-        }
-
-        .error-mgs {
-            color: rgb(167, 14, 14);
-            font-weight: 600;
-            text-align: left;
-        }
-    </style>
-</head>
-
-<body>
-    <section class="login_sec">
-        <div class="container">
-            <div class="login_logo">
-                <img src="{{ asset('asset/images/login-logo.svg') }}" alt="logo" class="logo_img">
-            </div>
-            <div class="login_form_sec inp-clrrr">
-                <div class="error-box">
-                    <p class="error-mgs text-center">
-
-                    </p>
-                </div>
-                <form action="{{ route('mobile.delivery.registerStore') }}" method="POST" enctype="multipart/form-data">
+@section('content')
+    <div class="main-container" id="registerFinal">
+      <article class="topNav">
+        
+          <h2 onclick="location.href='/delivery'"><img src="{{ asset('asset/images/back_arrow.svg') }}" /> Register</h2>
+        
+        
+        
+      </article>
+      <h1 class="h1-type1 padding-lr">Delivery & </h1>
+      <h1 class="h1-type1 padding-lr">Earn Money</h1>
+      <!-- <form class="padding-lr form-type1"> -->
+        <form class="padding-lr form-type1" action="{{ route('mobile.delivery.registerStore') }}" method="POST" enctype="multipart/form-data">
                     @csrf
-                    <div class="form_group">
-                        <label class="label" for="name">Name</label>
-                        <input class="input" type="text" placeholder="Enter Name" name="name"
-                            value="{{ old('name') }}" required>
-                        <p class="error-mgs">
-                            @error('name')
-                                <strong>{{ $message }}</strong>
-                            @enderror
-                        </p>
-                    </div>
-
-                    
-                    <div class="form_group">
-                        <label class="label" for="email">Email</label>
-                        <input class="input" type="email" placeholder="Enter Email" name="email"
-                            value="{{ old('email') }}" required>
-                        <p class="error-mgs">
-                            @error('email')
-                                <strong>{{ $message }}</strong>
-                            @enderror
-                            @if (\Session::has('email'))
-                               <strong> {!! \Session::get('email') !!} </strong>
-                            @endif
-                        </p>
-                    </div>
-                    <div class="form_group">
-                        <label class="label" for="password">Password</label>
-                        <input class="input" type="password" placeholder="Password" name="password" required>
-                        <p class="error-mgs">
-                            @error('password')
-                                <strong>{{ $message }}</strong>
-                            @enderror
-                        </p>
-                    </div>
-                    <div class="form_group">
-                        <label class="label" for="cpassword">Confirm Password</label>
-                        <input class="input" type="password" placeholder="Confirm password" name="confirm_password"
-                            required>
-                        <p class="error-mgs">
-                            @error('confirm_password')
-                                <strong>{{ $message }}</strong>
-                            @enderror
-                        </p>
-                    </div>
-                    <div class="form_group">
-                        <button class="login_btn">Register</button>
-                    </div>
-                    <div class="form_group">
-                        <a href="{{ route('mobile.delivery.login')}}" style="color: #008080; text-align: center;">Already have an Account? LOGIN</a>
-                    </div>
-                </form>
-            </div>
-        </div>
-    </section>
-</body>
-
-</html>
+        <article class="input-label-container1">
+          <label for="name" class="label-type1">Your Name</label>
+          <input
+            type="text"
+            name="name"
+            id="name"
+            class="input-type1"
+            placeholder="Enter your name"
+          />
+        </article>
+        <article class="input-label-container1">
+          <label for="email" class="label-type1">Your Email</label>
+          <input
+            type="email"
+            class="input-type1"
+            name="email"
+            id="email"
+            placeholder="Enter your email"
+          />
+        </article>
+        <article class="input-label-container1">
+          <label for="password" class="label-type1">Password</label>
+          <input
+            type="password"
+            name="password"
+            class="input-type1"
+            id="password"
+            placeholder="Enter your password"
+          />
+        </article>
+        <article class="input-label-container1">
+          <label for="repeatPassword" class="label-type1">Repeat Password</label>
+          <input
+            type="password"
+            name="confirm_password"
+            class="input-type1"
+            id="repeatPassword"
+            placeholder="Enter your password"
+          />
+        </article>
+        <article class="input-label-container1">
+          <label for="city" class="label-type1">Select City</label>
+          <select name="city" id="city" class="select-type1">
+            <option value="">Select city type</option>
+            <option value="ontorio">Ontorio</option>
+          </select>
+        </article>
+        <button class="btn-type1">
+          <p>Register</p>
+          <img src="/assets/rightArrow.png" alt="" />
+        </button>
+      </form>
+      <article class="padding-lr">
+        <p class="forgotPassword">Already have an account?</p>
+        <button onclick="location.href='/delivery'" class="btn-type1 btn-color-lightGreen padding-lr">
+          <p>Login</p>
+          <img src="/assets/rightArrow.png" alt="" />
+        </button>
+      </article>
+    </div>
+@endsection

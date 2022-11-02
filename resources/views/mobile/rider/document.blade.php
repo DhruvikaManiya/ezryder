@@ -16,36 +16,33 @@
     @include('mobile.rider.inc.back-header')
 
     <section class="docu docu_pad mb-34">
-
-        @if ($errors->any())
-            <div class="alert alert-danger">
-                <ul>
-                    @foreach ($errors->all() as $error)
-                        <li>{{ $error }}</li>
-                    @endforeach
-                </ul>
-            </div>
-        @endif
-
         <form method="post" action="{{ route('mobile.rider.add_document') }}" enctype="multipart/form-data">
             @csrf
-            <h2><b>Add your id proof  </b></h2>
+            <h2><b>Add your id proof</b></h2>
             <div class="docu_box">
                 <div class="docu_boxone">
                     <div class="images">
-                        <img src="{{ (isset($document) and $document->id_proof_front!="")? asset('storage/id-proof/' . $document->id_proof_front) : asset('asset/images/Group 5.svg')  }}"
-                             class="img-fluid select-image image1"
-                             data-image="image1">
-                        <input type="file" name="id_proof_front" id="image1" class="d-none image" accept="image/*">
+                        @if ($document)
+                            <img src="{{ $document->id_proof_front == '' ? asset('asset/images/Group 5.svg') : asset('storage/id-proof/' . $document->id_proof_front) }}"
+                                class="img-fluid select-image image1" data-image="image1">
+                        @else
+                            <img src="{{ asset('asset/images/Group 5.svg') }}" class="img-fluid select-image image1"
+                                data-image="image1">
+                        @endif
+                        <input type="file" name="id_proof_front" id="image1" class="d-none image" accept="image/*" required>
                     </div>
                     <h4>Front</h4>
                 </div>
                 <div class="docu_boxone">
                     <div class="images">
-                        <img src="{{ (isset($document) and $document->id_proof_back!="")?asset('storage/id-proof/' . $document->id_proof_back): asset('asset/images/Group 5.svg') }}"
-                             class="img-fluid select-image image2"
-                             data-image="image2">
-                        <input type="file" name="id_proof_back" id="image2" class="d-none image" accept="image/*">
+                        @if ($document)
+                            <img src="{{ $document->id_proof_back == '' ? asset('asset/images/Group 5.svg') : asset('storage/id-proof/' . $document->id_proof_back) }}"
+                                class="img-fluid select-image image2" data-image="image2">
+                        @else
+                            <img src="{{ asset('asset/images/Group 5.svg') }}" class="img-fluid select-image image2"
+                                data-image="image2">
+                        @endif
+                        <input type="file" name="id_proof_back" id="image2" class="d-none image" accept="image/*" required>
                     </div>
                     <h4>Back</h4>
                 </div>
@@ -54,19 +51,27 @@
             <div class="docu_box">
                 <div class="docu_boxone">
                     <div class="images">
-                        <img src="{{ (isset($document) and $document->licence_front!="")? asset('storage/licence/'. $document->licence_front):asset('asset/images/Group 5.svg') }}"
-                             class="img-fluid select-image image1"
-                             data-image="image1">
-                        <input type="file" name="licence_front" id="image1" class="d-none image" accept="image/*">
+                        @if ($document)
+                            <img src="{{ $document->licence_front == '' ? asset('asset/images/Group 5.svg') : asset('storage/licence/' . $document->licence_front) }}"
+                                class="img-fluid select-image image1" data-image="image1">
+                        @else
+                            <img src="{{ asset('asset/images/Group 5.svg') }}" class="img-fluid select-image image1"
+                                data-image="image1">
+                        @endif
+                        <input type="file" name="licence_front" id="image1" class="d-none image" accept="image/*" required>
                     </div>
                     <h4>Front</h4>
                 </div>
                 <div class="docu_boxone">
                     <div class="images">
-                        <img src="{{ (isset($document) and $document->licence_back!="")? asset('storage/licence/' . $document->licence_back):asset('asset/images/Group 5.svg') }}"
-                             class="img-fluid select-image image2"
-                             data-image="image2">
-                        <input type="file" name="licence_back" id="image2" class="d-none image" accept="image/*">
+                        @if ($document)
+                            <img src="{{ $document->licence_back == '' ? asset('asset/images/Group 5.svg') : asset('storage/licence/' . $document->licence_back) }}"
+                                class="img-fluid select-image image2" data-image="image2">
+                        @else
+                            <img src="{{ asset('asset/images/Group 5.svg') }}" class="img-fluid select-image image2"
+                                data-image="image2">
+                        @endif
+                        <input type="file" name="licence_back" id="image2" class="d-none image" accept="image/*" required>
                     </div>
                     <h4>Back</h4>
                 </div>
@@ -75,24 +80,32 @@
             <div class="docu_box">
                 <div class="docu_boxone">
                     <div class="images">
-                        <img src="{{ (isset($document) and $document->vehicle_front!="")?asset('storage/vehicle/' . $document->vehicle_front): asset('asset/images/Group 5.svg') }}"
-                             class="img-fluid select-image image1"
-                             data-image="image1">
-                        <input type="file" name="vehicle_front" id="image1" class="d-none image" accept="image/*">
+                        @if ($document)
+                            <img src="{{ $document->vehicle_front == '' ? asset('asset/images/Group 5.svg') : asset('storage/vehicle/' . $document->vehicle_front) }}"
+                                class="img-fluid select-image image1" data-image="image1">
+                        @else
+                            <img src="{{ asset('asset/images/Group 5.svg') }}" class="img-fluid select-image image1"
+                                data-image="image1">
+                        @endif
+                        <input type="file" name="vehicle_front" id="image1" class="d-none image" accept="image/*" required>
                     </div>
                     <h4>Front</h4>
                 </div>
                 <div class="docu_boxone">
                     <div class="images">
-                        <img src="{{ (isset($document) and $document->vehicle_back!="")? asset('storage/vehicle/' .$document->vehicle_back):asset('asset/images/Group 5.svg') }}"
-                             class="img-fluid select-image image2"
-                             data-image="image2">
-                        <input type="file" name="vehicle_back" id="image2" class="d-none image" accept="image/*">
+                        @if ($document)
+                            <img src="{{ $document->vehicle_back == '' ? asset('asset/images/Group 5.svg') : asset('storage/vehicle/' . $document->vehicle_back) }}"
+                                class="img-fluid select-image image2" data-image="image2">
+                        @else
+                            <img src="{{ asset('asset/images/Group 5.svg') }}" class="img-fluid select-image image2"
+                                data-image="image2">
+                        @endif
+                        <input type="file" name="vehicle_back" id="image2" class="d-none image" accept="image/*" required>
                     </div>
                     <h4>Back</h4>
                 </div>
             </div>
-            <button type="submit" class="btn withdraw_btn fs-25 btn1 w-100 p-2 mb-34 ">Withdraw</button>
+            <button type="submit" class="btn withdraw_btn fs-25 btn1 w-100 p-2 mb-34 ">Submit</button>
         </form>
     </section>
 @endsection

@@ -8,7 +8,7 @@
             <img src="{{ asset('asset/images/hart.svg') }}">
             <h5>Categories</h5>
         </div>
-        <div class="home d-flex flex-column align-items-center justify-content-center" onclick="window.location='{{route('mobile.food.orderhistory')}}'">
+        <div class="home d-flex flex-column align-items-center justify-content-center" onclick="window.location='{{route('mobile.food.order')}}'">
             <img src="{{ asset('asset/images/chat.svg') }}">
             <h5>History</h5>
         </div>

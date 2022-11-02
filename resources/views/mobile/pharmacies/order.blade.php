@@ -9,7 +9,7 @@
 <section class="cart pt-3">
     <div class="container-fluid">
       <div class="cat-title-cart d-flex justify-content-between mb-3 section-title">
-        <h3>Orders</h3>
+        <h3>Order</h3>
 
       </div>
       <table class="table">
@@ -25,15 +25,14 @@
           @foreach($order_list as $order)
             
           <tr>
-            <th scope="row" onclick="window.location='{{ route('mobile.pharmacies.orderdetailp',$order->id) }}'">{{ $order->id }}</th>
+            <th scope="row" onclick="window.location='{{ route('mobile.pharma.orderdetailp',$order->id) }}'">{{ $order->id }}</th>
             <td>
               {{-- get only date --}}
               {{ date('d-m-Y', strtotime($order->created_at)) }}
               {{-- {{ $order->created_at }} --}}
             </td>
             <td>
-              {{ $order->status==0?'Pending':($order->status == 1?'Processing':($order->status == 4 ?'Delivered':'Cancelled')) }}
-            
+              {{$order->status == 0 ? 'Pending' :($order->status == 1 ? 'Processing' :  ($order->status == 2 ? 'Delivered' : ($order->status == 5 ? 'Accepted' : 'Cancelled')))}}
             </td>
             <td>${{ $order->total}}</td>
           </tr>

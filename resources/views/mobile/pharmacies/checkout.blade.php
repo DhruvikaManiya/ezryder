@@ -38,7 +38,7 @@
                     <label>At Home</label>
                     <div class="form-check">
                         <label class="form-check-label" for="radio2">
-                            <input type="radio" class="form-check-input" id="radio2" name="order_type" value="1">
+                            <input type="radio" class="form-check-input" id="radio2" name="order_type" value="1" required>
                         </label>
                     </div>
                 </div>
@@ -46,7 +46,7 @@
                     <label>At Office</label>
                     <div class="form-check">
                         <label class="form-check-label" for="radio2">
-                            <input type="radio" class="form-check-input" id="radio2" name="order_type" value="2">
+                            <input type="radio" class="form-check-input" id="radio2" name="order_type" value="2" required>
                         </label>
                     </div>
                 </div>

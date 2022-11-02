@@ -1,3 +1,4 @@
+
 @extends('layouts.grocery')
 
 
@@ -37,13 +38,13 @@
                     <div class="product-footer d-flex justify-content-between flex-column">
                         <h3 class="cart-title mb-1">{{ $cart->product->name }}</h3>
                         <!-- <h6>{{ $cart->user->name }}</h6> -->
-                        <p class="qty mb-2">1 pcs</p>
+                        {{-- <p class="qty mb-2">1 pcs</p> --}}
                         <div class="price d-flex align-items-center mb-2">
 
                             <span class="dis-price d-flex align-items-center text-muted"
-                                id='actual-price{{ $cart->id }}'><s>${{ $cart->quantity * $cart->product->price }}</s></span>
+                                id='actual-price{{ $cart->id }}'><s>${{ $cart->quantity * $cart->product->MRP }}</s></span>
                             <span
-                                id='discount-price{{ $cart->id }}'>${{ $cart->quantity * ($cart->product->price - ($cart->product->price * $cart->product->Dis_price) / 100) }}</span>
+                                id='discount-price{{ $cart->id }}'>${{ $cart->quantity * ($cart->product->Sellar_price + ($cart->product->Sellar_price * $cart->product->admin_charge) / 100) }}</span>
                         </div>
                         <div class="add-cart d-flex align-items-center justify-content-between ">
                             <span class="plus-icon mr-0 ml-2" id="mins-cart" data-id="{{ $cart->id }}"><img
@@ -58,7 +59,7 @@
                 </div>
             </div>
             @php
-                $total += $cart->quantity * ($cart->product->price - ($cart->product->price * $cart->product->Dis_price) / 100);
+                $total += $cart->quantity * ($cart->product->Sellar_price + ($cart->product->Sellar_price * $cart->product->admin_charge) / 100);
             @endphp
         @endforeach
 

@@ -21,7 +21,7 @@ class CreateVehicleType extends Migration
 
         $data = array(array('name'=>"Economy"),array('name'=>"Sudan"),array('name'=>"Luxury"));
 
-        \Illuminate\Support\Facades\DB::table('vehicle_type')->insert($data);
+        
     }
 
     /**

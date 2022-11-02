@@ -14,9 +14,34 @@ use Illuminate\Support\Facades\DB;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Hash;
 use Illuminate\Support\Facades\Mail;
+use Stevebauman\Location\Facades\Location;
+use App\bank_details;
+use App\OrderItem;
+use App\Notification;
 
 class DeliveryController extends Controller
 {
+
+    public function vehicle_details() {
+        return view('mobile.delivery.vehicle_details');
+
+    }
+    public function view_edit_profile() {
+        return view('mobile.delivery.view_edit_profile');
+
+    }
+    public function review() {
+        return view('mobile.delivery.review');
+
+    }
+    public function logout() {
+        return redirect('/delivery')->with(Auth::logout());
+    }
+    public function notifications() {
+
+        $notifications = Notification::where('user_id',  Auth::id())->get();
+        return view('mobile.delivery.notifications', compact('notifications'));
+    }
     public function login()
     {
         return view('mobile.delivery.login');
@@ -42,18 +67,18 @@ class DeliveryController extends Controller
     }
     public function registerStore(Request $request)
     {
-        $this->validate(
-            $request,
-            [
-                'name' => 'required',
-                'email' => 'required|email|unique:users',
-                'password' => 'required',
-                'confirm_password' => 'required|same:password',
-            ],
-            [
-                'email.unique' => 'Email Already Exists',
-            ]
-        );
+        // $this->validate(
+        //     $request,
+        //     [
+        //         'name' => 'required',
+        //         'email' => 'required|email|unique:users',
+        //         'password' => 'required',
+        //         'confirm_password' => 'required|same:password',
+        //     ],
+        //     [
+        //         'email.unique' => 'Email Already Exists',
+        //     ]
+        // );
         $user = User::where('email', $request->email)->where('type', 3)->first();
 
         if (!$user) {
@@ -67,13 +92,32 @@ class DeliveryController extends Controller
             $user->save();
             if ($user) {
                 Auth::login($user);
-                return redirect()->route('mobile.delivery.order')->with('success', 'Registration Successful');
+                return redirect()->route('delivery.home')->with('success', 'Registration Successful');
             } else {
                 return redirect()->back()->with('error', 'Registration Failed');
             }
         } else {
             return redirect()->back()->with('email', 'Email already exist');
         }
+    }
+
+    public function home()
+    {
+        $order = Order::where('delivery_boy_user_id', NULL)
+                ->where('store_user_id','!=', NULL)
+                ->first();
+
+        if($order) {
+            $order_id = $order->id;
+
+        }else {
+            $order_id = 0;
+        }
+
+        
+        $data = ['order_id' => $order_id];
+        // dd($order);
+        return view('mobile.delivery.home', $data);
     }
     public function current_order()
     {
@@ -86,11 +130,18 @@ class DeliveryController extends Controller
     }
     public function order_history()
     {
-        return view('mobile.delivery.order_history');
+       
+      $order_list = Order::where('vendor_id', Auth::user()->id)->orderBy('id','desc')->get();
+        return view('mobile.delivery.order_history', compact('order_list'));
+    }
+    public function order_detail_p($id)
+    {    $order = Order::find($id);
+        return view('mobile.delivery.order-detail-p',compact('order'));
     }
     public function complete_delivery($id)
     {       
         $order = Order::find($id);
+        // dd($order);
         return view('mobile.delivery.complete_delivery',compact('order'));
     }
 
@@ -132,6 +183,8 @@ class DeliveryController extends Controller
 
     public function profilepic(request $request)
     {
+        
+        // dd($request);
         $user = Auth::user()->id;
 
         $data = User::where('id', $user)->first();
@@ -146,7 +199,10 @@ class DeliveryController extends Controller
         }
 
         $data->save();
+        // dd($data);
         return redirect()->route('mobile.delivery.delivery_acount');
+        
+        // return response()->json(['success' => 'Profile Pic Updated','data'=> $data]);
     }
 
     public function document()
@@ -198,15 +254,27 @@ class DeliveryController extends Controller
 
     public function order()
     {
-        $order = Order::all();
-        return view('mobile.delivery.order', compact('order'));
+        $orders = Order::where('delivery_boy_user_id', Auth::id())->get();
+
+        return view('mobile.delivery.order', compact('orders'));
     }
 
     public function order_detail($id)
     {
+        $order_items = OrderItem::where('order_id', $id)->get();
 
-        $order = Order::find($id);
-        return view('mobile.delivery.order-detail', compact('order'));
+        $order = Order::where('id', $id)->first();
+
+        //    dd($product->product_images);
+        $data = [
+            'order_items' => $order_items,
+            'order' => $order
+            ];    
+        
+        return view('mobile.delivery.order-detail', $data);
+
+        // $order = Order::find($id);
+        // return view('mobile.delivery.order-detail', compact('order'));
     }
 
     public function d_accepted($id)
@@ -219,7 +287,7 @@ class DeliveryController extends Controller
     public function reject($id)
     {
         $order = Order::find($id);
-        $order->status = 3;
+        $order->status = 6;
         $order->save();
         return redirect()->back();
     }
@@ -235,11 +303,7 @@ class DeliveryController extends Controller
     {
         return view('mobile.delivery.wallet');
     }
-    // bankdetail
-    public function bankdetail()
-    {
-        return view('mobile.delivery.bankdetail');
-    }
+   
 
     public function forgotPassword()
     {
@@ -300,5 +364,83 @@ class DeliveryController extends Controller
         $user->update();
 
         return redirect()->route('mobile.delivery.login')->with('success', 'Password Changed Successfully');
+    }
+
+    public function location()
+    {
+
+    }
+    public function bankdetail()
+    {  
+        $bank=bank_details::where('user_id',Auth::user()->id)->first();
+       
+        return view('mobile.delivery.bankdetail',compact('bank'));
+    }
+    public function bankdetail_store(request $request)
+    {
+        $this->validate(
+            $request,
+            [
+                'bank_name'       =>      'required|string|max:255',
+                'act_name'       =>      'required|string|max:255',
+                'act_no'         =>      'required|numeric|digits_between:8,16',
+                'act_no_confirm'  =>      'required|same:act_no',
+                'ifsc_code'       =>      'required|string',
+
+
+            ],
+            [
+                'act_no_confirm.same' => ' The account number dose not match',
+                'act_no.digits_between' => 'The account number must be between 8 to 16',
+            ]
+
+        );
+        // dd($request);
+        $bank = new bank_details();
+        $bank->bank_name = $request->bank_name;
+        $bank->act_name = $request->act_name;
+        $bank->act_no = $request->act_no;
+        $bank->user_id = Auth::user()->id;
+
+        $bank->ifsc_code = $request->ifsc_code;
+        $bank->save();
+        // dd($bank);  
+        return redirect()->route('mobile.delivery.delivery_acount');
+    }
+    public function bankdetail_edit($id)
+    {
+        // $bank = bank_details::find($id);
+        // return view('mobile.delivery.editbankdetails',compact('bank'));
+    }   
+    public function bankdetail_update(request $request)
+    {
+        $this->validate(
+            $request,
+            [
+                'bank_name'       =>      'required|string|max:255',
+                'act_name'       =>      'required|string|max:255',
+                'act_no'         =>      'required|numeric|digits_between:8,16',
+                'act_no_confirm'  =>      'required|same:act_no',
+                'ifsc_code'       =>      'required|string',
+
+
+            ],
+            [
+                'act_no_confirm.same' => ' The account number dose not match',
+                'act_no.digits_between' => 'The account number must be between 8 to 16',
+            ]
+
+        );
+        // dd($request);
+        $bank = bank_details::find($request->id);
+        // dd($bank);  
+        $bank->bank_name = $request->bank_name;
+        $bank->act_name = $request->act_name;
+        $bank->act_no = $request->act_no;
+        $bank->user_id = Auth::user()->id;
+        $bank->ifsc_code = $request->ifsc_code;
+        $bank->update();
+        //  dd($bank);  
+        return redirect()->route('mobile.delivery.delivery_acount');
     }
 }

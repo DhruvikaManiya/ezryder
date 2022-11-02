@@ -1,90 +1,141 @@
-@extends('layouts.vendor')
+@extends('layouts.users_app_products')
 
-@section('header_title', 'Products')
 
-@section('css')
-    <style>
-        .frt-price-box img {
-            width: 150px;
-            height: 90px;
-        }
+  <style>
+.switch {
+  position: relative;
+  display: inline-block;
+  width: 60px;
+  height: 34px;
+}
 
-        .price {
-            font-weight: 600 !important;
-        }
+.switch input { 
+  opacity: 0;
+  width: 0;
+  height: 0;
+}
 
-        .price del {
-            font-size: 12px;
-            font-weight: normal;
-            margin-right: 5px;
-        }
-    </style>
-@endsection
+.slider {
+  position: absolute;
+  cursor: pointer;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  background-color: #ccc;
+  -webkit-transition: .4s;
+  transition: .4s;
+}
+
+.slider:before {
+  position: absolute;
+  content: "";
+  height: 26px;
+  width: 26px;
+  left: 4px;
+  bottom: 4px;
+  background-color: white;
+  -webkit-transition: .4s;
+  transition: .4s;
+}
+
+input:checked + .slider {
+  background-color: #2196F3;
+}
+
+input:focus + .slider {
+  box-shadow: 0 0 1px #2196F3;
+}
+
+input:checked + .slider:before {
+  -webkit-transform: translateX(26px);
+  -ms-transform: translateX(26px);
+  transform: translateX(26px);
+}
+
+/* Rounded sliders */
+.slider.round {
+  border-radius: 34px;
+}
+
+.slider.round:before {
+  border-radius: 50%;
+}
+</style>
 
 
 @section('content')
-    @include('mobile.vendor.inc.back-header')
 
+<div class="main-container no-padding navStyle productList" id="addBankDetails">
 
-    <div class="container-max p-both">
-        <div class="rw">
-            <div class="col-12 pad-00 pb-3">
-                <div class="search-box top-space30 pos-rele">
-                    <input type="text" placeholder="Search">
-                    <span><img src="{{ asset('asset/images/search.svg') }}" alt=""></span>
-                </div>
+      <article id="top-nav">
+        <div class="reviewBackButton">
+          <img src="/pages/assets/loginScreen/leftArrow.png" alt="" />
+          <p>Products</p>
+        </div>
 
-                @foreach ($products as $prod)
-                    {{-- {{dd($prod->p_image)}} --}}
-                    <div class="frt-price-box d-flex  top-space30">
-                        <div>
-                            <img src="{{ asset($prod->p_image) }}" alt="">
-                        </div>
-                        <div class="frt-b-data ml-11-m ml-3">
-                            <p>{{ $prod->name }} </p>
-                            <p>{{ $prod->prod_details }}</p>
-                            <p class="price"><del>${{ $prod->price }}</del>
-                                ${{ $prod->price - ($prod->price * $prod->Dis_price) / 100 }}</p>
-                        </div>
-                        <div class="mt-07 ml-auto">
-                            <input class='input-switch' name="status" type="checkbox" value="{{ $prod->status }}"
-                                {{ $prod->status == 1 ? 'checked' : '' }} id="product{{ $prod->id }}" />
-                            <label class="label-switch" for="product{{ $prod->id }}"
-                                data-product="{{ $prod->id }}"></label>
-                            <span class="info-text"></span>
-                        </div>
-                    </div>
-                    
-                @endforeach
+      
+      </article>
+      @if(Auth::user()->store)
+       <a class="btn-primary" href="/vendor/addproducts">Add new product<span><img src="{{ asset('asset/images/btn_primary_arrow.svg') }}" alt=""></span></a>
+       @else
+       <p>Please Add Store Details</p>
+       @endif
 
+       @foreach($products as $product)
+          <section class="item-list">
+            <div class="item">
+              <img src="{{ asset($product->p_image) }}" alt="" style="width: 50px;" />
+              <div class="item-data">
+                <a href="{{route('vendor.product',$product->id)}}">
+                <p class="light space-down">{{$product->name}}</p>
+                <p class="light space-down">MRP Price ${{$product->mrp_price}}</p>
+                <p class="light">Vendor Price ${{$product->seller_price}}</p>
+                </a>
+              </div>
+              
+              <div class="">
+                <label class="switch">
+                                
+                  <input 
+                    class="activeinactive" 
+                    type="checkbox"
+                    name="status"
+                    for="product{{ $product->id }}"
+                    data-product="{{ $product->id }}"
+                     {{ $product->vendor_status == 1 ? 'checked' : '' }} 
+                   
+                      >
+                  <span class="slider round"></span>
+                </label>
+              </div>
 
             </div>
-        </div>
+          </section>
+      @endforeach
+     
+
+      
+
+      
+      @include('layouts.partials.vendor_footer_nav')
     </div>
 
-    <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.6.1/jquery.min.js"
-        integrity="sha512-aVKKRRi/Q/YV+4mjoKBsE4x3H+BkegoM/em46NNlCqNTmUYADjBbeNefNxYV7giUp0VxICtqdrbqU7iVaeZNXA=="
-        crossorigin="anonymous" referrerpolicy="no-referrer"></script>
+     <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.6.1/jquery.min.js"
+    integrity="sha512-aVKKRRi/Q/YV+4mjoKBsE4x3H+BkegoM/em46NNlCqNTmUYADjBbeNefNxYV7giUp0VxICtqdrbqU7iVaeZNXA=="
+    crossorigin="anonymous" referrerpolicy="no-referrer"></script>
 
     <script>
-        $('.label-switch').click(function() {
-            var input = $(this).attr('for');
+       
+        $('body').on('click','.activeinactive',function() {
+           
             var product = $(this).data('product');
-            var val = $('#' + input).val();
-
-            console.log(product);
-
-            if (val == '1') {
-                $('#' + input).val('0');
-                val = 0;
-            } else {
-                $('#' + input).val('1');
-                val = 1;
-            }
+            // console.log(product);
+          
+            
             $.ajax({
                 url: "{{ route('vendor.prodcuts.active') }}",
                 data: {
-                    val: val,
                     id: product
                 },
                 success: function(responce) {
@@ -94,4 +145,5 @@
 
         });
     </script>
+   
 @endsection

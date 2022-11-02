@@ -1,15 +1,26 @@
 @extends('layouts.admin.master')
 
 @section('content')
+ <!-- Content Header (Page header) -->
+ <div class="content-header">
+    <div class="container-fluid">
+        <div class="row mb-2">
+            <div class="col-sm-6">
+                <h1 class="m-0"> Brand List</h1>
+            </div><!-- /.col -->
+            <div class="col-sm-6">
+                <ol class="breadcrumb float-sm-right">
+                    <li class="breadcrumb-item"><a href="{{route('dashboard')}}">Home</a></li>
+                    <li class="breadcrumb-item active">LIst Brand</li>
+                </ol>
+            </div><!-- /.col -->
+        </div><!-- /.row -->
+    </div><!-- /.container-fluid -->
+</div>
+<!-- /.content-header -->
     <div class="container-fluid p-0">
         <div class="card">
             <div class="card-body">
-                <!-- Page Heading -->
-                <div class="d-sm-flex align-items-center justify-content-between mb-4">
-                    <h1 class="h3 mb-0 text-gray-800">Category</h1>
-                    {{-- <a href="#" class="d-none d-sm-inline-block btn btn-sm btn-primary shadow-sm"><i
-                    class="fas fa-download fa-sm text-white-50"></i> Generate Report</a> --}}
-                </div>
 
                 <!-- Content Row -->
                 <div class="row">
@@ -20,10 +31,6 @@
                             <tr role="row">
                             <tr>
                                 <th rowspan="1" colspan="1">Name</th>
-                                <!-- <th rowspan="1" colspan="1">Description</th>
-                                <th rowspan="1" colspan="1"> -->
-                                    Type
-                                </th>
                                 <th rowspan="1" colspan="1">Image</th>
                                 <th rowspan="1" colspan="1" width='15%' class="text-center">Action</th>
                             </tr>

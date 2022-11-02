@@ -22,6 +22,19 @@ class product extends Model
     }
     public function category()
     {
-        return $this->belongsTo('App\category','category_id','id');
+        return $this->belongsTo('App\Category','category_id','id');
+    }
+    public function Wishlist()
+    {
+        return $this->hasOne('App\Wishlist','product_id','id')->where('user_id',auth()->user()->id);
+    }
+    public function product_images()
+    {
+        return $this->hasMany('App\product_images','product_id');
+    }
+
+    public function store()
+    {
+        return $this->belongsTo('App\Store','store_id','id');
     }
 }

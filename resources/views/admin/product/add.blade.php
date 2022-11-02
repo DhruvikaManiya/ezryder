@@ -94,7 +94,7 @@
                                 <textarea name="description" class="form-control" placeholder="Enter description"></textarea>
                             </div>
                             <div class="form-group">
-                                <label for="">Product price</label>
+                                <label for="">Product MRP</label>
                                 <input type="number" name="price" class="form-control" placeholder="Enter price">
                             </div>
                             <div class="form-group">
@@ -110,7 +110,7 @@
                                 </div>
                                 <div class="col-6">
                                     <label for="measurement">Measurement</label>
-                                    <select name="measurement" class="form-control" id="measurement"> 
+                                    <select name="measurement" class="form-control" id="measurement">
                                         <option value="" selected>selecet Measurement</option>
                                         <option value="kg">kg</option>
                                         <option value="gm">gm</option>
@@ -139,8 +139,8 @@
                                     </div>
                                 </div>
                             </div>
-                           
-                    
+
+
                             <div class="form-group mt-3">
                                 <button type="submit" class="btn btn-primary">Submit</button>
                             </div>
@@ -185,15 +185,15 @@
         // plus-box
         $('.plus-box').on('click', function() {
             var html = '<div class="row mt-3">\
-                                            <div class="col-11">\
-                                                <input type="file" name="image[]" class="form-control" placeholder="Enter name">\
-                                            </div>\
-                                            <div class="col-1 ">\
-                                                <div class="mins-box">\
-                                                    <i class="fa fa-minus" aria-hidden="true"></i>\
-                                                </div>    \
-                                            </div>\
-                                        </div>';
+                                                <div class="col-11">\
+                                                    <input type="file" name="image[]" class="form-control" placeholder="Enter name">\
+                                                </div>\
+                                                <div class="col-1 ">\
+                                                    <div class="mins-box">\
+                                                        <i class="fa fa-minus" aria-hidden="true"></i>\
+                                                    </div>    \
+                                                </div>\
+                                            </div>';
             $('#image-box  ').append(html);
         });
         // mins-box

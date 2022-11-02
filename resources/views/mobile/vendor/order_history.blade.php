@@ -74,7 +74,20 @@
                                     ${{ $order->total }}
                                 </td>
                                 <td class="status">
-                                    {{ $order->status == 0 ? 'Pending' : ($order->status == 1 ? 'Pending' : ($order->status == 2 ? 'Delivered' :  ($order->status == 4 ? 'Accepted': 'Cancelled'))) }}
+                                   
+                                    @if ($order->status == 0)
+                                        <span class="badge badge-warning">Pending</span>
+                                    @elseif($order->status == 1)
+                                        <span class="badge badge-info">Processing</span>
+                                    @elseif($order->status == 2)
+                                        <span class="badge badge-success">Delivered</span>
+                                    @elseif($order->status == 3)    
+                                        <span class="badge badge-danger">Cancelled</span>
+                                    @elseif($order->status == 4)    
+                                        <span class="badge badge-success">Accepted</span>
+                                    @elseif($order->status == 5)
+                                        <span class="badge badge-success">Accepted</span>
+                                    @endif
 
                                 </td>
 

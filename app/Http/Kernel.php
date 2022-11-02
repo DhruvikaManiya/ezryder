@@ -66,6 +66,7 @@ class Kernel extends HttpKernel
         'rider' => \App\Http\Middleware\Ridermiddleware::class,
         'delivery' => \App\Http\Middleware\Deliverymiddleware::class,
         'vendor' => \App\Http\Middleware\vendormiddleware::class,
-        'mobile' => \App\Http\Middleware\mobilemiddleware::class
+        'mobile' => \App\Http\Middleware\mobilemiddleware::class,
+        'admin' => \App\Http\Middleware\Adminmiddleware::class
     ];
 }

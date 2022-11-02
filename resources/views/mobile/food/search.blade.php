@@ -125,6 +125,7 @@
                     } else {
                         $('#search-result').html('');
                     }
+                    
                 }
             });
         });

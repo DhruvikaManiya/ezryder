@@ -1,35 +1,55 @@
-@extends('layouts.delivery')
+@extends('layouts.delivery_boy')
 
-
-@section('header_title', 'Account')
-@section('css')
-    <link rel="stylesheet" href="{{ asset('asset/css/account.css') }}">
-@endsection
 
 @section('content')
-    @include('mobile.delivery.inc.back-header')
-    <section class="account_det_sec">
-        <div class="container">
-            <div class="account_det">
-                <img class="store_icon" src="{{ asset('asset/images/profile.png') }}" alt="store icon">
-                <div class="acc_cont">
-                    <h4 class="stor_name">{{$user->name}}</h4>
-                    <p class="text">{{$user->address}}</p>
-                    <p class="text">Email:{{$user->email}}</p>
-                    <p class="text">Phone: {{$user->phone}}</p>
-                </div>
-            </div>
-        </div>
-    </section>
-    <section class="account_link_sec">
-        <div class="container">
-            <div class="account_links">
+    <div class="main-container" id="account">
 
-                <a href="{{ route('mobile.delivery.order') }}" class="link">Orders</a>
-                <a href="{{ route('mobile.delivery.wallet') }}" class="link">Wallets</a>
-                <a href="{{ route('mobile.delivery.bankdetail') }}" class="link">Bank Details</a>
-                <a href="{{ route('mobile.delivery.login') }}" class="link">Logout</a>
-            </div>
+      <img src="{{ asset('asset/images/profile1.png') }}" id="profileImg" alt="">
+      <article class="topNav">
+        <h2></h2>
+        <img src="{{ asset('asset/images/bell2.png') }}" alt="" />
+      </article>
+      <article class="content-container padding-lr">
+        <h2 class="header2">Reza Blazer</h2>
+        <div class="btn-container">
+        <a href="/delivery/profile">
+          <button class="btn">
+            <p>Profile</p>
+            <img src="{{ asset('asset/images/rightArrow.svg') }}" alt="" />
+          </button>
+        </a>
+        <a href="/delivery/document">
+          <button class="btn">
+            <p>Documents</p>
+            <img src="{{ asset('asset/images/rightArrow.svg') }}" alt="" />
+          </button>
+          </a>
+        <a href="/delivery/vehicle_details">
+          <button class="btn">
+            <p>Vehicle Details</p>
+            <img src="{{ asset('asset/images/rightArrow.svg') }}" alt="" />
+          </button>
+          </a>
+        <a href="#">
+          <button class="btn">
+            <p>Bank Details</p>
+            <img src="{{ asset('asset/images/rightArrow.svg') }}" alt="" />
+          </button>
+          </a>
+        <a href="/delivery/review">
+          <button class="btn">
+            <p>Reviews</p>
+            <img src="{{ asset('asset/images/rightArrow.svg') }}" alt="" />
+          </button>
+          </a>
+        <a href="/delivery/logout">
+          <button class="btn">
+            <p>Logout</p>
+            <img src="{{ asset('asset/images/off.png') }}" alt="" />
+          </button>
+        </a>
         </div>
-    </section>
+      </article>
+       @include('layouts.partials.delivery_boy_footer_nav')
+    </div>
 @endsection

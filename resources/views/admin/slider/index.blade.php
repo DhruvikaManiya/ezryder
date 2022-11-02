@@ -1,19 +1,32 @@
 @extends('layouts.admin.master')
 
 @section('content')
+  <!-- Content Header (Page header) -->
+  <div class="content-header">
+    <div class="container-fluid">
+        <div class="row mb-2">
+            <div class="col-sm-6">
+                <h1 class="m-0">Slider</h1>
+            </div><!-- /.col -->
+            <div class="col-sm-6">
+                <ol class="breadcrumb float-sm-right">
+                    <li class="breadcrumb-item"><a href="{{route('dashboard')}}">Home</a></li>
+                    <li class="breadcrumb-item active">Slider</li>
+                </ol>
+            </div><!-- /.col -->
+        </div><!-- /.row -->
+    </div><!-- /.container-fluid -->
+</div>
+<!-- /.content-header -->
     <div class="container-fluid p-0">
         <div class="card">
             <div class="card-body">
-                <!-- Page Heading -->
-                <div class="d-sm-flex align-items-center justify-content-between mb-4">
-                    <h1 class="h3 mb-0 text-gray-800">Slider</h1>
-                    {{-- <a href="#" class="d-none d-sm-inline-block btn btn-sm btn-primary shadow-sm"><i
-                    class="fas fa-download fa-sm text-white-50"></i> Generate Report</a> --}}
+                <div class="card-header py-3 d-flex flex-row align-items-center justify-content-between">
+                    <h6 class="m-0 font-weight-bold text-primary">List Slider</h6>
                 </div>
-
                 <!-- Content Row -->
                 <div class="row">
-                    
+
                     <table class="table table-bordered dataTable" id="dataTable" width="100%" cellspacing="0" role="grid"
                         aria-describedby="dataTable_info" style="width: 100%;">
                         <thead>

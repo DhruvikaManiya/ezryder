@@ -37,27 +37,32 @@
             font-weight: 600;
             text-align: left;
         }
-        .accepted{
+
+        .accepted {
             color: #FFFFFF !important;
-            
+
         }
-        .textbox{
+
+        .textbox {
             border-radius: 10px;
             width: 100%;
             height: 70px;
             border-color: 008080;
         }
-        .btn-successs{
+
+        .btn-successs {
             color: #fff;
             background-color: 008080;
             border-color: 008080;
             margin-top: 10px;
         }
+
         .rating1 {
             display: flex;
             flex-direction: row-reverse;
             justify-content: start;
         }
+
         .rating1>input {
             display: none;
         }
@@ -95,7 +100,7 @@
     @include('mobile.vendor.inc.back-header')
 
 
-    
+
 
     <section class="person_section">
         <div class="container">
@@ -128,32 +133,49 @@
                 </div>
             </div>
             @php
-             $products='App\Ordered_product'::whereIn('id',json_decode($order->ordered_products))->get();
-            $total= 0;
+                $products = ('App\Ordered_product')::whereIn('id', json_decode($order->ordered_products))->get();
+                $total = 0;
             @endphp
-
             @foreach ($products as $product)
                 <div class="product_name_row">
-                    <img src="{{asset($product->product->p_image)}}" style="height:60px;width:50px;">
+                    <img src="{{ asset($product->product->p_image) }}" style="height:60px;width:50px;">
                     <div class="dmart_address">
-                        <p>{{$product->product->name}}</p>
+                        <p>{{ $product->product->name }}</p>
+                        <p>MRP:<del>${{ $product->product->MRP }}</del></p>
                         <div class="product_wight">
                             <table class="product_wight_table">
                                 <tr>
-                                    <td width="70%">{{$product->product->units}}{{$product->product->measurement}} - ${{$product->product->price}}</td>
-                                    <td>X {{$product->quantity}}</td>
-                                    <td class="text-a-r">${{($product->product->price)*($product->quantity)}} </td>
+                                    <td width="70%">{{ $product->product->units }}{{ $product->product->measurement }}
+                                        -
+                                        ${{ $product->product->Sellar_price + ($product->product->Sellar_price * $product->product->admin_charge) / 100 }}
+                                    </td>
+                                    <td>X {{ $product->quantity }}</td>
+                                    <td class="text-a-r">
+                                        ${{ $product->quantity * ($product->product->Sellar_price + ($product->product->Sellar_price * $product->product->admin_charge) / 100) }}
+                                    </td>
                                 </tr>
                             </table>
                         </div>
                     </div>
                 </div>
                 @php
-                    $total += ($product->product->price)*($product->quantity)
+                    $t = $product->quantity * ($product->product->Sellar_price + ($product->product->Sellar_price * $product->product->admin_charge) / 100);
+                @endphp
+
+                @php
+                    $total += $product->quantity * $product->product->MRP;
+                @endphp
+                @php
+                    $prod = (($product->product->Sellar_price + ($product->product->Sellar_price * $product->product->admin_charge) / 100) * 100) / $product->product->MRP;
+                    $discount = 100 - $prod;
+                    $order_dis = $product->quantity * (($product->product->MRP * $discount) / 100);
+                    
+                    //    $discount = round($discount);
+                    
                 @endphp
             @endforeach
 
-         
+
         </div>
     </section>
 
@@ -165,73 +187,83 @@
                 <table class="item_count_table">
                     <tr>
                         <td>Item Count </td>
-                        <td>{{count(json_decode($order->ordered_products))}}</td>
+                        <td>{{ count(json_decode($order->ordered_products)) }}</td>
                     </tr>
                     <tr>
                         <td>Order Item Total</td>
-                        <td>${{$total}}</td>
+                        <td>${{ $total }}</td>
                     </tr>
                     <tr>
                         <td>Order Delivery Charges </td>
                         <td>$ 0</td>
                     </tr>
                     <tr>
-                        <td>Coupon</td>
-                        <td>-$ {{$total-$order->total}}</td>
+                        <td>Discount on your porduct</td>
+                        <td>-$ {{ $order_dis }}
+                            <hr>
+                        </td>
+
                     </tr>
                     <tr>
-                        <td>Net Payable Amount</td>
-                        <td>$ {{$order->total}}</td>
+                        {{-- <td>Net Payable Amount</td> --}}
+                        <td>Total order Amount</td>
+                        <td>$ {{ $t }}</td>
                     </tr>
                 </table>
-                    <div class="status status-spn">
-                        <h3><span>Status</span> : {{$order->status == 1 ? 'Pending' : ($order->status == 2 ? 'Delivered' : ($order->status == 4 ? 'Accepted' : 'Cancelled'))}}</h3>
-                    </div>
+                <div class="status status-spn">
+                    <h3><span>Status</span> :
+                        {{ $order->status == 0 ? 'Pending' : ($order->status == 1 ? 'Proccessing' : ($order->status == 2 ? 'Delivered' : ($order->status == 4 ? 'Accepted' :($order->status== 3? 'rejected':($order->status==5 ? 'delivery_accpeted':'canceled'))))) }}
+                    </h3>
+                </div>
 
-                    @if($rating != Null)
-                    <div >
-                        <h3>Comment::{{$rating->review}}</h3>
+                @if ($rating != null)
+                    <div>
+                        <h3>Comment::{{ $rating->review }}</h3>
                         <!-- <div class="rating1">
 
-                        <input type="radio" name="rating" value="{{$rating->rating}}"  style="font-size:10vw;"><label>☆</label>
+                            <input type="radio" name="rating" value="{{ $rating->rating }}"  style="font-size:10vw;"><label>☆</label>
 
-                        <input type="radio" name="rating" value="{{$rating->rating}}" ><label >☆</label>
-                                        
-                        <input type="radio" name="rating" value="{{$rating->rating}}" ><label >☆</label>
-                                         
-                        <input type="radio" name="rating" value="{{$rating->rating}}" ><label >☆</label>
-                                         
-                        <input type="radio" name="rating" value="{{$rating->rating}}" ><label >☆</label>
-                                         
-                    </div> -->
+                            <input type="radio" name="rating" value="{{ $rating->rating }}" ><label >☆</label>
+                                            
+                            <input type="radio" name="rating" value="{{ $rating->rating }}" ><label >☆</label>
+                                             
+                            <input type="radio" name="rating" value="{{ $rating->rating }}" ><label >☆</label>
+                                             
+                            <input type="radio" name="rating" value="{{ $rating->rating }}" ><label >☆</label>
+                                             
+                        </div> -->
                     </div>
-                    @endif
+                @endif
 
-                    @if($order->status == '4')
-                        
-                    <form action="{{route('ratting-insert',$order->id)}}" method="post" id="form1">
+                @if ($order->status == '5')
+                    <form action="{{ route('ratting-insert', $order->id) }}" method="post" id="form1">
                         @csrf
                         <div class="hide">
-                    <div class="rating1">
+                            <div class="rating1">
 
-                        <input type="radio" name="rating" value="5" id="5" style="font-size:10vw;"><label for="5">☆</label>
+                                <input type="radio" name="rating" value="5" id="5"
+                                    style="font-size:10vw;"><label for="5">☆</label>
 
-                        <input type="radio" name="rating" value="4" id="4"><label for="4">☆</label>
-                                        
-                        <input type="radio" name="rating" value="3" id="3"><label for="3">☆</label>
-                                         
-                        <input type="radio" name="rating" value="2" id="2"><label for="2">☆</label>
-                                         
-                        <input type="radio" name="rating" value="1" id="1"><label for="1">☆</label>
-                                         
-                    </div>
-                    <textarea name="review" id="review" cols="30" rows="10" placeholder="Review" class="textbox" required></textarea>
-<!-- <input type="text" name="review" id="review"> -->
-                    <button type="submit" name="submit"  class="btn btn-successs" id="hide" style="margin-bottom:10px;">Submit</button>
-                    </div>
+                                <input type="radio" name="rating" value="4" id="4"><label
+                                    for="4">☆</label>
+
+                                <input type="radio" name="rating" value="3" id="3"><label
+                                    for="3">☆</label>
+
+                                <input type="radio" name="rating" value="2" id="2"><label
+                                    for="2">☆</label>
+
+                                <input type="radio" name="rating" value="1" id="1"><label
+                                    for="1">☆</label>
+
+                            </div>
+                            <textarea name="review" id="review" cols="30" rows="10" placeholder="Review" class="textbox" required></textarea>
+                            <!-- <input type="text" name="review" id="review"> -->
+                            <button type="submit" name="submit" class="btn btn-successs" id="hide"
+                                style="margin-bottom:10px;">Submit</button>
+                        </div>
                     </form>
-                       
-                    @endif
+                @endif
             </div>
         </div>
     </section>
@@ -256,10 +288,10 @@
     </footer> --}}
     </section>
 
-    @section('js')
-   <script>
-      $("#hide").click(function(){
-        $(".hide").hide();
-      });
-   </script>
-   @endsection
+@section('js')
+    <script>
+        $("#hide").click(function() {
+            $(".hide").hide();
+        });
+    </script>
+@endsection

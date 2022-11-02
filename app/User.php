@@ -5,6 +5,8 @@ namespace App;
 use Illuminate\Contracts\Auth\MustVerifyEmail;
 use Illuminate\Foundation\Auth\User as Authenticatable;
 use Illuminate\Notifications\Notifiable;
+use App\Vendor;
+use App\Store;
 
 class User extends Authenticatable
 {
@@ -69,6 +71,10 @@ class User extends Authenticatable
 
     }
 
+    public function store(){
+       return $this->hasOne(Store::class,'user_id');
+    }
+    
     public function requests(){
         return $this->hasMany(Requests::class,'rider_id','id');
     }

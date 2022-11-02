@@ -1,216 +1,117 @@
-@extends('layouts.vendor')
+@extends('layouts.users_app_products')
 
-@section('header_title', 'Add Products')
-
-
-@section('css')
-
-    <style>
-        .images img {
-            border-radius: 5px;
-        }
-
-        .ml-space12 {
-            margin-left: 20px;
-        }
-        .error-box {
-            padding: 10px; 
-            margin-bottom: 10px;
-        }
-
-        .error-mgs {
-            color: rgb(167, 14, 14);
-            font-weight: 600;
-            text-align: left;
-        }
-    </style>
-@endsection
 @section('content')
-    @include('mobile.vendor.inc.back-header')
-    <div class="container-max p-both">
-        <div class="rw">
-            <div class="col-12 pad-00">
+    <div class="main-container navStyle addStore" id="addBankDetails">
+      <article id="top-nav">
+        <div class="reviewBackButton">
+          <img src="/pages/assets/loginScreen/leftArrow.png" alt="" />
+          <p>Add Product</p>
+        </div>
+        <p>
+          <span>3</span>
+          <img src="/pages/assets/homeScreen/shoppingBag.png" alt="" />
+        </p>
+      </article>
 
-                <div class="product-box-g1 top-spc30 pos-rele">
-                    <form action="{{ route('vendor.products.store') }}" method="POST" enctype="multipart/form-data">
-                        @csrf
-                        <input type="hidden" name="user_id" placeholder="Details over here"  id=""
-                        required>
-                        <div class="category-select">
-                            <select class="category-drop-down bg-drp1" name="category_id" required>
-                                <option required value="">Select Category</option>
-                                @foreach ($catogeries as $cate)
-                                    <Option value="{{ $cate->id }}">{{ $cate->name }}</Option>
-                                @endforeach
+      <form action="{{ route('vendor.products.store') }}" method="POST" id="form" enctype="multipart/form-data"> 
+          <div id="loading"></div>
+          @csrf
 
-                            </select>
-                            <span class="ap-arrow1"><img src="{{ asset('asset/images/ap-arow.png') }}"
-                                    alt=""></span>
-                        </div>
-                        <div class="category-select top-spc20 pos-rele">
-                            <select class="category-drop-down bg-drp1" name="subcate_id" required>
-                                <option required value="">Select Sub Category</option>
-
-                            </select>
-                            <span class="ap-arrow1"><img src="{{ asset('asset/images/ap-arow.png') }}"
-                                    alt=""></span>
-                        </div>
+        <article>
+          <label for="email">Select Category *</label>
+          <select class="bg-drp1" name="category_id" required>
+            @foreach ($catogeries as $cate)
+                <Option value="{{ $cate->id }}">{{ $cate->name }}</Option>
+            @endforeach
+          </select>
+        </article>
 
 
-                        <div class=" product-card-tab3">
-                            <p class="top-spc20 prodct-title mb-0">Product Name</p>
-                            <input type="text" class="uni-box" name="name" placeholder="Product name" required>
-                            <p class="error-mgs">
-                                @error('name')
-                                    <strong>{{ $message }}</strong>
-                                @enderror
-                            </p>
+        <article>
+          <label for="email">Select Sub Category *</label>
+          <select  class="bg-drp1" id="email" name="subcate_id" required>
+            <option value="Select Category">Select Category</option>
+          </select>
+        </article>
 
-                        </div>
+        <article>
+          <label for="email">Product Name *</label>
+          <input
+            type="text"
+            name="name"
+            required
+            placeholder="Enter Product name"
+          />
+        </article>
+        <article>
+          <label for="email">Product Description *</label>
+          <textarea name="description" required></textarea>
+        </article>
 
-                        <div class="units-boxx top-spc20 pb-3">
-                            <div class="">
-                                
-                                <div class="d-flex">
-                                    <p>Units</p>
-                                    <p class="ml-space32">Measurement</p>
-                                </div>
+        <div class="2-col">
+          <article>
+          
+            <label for="email">Units *</label>
+            <input
+              type="number"
+              name="units"
+             required
+              placeholder="Enter Units"
+            />
+         </article>
 
-                                <div class="d-flex">
-
-                                    <input type="number" name="units" class="uni-box" placeholder="1" required>
-                                    <p class="error-mgs">
-                                        @error('units')
-                                            <strong>{{ $message }}</strong>
-                                        @enderror
-                                    </p>
-
-                                    <div class="Measurement1 ml-space12 pos-rele">
-                                        <select class="category-drop-down bg-drp1" name="measurement" required>
-                                            <option value="">Select</option>
-                                            <option value="kgs">Kgs</option>
-                                            <option value="ltr">Ltr</option>
-                                            <option value="ml-ltr">Ml-ltr</option>
-                                            <option value="gm">Gm</option>
-
-                                        </select>
-                                        <span class="ap-arrow3"><img src="{{ asset('asset/images/ap-arow.png') }}"
-                                                alt=""></span>
-                                    </div>
-                                </div>
-                                <div class="product-dt ">
-                                    <p class=" title-foods m-0 mb-10 mt-19">Product Details</p>
-                                    <input type="text" placeholder="Details over here" name="description" id=""  required>
-                                    <p class="error-mgs">
-                                        @error('description')
-                                            <strong>{{ $message }}</strong>
-                                        @enderror
-                                    </p>
-                                </div>
-                                <div class="pc-dt top-spc20">
-                                    <p class="title-foods m-0 mb-10">Product Price</p>
-                                    <input type="number" name="price" placeholder="10" required>
-                                    @error('price')
-                                    <p class="error-mgs">
-                                        @error('price')
-                                            <strong>{{ $message }}</strong>
-                                        @enderror
-                                    </p>
-                                @enderror
-
-                                    <p class="top-spc20 title-foods m-0 mb-10">Discount %</p>
-                                    <input type="number" name="dis_price" placeholder="10" required>
-                                    <p class="error-mgs">
-                                        @error('dis_price')
-                                            <strong>{{ $message }}</strong>
-                                        @enderror
-                                    </p>
-                                </div>
-
-
-                                <div class="img-uplod-box t-center top-spc20 img-uplod-box-cover">
-                                    <label for="file-upload" name="p_image" class="file-upload-cover"> Upload Product <br>
-                                        Cover
-                                        Image</label>
-
-                                </div>
-                                <input type="file" id="file-upload" name="p_image" class="d-none" accept="image/*" required>
-                              
-                                <p class="title-foods m-0 top-spc20">Upload product images</p>
-                                <div class="img-selector1 d-flex justi-s-b top10 lab-size">
-
-                                    <div class="images">
-                                        <img src="{{ asset('asset/images/Group 5.svg') }}"
-                                            class="img-fluid select-image image1" data-image="image1">
-                                        <input type="file" name="image[]" id="image1" class="d-none image"
-                                            accept="image/*">
-                                    </div>
-                                    <div class="images">
-                                        <img src="{{ asset('asset/images/Group 5.svg') }}"
-                                            class="img-fluid select-image image2" data-image="image2">
-                                        <input type="file" name="image[]" id="image2" class="d-none image"
-                                            accept="image/*">
-                                    </div>
-                                    <div class="images">
-                                        <img src="{{ asset('asset/images/Group 5.svg') }}"
-                                            class="img-fluid select-image image3" data-image="image3">
-                                        <input type="file" name="image[]" id="image3" class="d-none image"
-                                            accept="image/*">
-                                    </div>
-                                    <div class="images">
-                                        <img src="{{ asset('asset/images/Group 5.svg') }}"
-                                            class="img-fluid select-image image4" data-image="image4">
-                                        <input type="file" name="image[]" id="image4" class="d-none image"
-                                            accept="image/*">
-                                    </div>
-                                </div>
-                                <div class="img-selector1 d-flex justi-s-b top10 lab-size">
-
-                                    <div class="images">
-                                        <img src="{{ asset('asset/images/Group 5.svg') }}"
-                                            class="img-fluid select-image image5" data-image="image5">
-                                        <input type="file" name="image[]" id="image5" class="d-none image"
-                                            accept="image/*">
-                                    </div>
-                                    <div class="images">
-                                        <img src="{{ asset('asset/images/Group 5.svg') }}"
-                                            class="img-fluid select-image image6" data-image="image6">
-                                        <input type="file" name="image[]" id="image6" class="d-none image"
-                                            accept="image/*">
-                                    </div>
-                                    <div class="images">
-                                        <img src="{{ asset('asset/images/Group 5.svg') }}"
-                                            class="img-fluid select-image image7" data-image="image7">
-                                        <input type="file" name="image[]" id="image7" class="d-none image"
-                                            accept="image/*">
-                                    </div>
-                                    <div class="images">
-                                        <img src="{{ asset('asset/images/Group 5.svg') }}"
-                                            class="img-fluid select-image image8" data-image="image8">
-                                        <input type="file" name="image[]" id="image8" class="d-none image"
-                                            accept="image/*">
-                                    </div>
-                                </div>
-                            </div>
-
-                            <div class="btn-sub text-c top-s43 mbot-20">
-                                <button class="btn btn-w" type="Submit">Submit</button>
-                            </div>
-
-                    </form>
-                </div>
-            </div>
+         <article>
+          <label for="email">Measurements *</label>
+          <select name="measurement" required>
+            <option value="Select Category">Select Category</option>
+            @foreach(config('global.measurements') as $key => $measurement)
+                 <option value="{{$key}}">{{$measurement}}</option>
+            @endforeach
+          </select>
+        </article>
 
         </div>
+           
+
+        <article>
+          <label for="email">MRP Price *</label>
+          <input
+            type="number"
+            name="mrp"
+            placeholder="Enter Mrp"
+            required
+          />
+        </article>
+
+        <article>
+          <label for="email">Vendor Price *</label>
+          <input
+            type="text"
+            name="Sellar_price"
+            required
+            placeholder="Enter Vendor  Price"
+          />
+        </article>
+         
+          
+        </article>
+        <article>
+          <label for="email">Upload product image *</label>
+          <input
+            type="file"
+             accept="image/*"
+            name="p_image"
+          />
+        </article>
+        
+      
+        <button id="register">
+          <p>Save</p>
+          <span>></span>
+        </button>
+      </form>
     </div>
-    </div>
-    </div>
-@endsection
 
-
-
-
-@section('js')
 
     <script>
         $(document).ready(function() {
@@ -251,9 +152,19 @@
                 reader.readAsDataURL(this.files[0]);
             });
         });
+ </script>
+{{-- set loading form  --}}
+<script>
+    $(document).ready(function() {
+      $('#form').on('submit',function(){
+     $('#loading').show();
+      });
+    });
+    
     </script>
 
 
+    
 
     {{-- get subcatory --}}
 
@@ -261,19 +172,20 @@
         $('select[name="category_id"]').on('change', function() {
             // console.log('lo');
             var category_id = $(this).val();
+            // console.log(category_id);
             if (category_id) {
                 $.ajax({
-                    url: "{{ route('admin.get.subcategory') }}",
+                    url: "{{ route('vendor.get.subcategory') }}",
                     type: "GET",
                     data: {
                         id: category_id
                     },
                     success: function(data) {
-
-                        $('select[name="subcate_id"]').removeAttr('disabled');
+                      console.log(data);
+                        
                         $('select[name="subcate_id"]').empty();
-                        $('select[name="subcate_id"]').append(
-                            '<option value="">Select Subcategory</option>');
+                        // $('select[name="subcate_id"]').append(
+                        //     '<option value="">Select Subcategory</option>');
                         $.each(data, function(key, value) {
                             $('select[name="subcate_id"]').append('<option value="' + value.id +
                                 '">' + value.name + '</option>');

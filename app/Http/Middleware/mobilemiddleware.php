@@ -20,10 +20,10 @@ class mobilemiddleware
 
         if (Auth::check()) {
             if (Auth::user()->type != 0) {
-                Auth::logout(); 
+                Auth::logout();
             }
         }
-        
+
         if($request->route()->getName() == 'mobile.home')
         {
             return $next($request);
@@ -41,33 +41,28 @@ class mobilemiddleware
             'mobile.verifyotp',
             'mobile.passwordupdate',
         ];
-        
+
         // dd(!Auth::check());
-        
+
         if (!Auth::check() && in_array($request->route()->getName(), $url)) {
-            
+
             return $next($request);
         }
         if (Auth::check() && Auth::user()->type == 0) {
             // dd('rider');
             if (!in_array($request->route()->getName(), $url)) {
-                
+
                 return $next($request);
             } else {
-                
+
                 return redirect()->route('mobile.grocery');
             }
         }
-        
+
         if ($request->route()->getName() != 'mobile.login') {
 
             return redirect()->route('mobile.login');
         }
         return $next($request);
-
-        
-
-
     }
-    }
-
+}

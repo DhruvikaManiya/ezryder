@@ -7,7 +7,7 @@ use Illuminate\Database\Eloquent\SoftDeletes;
 
 class Cart extends Model
 {
-    use SoftDeletes;
+    // use SoftDeletes;
 
     // product
     public function product()

@@ -22,6 +22,7 @@
           </tr>
         </thead>
         <tbody>
+          
           @foreach($order_list as $order)
             
           <tr>
@@ -32,8 +33,7 @@
               {{-- {{ $order->created_at }} --}}
             </td>
             <td>
-              {{ $order->status==0?'Pending':($order->status == 1?'Processing':($order->status == 4 ?'Delivered':'Cancelled')) }}
-            
+              {{$order->status == 0 ? 'Pending' :($order->status == 1 ? 'Processing' :  ($order->status == 2 ? 'Delivered' : ($order->status == 5 ? 'Accepted' : 'Cancelled')))}}
             </td>
             <td>${{ $order->total}}</td>
           </tr>

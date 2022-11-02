@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers;
 
+use App\Wishlist;
 use Illuminate\Http\Request;
 use App\Category;
 use App\product;
@@ -16,6 +17,9 @@ use App\Order;
 use App\Review;
 use App\Ordered_product;
 use App\Order_addres;
+use App\Slider;
+use App\Notificaation;
+
 
 class FoodController extends Controller
 {
@@ -26,8 +30,10 @@ class FoodController extends Controller
     {
         $categories = Category::where('type',2)->paginate(6);
         $stores=User::where('type',2)->where('store_type',2)->paginate(10);
-       
-        return view('mobile.food.food-home', compact('categories', 'stores'));
+        $wishlist=Wishlist::where('user_id',Auth::user()->id)->get();
+        $slider=Slider::all();
+    
+        return view('mobile.food.food-home', compact('categories', 'stores','slider','wishlist'));
 
     }
 
@@ -47,7 +53,7 @@ class FoodController extends Controller
     {
         // $order=Order::all();
         // dd($order);
-        $order = Order::where('user_id', Auth::user()->id)->where('status', '!=', 0)->orderBy('id', 'DESC')->get();
+        $order = Order::where('user_id', Auth::user()->id)->where('type',2)->orderBy('id', 'DESC')->get();
         return view('mobile.food.orderdetail', compact('order'));
     }
     public function orderdetailp($id)
@@ -58,7 +64,42 @@ class FoodController extends Controller
         return view('mobile.grocery.oderdetailP',compact('order','rating'));
     }
 
+    public function sub_food_store($id)
+    {
+         $products = product::where('subcate_id',$id)->get();
+        //  dd($products);
+         return view('mobile.food.food-store',compact('products'));
+    }
+    public function wishlist()
+    {
+        $Product =Wishlist::join('products','products.id','=','wishlists.product_id')
+        ->join('subcategories','subcategories.id','=','products.subcate_id')
+        ->join('categories','categories.id','=','subcategories.category_id')
+        ->select('wishlists.*')
+        ->where('categories.type',2)
+        ->where('wishlists.user_id',Auth::user()->id)
+        ->get();
+        return view('mobile.food.wishlist', compact('Product'));
 
+    }
+    public function store_wishlist(Request $request)
+    {
+       
+        $count = wishlist::where('user_id', Auth::user()->id)->where('product_id', $request->id)->count();
+        if ($count > 0) {
+            wishlist::where('user_id', Auth::user()->id)->where('product_id', $request->id)->delete();
+            return response()->json(['success' => 'Product removed from wishlist', 'status' => 'delete']);
+        }
+        else {
+
+            $wishlist = new wishlist();
+            $wishlist->user_id = Auth::user()->id;
+            $wishlist->product_id = $request->id;
+            $wishlist->save();
+
+            return response()->json(['success' => 'Product added to wishlist', 'data' => $wishlist, 'status' => 'add','count' => $count]);
+        }
+    }
     public function food_store($id)
     {
         // $products = product::where('subcate_id',$id)->get();
@@ -66,9 +107,17 @@ class FoodController extends Controller
         ->join('categories','categories.id','=','subcategories.category_id')
         ->select('products.*','subcategories.name as subcategory_name','categories.name as category_name')
         ->where('categories.type',2)
+        ->where('products.user_id',$id)
         ->get();
         return view('mobile.food.food-store',compact('products'));
     }
+    public function productDetails($id)
+    {
+        $item = product::find($id);
+        $products = product::where('user_id', $item->user_id)->get();
+        return view('mobile.food.productdetails', compact('item', 'products'));
+    }
+
     public function checkout()
     {
         return view('mobile.food.checkout');
@@ -87,38 +136,50 @@ class FoodController extends Controller
     public function orderAddress(Request $request)
     {
 
+        // dd($request->all());
+
+        $order_type = $request->order_type;
+
         $carts = Cart::where('user_id', Auth::user()->id)->get();
+
         $arr = [];
         $total = 0;
-        foreach ($carts as $cart) {
-            $product = product::find($cart->product_id);
 
+        foreach ($carts as $cart) {
+
+            $product = product::find($cart->product_id);
             $ordered = new Ordered_product();
             $ordered->user_id = Auth::user()->id;
             $ordered->product_id = $cart->product_id;
             $ordered->quantity = $cart->quantity;
-            $ordered->price = $cart->product->price - (($cart->product->price * $cart->product->Dis_price) / 100);
+            $ordered->price = $cart->product->Sellar_price + (($cart->product->Sellar_price * $cart->product->admin_charge) / 100);
             $ordered->save();
-            $arr[] = $ordered->id;
 
-            $total += $cart->quantity * ($cart->product->price - ($cart->product->price * $cart->product->Dis_price) / 100);
-        }
+            $arr[] = $ordered->id;
+            $total += $cart->quantity * ($cart->product->Sellar_price + ($cart->product->Sellar_price * $cart->product->admin_charge) / 100);
+            $product->quantity = $product->quantity - $cart->quantity;
+            $product->save();
+          }
 
         $order = new Order();
         $order->user_id = Auth::user()->id;
         $order->ordered_products = json_encode($arr);
         $order->vendor_id = $cart->product->user_id;
         $order->total = $total;
-        $order->status = 0;
-
+      
+        $order->type = 2;
         $order->save();
 
+        return redirect()->route('mobile.food.address.page', ['order' => $order, 'order_type' => $order_type]);
 
-
-
-
-        return view('mobile.food.orderAddress', compact('order'));
     }
+
+    public function addressPage($order, $order_type)
+    {
+        $order = Order::find($order);
+        return view('mobile.food.orderAddress', compact('order', 'order_type'));
+    }
+
     public function payment(Request $request)
     {
 
@@ -143,96 +204,116 @@ class FoodController extends Controller
         $order_addres->pincode = $request->pin;
         $order_addres->save();
 
+        return redirect()->route('mobile.food.payment.page', ['payment' => $order_addres]);
+
+    }
+
+    public function paymentpage($payment)
+    {
+        $order_addres = Order_addres::find($payment);
 
         return view('mobile.food.payment', compact('order_addres'));
     }
-    public function order(Request $request)
+    public function paymentpPost(Request $request)
+    {
+        $cart = Cart::where('user_id', Auth::user()->id)->delete();
+
+        $order = Order::find($request->order_id);
+        $order->status = 0;
+        $order->save();
+        return redirect()->route('mobile.food.order');
+    }
+
+    
+     public function order(Request $request)
     {
       
-        
-        $order_list = Order::where('user_id', Auth::user()->id)->where('status', '!=', 0)->orderBy('id', 'DESC')->get();
-        return view('mobile.food.order', compact('order_list'));
+    
+        $order_list = Order::where('user_id', Auth::user()->id)->where('type', 2)->orderBy('id', 'DESC')->get();
+        return view('mobile.grocery.order', compact('order_list'));
     }
 
  // plustocart
  public function plustocart(Request $request)
  {
-     $total = 0;
-     $cartup = Cart::find($request->id);
-     $cartup->quantity = $cartup->quantity + 1;
-     $cartup->save();
+    $total = 0;
+    $cartup = Cart::find($request->id);
+    $cartup->quantity = $cartup->quantity + 1;
+    $cartup->save();
 
-     $product_total = $cartup->quantity * ($cartup->product->price - ($cartup->product->price * $cartup->product->Dis_price) / 100);
+    $product_total = $cartup->quantity * ($cartup->product->Sellar_price + ($cartup->product->Sellar_price * $cartup->product->admin_charge) / 100);
 
-     $cart = Cart::where('user_id', Auth::user()->id)->get();
+    $cart = Cart::where('user_id', Auth::user()->id)->get();
 
-     foreach ($cart as $cart) {
+    foreach ($cart as $cart) {
 
-         $total += $cart->quantity * ($cart->product->price - ($cart->product->price * $cart->product->Dis_price) / 100);
-     }
+        $total += $cart->quantity * ($cart->product->Sellar_price + ($cart->product->Sellar_price * $cart->product->admin_charge) / 100);
+    }
 
-     $data = [
-         'product_total' => $product_total,
-         'cart' => $cart,
-         'total' => $total
-     ];
+    $data = [
+        'product_total' => $product_total,
+        'cart' => $cart,
+        'total' => $total,
+    ];
 
-     if ($cart) {
-         return response()->json([
-             'success' => true,
-             'message' => 'Product added to cart',
-             'data' => $data
-         ], 200);
-     } else {
-         return response()->json([
-             'success' => false,
-             'message' => 'Product not added to cart',
-             'data' => ''
-         ], 400);
-     }
- }
- // mistocart
- public function mistocart(Request $request)
- {
-     $total = 0;
-     $cartUp = Cart::find($request->id);
-     $cartUp->quantity = $cartUp->quantity - 1;
-     if ($cartUp->quantity == 0) {
-         $cartUp->delete();
-     } else {
+    if ($cart) {
+        return response()->json([
+            'success' => true,
+            'message' => 'Product added to cart',
+            'data' => $data,
+        ], 200);
+    }
+    else {
+        return response()->json([
+            'success' => false,
+            'message' => 'Product not added to cart',
+            'data' => '',
+        ], 400);
+    }
+}
+// mistocart
+public function mistocart(Request $request)
+{
+    $total = 0;
+    $cartUp = Cart::find($request->id);
+    $cartUp->quantity = $cartUp->quantity - 1;
+    if ($cartUp->quantity == 0) {
+        $cartUp->delete();
+    }
+    else {
 
-         $cartUp->save();
-     }
-     $product_total = $cartUp->quantity * ($cartUp->product->price - ($cartUp->product->price * $cartUp->product->Dis_price) / 100);
+        $cartUp->save();
+    }
+    $product_total = $cartUp->quantity * ($cartUp->product->Sellar_price + ($cartUp->product->Sellar_price * $cartUp->product->admin_charge) / 100);
 
+    $cart = Cart::where('user_id', Auth::user()->id)->get();
 
-     $cart = Cart::where('user_id', Auth::user()->id)->get();
+    foreach ($cart as $cart) {
 
-     foreach ($cart as $cart) {
+        $total += $cart->quantity * ($cart->product->Sellar_price + ($cart->product->Sellar_price * $cart->product->admin_charge) / 100);
+    }
 
-         $total += $cart->quantity * ($cart->product->price - ($cart->product->price * $cart->product->Dis_price) / 100);
-     }
+    $data = [
+        'product_total' => $product_total,
+        'cart' => $cartUp,
+        'total' => $total,
+    ];
+    if ($cartUp) {
 
-     $data = [
-         'product_total' => $product_total,
-         'cart' => $cartUp,
-         'total' => $total
-     ];
-     if ($cartUp) {
-
-         return response()->json([
-             'success' => true,
-             'message' => 'Product added to cart',
-             'data' => $data
-         ], 200);
-     } else {
-         return response()->json([
-             'success' => false,
-             'message' => 'Product not added to cart',
-             'data' => ''
-         ], 400);
-     }
- }
+        return response()->json([
+            'success' => true,
+            'message' => 'Product added to cart',
+            'data' => $data,
+        ], 200);
+    }
+    else {
+        return response()->json([
+            'success' => false,
+            'message' => 'Product not added to cart',
+            'data' => '',
+        ], 400);
+    }
+}
 
 
 
@@ -330,7 +411,7 @@ class FoodController extends Controller
 
 
         foreach ($products as $product) {
-            $html .= '<a class="row"  href="#">
+            $html .= '<a class="row"  href="' . route('mobile.food.productdetails', $product->id) . '">
             <div class="col-2">';
             if ($product->p_image != '') {
                 $html .= '<img class="store_icon" src="' . asset($product->p_image) . '" alt="store icon">';
@@ -344,6 +425,8 @@ class FoodController extends Controller
             </div>
             </a>';
         }
+       
+   
 
         return response()->json([
             'success' => true,

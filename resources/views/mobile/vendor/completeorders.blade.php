@@ -63,7 +63,7 @@
                         @foreach ($order_list as $order)
                             <tr>
                                 <th scope="row"><a href="{{ route('vendor.order-detail-p',$order->id) }}"
-                                        class="order_id">{{ $order->id }}</a></th>
+                                        class="order_id">{{$loop->iteration}}</a></th>
                                 <td>
                                     {{-- get only date --}}
                                     {{ date('d-m-Y', strtotime($order->created_at)) }}

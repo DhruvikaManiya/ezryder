@@ -18,10 +18,7 @@
                 <div class="form-check text-center delivery ">
                     <img src="{{ asset('asset/images/check-circle.png') }}">
                     <p> Delivery Address</p>
-                    {{-- <label class="form-check-label" for="radio2">
-            <input type="radio" class=" " id="radio2" name="optradio" value="option2">
-          </label><br>
-          <p>Delivery Address</p> --}}
+               
                 </div>
                 <div class="form-check text-center deliveryAddres pay">
                     <label class="form-check-label" for="radio2">
@@ -34,7 +31,7 @@
                 <h3>Select Payment</h3>
 
             </div>
-            <form action="{{ route('mobile.order') }}" class="checkOut">
+            <form action="{{ route('mobile.payment-post') }}" class="checkOut" method="POST">
               @csrf
               <input type="hidden" name="order_id" value="{{ $order_addres->order_id }}">
                 <div class="d-flex justify-content-between mb-4">

@@ -20,27 +20,26 @@
     @include('mobile.delivery.inc.back-header')
 
     <section class=" img-fluid select-image image">
-        <form action="{{ route('mobile.delivery.profilepic') }}" method="post" enctype="multipart/form-data">
+
+        <form action="{{ route('mobile.delivery.profilepic') }}" method="post" id="profile-image-form"
+            enctype="multipart/form-data">
             @csrf
-            {{-- <h3 class="in_acti">InActive</h3> --}}
-            @if (isset($data->profile))
-                <img src="{{ asset($data->profile) }}" class="img-fluid select-image image" data-image="image1">
+
+            @if ($data->profile != '')
+                <img src="{{ asset($data->profile) }}" id="file-upload" class="img-fluid select-image image"
+                    data-image="image1" id="profile-image" style="width: 100%; height:300px;">
             @else
-                <img src="{{ asset('asset/images/Group 5.svg') }}" class="img-fluid select-image image" data-image="image1">
+                <img src="{{ asset('asset/images/Group 5.svg') }}" class="img-fluid select-image image" data-image="image1"
+                    id="profile-image" style="width: 100%; height:300px;">
             @endif
             <input type="file" name="profile" id="profile" class="d-none image">
-            {{-- <button type=" submit" name="submit" class=" btn btn1 mt-2 ">Submit</button>             --}}
-            
+
+            <button type="submit" name="submit" class="btn btn1 mt-2 d-none" id="submit-btn">Submit</button>
+
         </form>
     </section>
 
-    {{-- <a href="{{ route('mobile.delivery.document') }}">
-        <div class="add-p add_p_bold add_p_center">
-            <p>Add your id proof</p>
-            <p>Upload your licence</p>
-            <p class="mt-bt-0">Upload vehicle details</p>
-        </div>
-    </a> --}}
+
 
 
     <section class="account_link_sec">
@@ -51,16 +50,9 @@
                 <a href="{{ route('mobile.delivery.wallet') }}" class="link">Wallets</a>
                 <a href="{{ route('mobile.delivery.document') }}" class="link">Documents</a>
                 <a href="{{ route('mobile.delivery.order_history') }}" class="link">Order History</a>
+                <a href="{{ route('mobile.delivery.bankdetail') }}" class="link">Bank Details</a>
                 <a href="{{ route('custome.logout') }}" class="link">Logout</a>
 
-                {{-- <a class="link" href="{{ route('logout') }}"
-                    onclick="event.preventDefault();
-                                                     document.getElementById('logout-form').submit();">
-                    {{ __('Logout') }}
-                </a>
-                <form id="logout-form" action="{{ route('logout') }}" method="POST" class="d-none">
-                    @csrf
-                </form> --}}    
             </div>
         </div>
     </section>
@@ -69,22 +61,12 @@
 @section('js')
 
     <script>
-        $(document).ready(function() {
-            $('.select-image').click(function() {
-                $(this).next().click();
-            });
-            $('.image').change(function() {
-                var input = $(this);
-                var reader = new FileReader();
-                reader.onload = function(e) {
-                    var image = e.target.result;
+        $('.select-image').click(function() {
+            $(this).next().click();
+        });
 
-                    input.siblings('img').attr('src', e.target.result);
-                    input.siblings('img').attr('style', 'width:100%;');
-
-                }
-                reader.readAsDataURL(this.files[0]);
-            });
+        $('#profile').change(function() {
+            $('#submit-btn').click();
         });
     </script>
 

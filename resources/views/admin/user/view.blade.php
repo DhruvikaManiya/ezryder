@@ -1,15 +1,27 @@
 @extends('layouts.admin.master')
 
 @section('content')
+<!-- Content Header (Page header) -->
+<div class="content-header">
+    <div class="container-fluid">
+        <div class="row mb-2">
+            <div class="col-sm-6">
+                <h1 class="m-0">User Details</h1>
+            </div><!-- /.col -->
+            <div class="col-sm-6">
+                <ol class="breadcrumb float-sm-right">
+                    <li class="breadcrumb-item"><a href="{{route('dashboard')}}">Home</a></li>
+                    <li class="breadcrumb-item active">User Details</li>
+                </ol>
+            </div><!-- /.col -->
+        </div><!-- /.row -->
+    </div><!-- /.container-fluid -->
+</div>
+<!-- /.content-header -->
 <div class="container-fluid p-0">
     <div class="card">
         <div class="card-body">
-    <!-- Page Heading -->
-    <div class="d-sm-flex align-items-center justify-content-between mb-4">
-        <h1 class="h3 mb-0 text-gray-800">User Details</h1>
-        {{-- <a href="#" class="d-none d-sm-inline-block btn btn-sm btn-primary shadow-sm"><i
-                    class="fas fa-download fa-sm text-white-50"></i> Generate Report</a> --}}
-    </div>
+  
     <hr>
     <!-- Content Row -->
     
@@ -80,6 +92,16 @@
                     <div class="form-group">
                         <label for=""> <strong>Country</strong> </label><br>
                         <label for=""> {{$user->country}}</label>
+                    </div>            
+                    <hr>
+                </div>
+                <div class="col-6" style="width: 100%; ">
+                    <div class="form-group">
+                        <label for=""> <strong>User profile</strong> </label><br>
+                        {{-- @dd($user->profile) --}}
+                        <label for=""> <img src="{{ asset($user->profile) }}" alt="" style="width: 100%; height:100px;" >
+                        </label>
+                            
                     </div>            
                     <hr>
                 </div>

@@ -1,21 +1,175 @@
 <?php
 
 namespace App\Http\Controllers;
-use App\Http\Controllers\Controller;
+// use App\Http\Controllers\Controller;
 use Illuminate\Http\Request;
-
 use App\Cart;
 use App\product;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\DB;
+use App\Setting;
+use App\Address;
+use App\Store;
 
-class CartController extends Controller
+class Cartcontroller extends Controller
 {
     /**
      * Display a listing of the resource.
      *
      * @return \Illuminate\Http\Response
      */
+
+
+
+  public function cartItemCount(){
+    return Cart::where('user_id','=',Auth::user()->id)->count();
+  }  
+
+  public function add(Request $request){
+
+        
+        $product = product::find($request->productId);
+
+        
+        $cart_count = Cart::where('user_id','=',Auth::user()->id)->count();
+
+        if($cart_count != 0){
+            $store_check = Cart::where('user_id','=',Auth::user()->id)
+                         ->where('store_id','=',$product->store_id)->count();
+            if($store_check == 0){
+                $carts = Cart::where('user_id','=',Auth::user()->id)->delete();
+
+            }
+        }
+
+        
+
+        
+
+
+    
+        $cart = Cart::where('user_id','=',Auth::user()->id)
+                ->where('product_id','=',$request->productId)->first();
+
+        if($cart){
+           return 'Already Added'; 
+        }
+
+        $cart = new Cart;
+        $cart->user_id = Auth::user()->id;
+        $cart->quantity = 1;
+        $cart->product_id = $request->productId;
+        $cart->store_id = $product->store_id;
+        $cart->store_type_id = $product->store_type_id;
+        $cart->save();
+
+        return [
+            'qty'=>$cart->quantity,
+            'count'=>$this->cartItemCount()
+        ];
+
+  } 
+
+  public function decrese(Request $request){
+
+        $cart = Cart::where('product_id','=',$request->productId)
+                ->where('user_id','=',Auth::user()->id)->first();
+   
+
+        if($cart->quantity == 1){
+            $cart->delete();
+            return [
+                'qty'=>0,
+                'count'=>$this->cartItemCount()
+            ];
+        }else{
+              
+              $cart->quantity = $cart->quantity - 1;
+              $cart->product_id = $request->productId;
+              $cart->save();
+               
+              return [
+                'qty'=>$cart->quantity,
+                'count'=>$this->cartItemCount()
+            ];
+        }
+
+       
+
+        
+
+  }
+  public function increse(Request $request){
+
+        $cart = Cart::where('product_id','=',$request->productId)
+                ->where('user_id','=',Auth::user()->id)->first();
+        $cart->quantity = $cart->quantity + 1;
+        $cart->product_id = $request->productId;
+        $cart->save();
+        return $cart->quantity;
+
+  }
+  public function view(){
+
+    $carts =  Cart::where('user_id','=',Auth::user()->id)->get();
+    $setting = Setting::find(1);
+    $address = Address::where('user_id','=',Auth::user()->id)
+    ->where('default','=',1)->first();
+    $cart = Cart::where('user_id','=',Auth::user()->id)->first();
+    $store = Store::find($cart->product->store_id);
+
+    $kmt = 1;
+    if($address){
+    $kmt =  getDistanceBetweenPointsNew($address->lat,$address->long,$store->lat,$store->lon,'kilometers');
+
+    }
+    
+    return view('mobile.users.ecommerce.cart',compact('carts','setting','kmt','address'));
+  
+  }
+
+
+  public function checkout(){
+
+        $carts =  Cart::where('user_id','=',Auth::user()->id)->get();
+        $setting = Setting::find(1);
+        $address = Address::where('user_id','=',Auth::user()->id)
+        ->where('default','=',1)->first();
+        $cart = Cart::where('user_id','=',Auth::user()->id)->first();
+        $store = Store::find($cart->product->store_id);
+        $store_id = $store->id;
+        $kmt = 1;
+
+
+        if($address){
+            $kmt =  getDistanceBetweenPointsNew($address->lat,$address->long,$store->lat,$store->lon,'kilometers');
+        }
+        
+        $total_seller_price =0;
+
+        foreach($carts as $cart){
+           $total_seller_price = $total_seller_price +$cart->product->seller_price;
+        }
+
+
+        $orderdata = [
+            'total_seller_price' => $total_seller_price,
+            'seller_govt_taxes' => $total_seller_price*$setting->gov_tax_in_percent/100,
+            'seller_total_with_govt_taxes' => $total_seller_price + $total_seller_price*$setting->gov_tax_in_percent/100,
+            // 'admin_total_charges' => 
+
+
+        ];
+
+
+        $data = compact('carts','setting','kmt','store_id','orderdata','address','address');
+        
+        return view('mobile.users.ecommerce.chackout',$data);
+   
+
+  }
+
+
     public function index()
     {
         //
@@ -43,11 +197,13 @@ class CartController extends Controller
         if ($request->flag == 1) {
 
             $product = product::find($request->id);
+
             $cart = DB::table('carts')
                 ->join('products', 'carts.product_id', '=', 'products.id')
                 ->where('products.user_id', '!=', $product->user_id)
                 ->where('carts.user_id', Auth::user()->id)
                 ->where('carts.deleted_at', null)
+               
                 ->get();
 
             if (count($cart) == 0) {
