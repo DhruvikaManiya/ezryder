@@ -640,7 +640,8 @@ class MobileController extends Controller
 
     public function rider()
     {
-        return view('mobile.rider.pickup-old');
+//        return view('mobile.rider.pickup-old');
+        return view('mobile.taxi-rider.dropLocation2');
     }
 
     public function rider_store(Request $request){
@@ -679,7 +680,8 @@ class MobileController extends Controller
             return view('mobile.rider.pickup-old');
         }
 
-        return view('mobile.rider.home-now',[
+//        return view('mobile.rider.home-now',[
+        return view('mobile.taxi-rider.selectCar',[
             'title' => "Book Taxi",
             "details" => $vehicle,
             "requests" => $requests
@@ -701,10 +703,28 @@ class MobileController extends Controller
 
         Requests::where('id', $id)->update($validate);
 
-        return redirect()->route('mobile.rider.payment');
+        return redirect()->route('mobile.car.details');
 
     }
 
+    public function car_details (){
+
+            $vehicle = User_vehicle::get();
+
+            $requests = Requests::where('rider_id',Auth::user()->id)->orderby('created_at','desc')->first();
+
+            if(!$requests){
+
+                return view('mobile.rider.pickup-old');
+            }
+
+//        return view('mobile.rider.home-now',[
+            return view('mobile.taxi-rider.confirmBooking',[
+                'title' => "Book Taxi",
+                "details" => $vehicle,
+                "requests" => $requests
+            ]);
+    }
 
     // rider_payment
     public function rider_payment(Request $request)

@@ -180,6 +180,8 @@ Auth::routes();
             Route::put('/{id}',  'MobileController@home_now_store')->name('mobile.homenow_store');
         });
 
+        Route::get('/car-details', 'MobileController@car_details')->name('mobile.car.details');
+
         Route::get('/rider-payment', 'MobileController@rider_payment')->name('mobile.rider.payment');
 
         Route::get('/my-booking', 'MobileController@my_booking')->name('mobile.rider.booking');
