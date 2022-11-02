@@ -1,0 +1,384 @@
+/* dropLocation.html Search Option */
+
+#dropLocation {
+  background-image: url(../assets/location.png);
+  background-size: 100%;
+  background-repeat: no-repeat;
+  background-position: right;
+}
+/* 
+#dropLocation2{
+    background-image: url(../assets/location2.png);
+    background-size:100%;
+    background-repeat: no-repeat;
+    background-position: right;
+} */
+
+.topNavbar {
+  background-color: white;
+  padding-bottom: 18px;
+}
+
+.topNav {
+  margin: 60px 30px 20px 30px;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+}
+.topNav h2 img {
+  padding-right: 10px;
+}
+.topNav h2 {
+  font-weight: 800;
+  font-size: 16px;
+  line-height: 20px;
+  color: #5d8080;
+  display: flex;
+  align-items: center;
+}
+
+#account .topNav {
+  height: 150px;
+  padding: 0px 30px 20px 30px;
+  margin: 0;
+}
+#account #leftArrowImg {
+  position: absolute;
+  z-index: 3;
+  top: 60px;
+  left: 30px;
+}
+
+#dropLocationSearch {
+  display: grid;
+  gap: 10px;
+}
+
+#dropLocationSearch .inputContainer {
+  display: flex;
+  align-items: center;
+  border: 1px solid #b2d1d1;
+  box-shadow: inset 0px -4px 12px rgba(178, 209, 209, 0.25);
+  border-radius: 4px;
+  padding: 12px;
+  background-color: white;
+}
+#dropLocationSearch .inputContainer img {
+  background-color: white;
+}
+
+#dropLocationSearch input {
+  width: 100%;
+  border: none;
+  padding-left: 10px;
+  outline: none;
+}
+
+#dropLocationSearch .inputContainer .address {
+  font-weight: 500;
+  font-size: 14px;
+  line-height: 18px;
+  color: #5d8080;
+}
+
+#dropLocationSearch .inputContainer .search {
+  font-style: italic;
+  font-weight: 500;
+  font-size: 14px;
+  line-height: 18px;
+  color: #b0b8b8;
+}
+
+.btn-darkBlue {
+  background-color: #005280;
+  padding: 12px;
+  color: #e7efef;
+  font-weight: 700;
+  font-size: 15px;
+  line-height: 19px;
+  text-align: center;
+  margin: 32px;
+}
+
+/* selectCar.html */
+
+.carService-btn {
+  align-items: center;
+  text-align: center;
+  padding-top: 34px;
+  justify-content: center;
+  display: flex;
+  gap: 30px;
+  background-color: white;
+}
+
+.carService-btn button {
+  padding: 5px;
+  border-color: #a3c7c7;
+  border-radius: 8px;
+  background-color: white;
+  color: #7c9191;
+  border: 1px solid #a3c7c7;
+  font-size: 14px;
+  font-style: normal;
+  font-weight: 700;
+  font-size: 14px;
+  line-height: 18px;
+}
+
+.car1 {
+  display: flex;
+  gap: 28px;
+  /* width: 100%; */
+  align-items: center;
+  text-align: center;
+  justify-content: space-evenly;
+  padding: 25px;
+  border: 1px solid #a3c7c7;
+  border-radius: 8px;
+  margin-top: 8px;
+}
+
+.carSpecification {
+  padding-top: 28px;
+  background-color: white;
+  padding-bottom: 32px;
+}
+
+.rideType {
+  display: flex;
+  justify-content: space-between;
+  padding: 32px 0;
+}
+
+.rideType h4 {
+  display: flex;
+  flex-direction: column;
+  font-weight: 700;
+  font-size: 14px;
+  line-height: 18px;
+  color: #7c9191;
+}
+
+.rideType h4 span {
+  font-weight: 400;
+  font-size: 14px;
+  line-height: 18px;
+}
+
+.price {
+  width: 100%;
+  border-radius: 4px;
+  border-color: transparent;
+  align-items: center;
+  background-color: #005280;
+  padding: 12px;
+  color: #e7efef;
+  font-weight: 700;
+  font-size: 15px;
+  line-height: 19px;
+  text-align: center;
+}
+
+.carRideDesc {
+  font-weight: 400;
+  font-size: 14px;
+  line-height: 14px;
+  color: #7c9191;
+  padding-top: 4px;
+}
+
+/* driverAcceptance.html */
+.noticeRed {
+  font-weight: 700;
+  font-size: 15px;
+  line-height: 19px;
+  color: #ff0000;
+}
+
+/* confirmBooking2.html */
+
+.riderDesc {
+  background-color: white;
+}
+
+#bottomContent {
+  display: flex;
+  justify-content: space-between;
+  padding: 24px 0;
+}
+
+#bottomContent .sendMsg {
+  display: flex;
+  padding-top: 17px;
+  gap: 6px;
+}
+
+.rightSide {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  width: 30%;
+  gap: 8px;
+}
+
+.rightSide button {
+  align-self: flex-end;
+  border: none;
+  background-color: white;
+  color: #933838;
+  text-decoration: underline;
+}
+
+#bottomContent p {
+  font-weight: 700;
+  font-size: 14px;
+  line-height: 18px;
+  color: #7c9191;
+}
+
+#bottomContent span {
+  font-weight: 400;
+  font-size: 14px;
+  line-height: 18px;
+  color: #7c9191;
+}
+
+.btn-option {
+  justify-content: space-between;
+  display: flex;
+  gap: 30px;
+  padding-bottom: 24px;
+}
+
+.btn-option button {
+  padding: 12px 60px;
+  text-align: center;
+  align-items: center;
+  width: 100%;
+}
+
+.call {
+  background: #acd2d2;
+  border-radius: 4px;
+  border: none;
+  font-weight: 700;
+  font-size: 15px;
+  line-height: 19px;
+  text-align: center;
+  color: #4a6363;
+}
+
+.chat {
+  border-radius: 4px;
+  border: none;
+  font-weight: 700;
+  font-size: 15px;
+  line-height: 19px;
+  text-align: center;
+  background: #005280;
+  color: #e7efef;
+}
+
+/* confirmBooking3.html */
+.riderDesc p {
+  /* padding: 30px 0; */
+}
+
+/* paymentGateway.html */
+
+.main {
+  color: #008080;
+  font-weight: 800;
+  font-size: 24px;
+  line-height: 33px;
+}
+
+#confirmBooking3 .bottomContent {
+  padding: 30px 0;
+  background: white;
+  display: flex;
+  flex-direction: column;
+  gap: 20px;
+}
+#confirmBooking3 .btn-option {
+  padding-bottom: 0px;
+}
+
+#paymentGateway .imgContainer {
+  display: grid;
+  place-items: center;
+  margin-top: 28px;
+  padding-bottom: 20px;
+}
+
+#completedBooking .emptyImage {
+  width: 100%;
+  height: 337px;
+}
+
+#completedBookingDetails .topnavbar {
+  background: transparent;
+}
+
+.bottomNav {
+  display: grid;
+  grid-template-columns: 1fr 1fr 1fr 1fr;
+  position: fixed;
+  max-width: 480px;
+  bottom: 0px;
+  width: 100%;
+  height: 86px;
+  background: white;
+}
+.bottomNav .item {
+  display: grid;
+  place-items: center;
+  background: white;
+}
+
+#completedBookingDetails .contentContainer {
+  display: grid;
+  gap: 24px;
+  margin-bottom: 100px;
+  font-weight: 500;
+  font-size: 14px;
+  line-height: 18px;
+  color: #5d8080;
+}
+#completedBookingDetails .contentContainer .box1 {
+  background: white;
+  padding: 16px;
+  border-radius: 8px;
+}
+#completedBookingDetails .contentContainer .details {
+  display: flex;
+  justify-content: space-between;
+}
+#completedBookingDetails .contentContainer .details .rightSide {
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+}
+#completedBookingDetails .contentContainer .details .value {
+  font-weight: 800;
+}
+#completedBookingDetails .contentContainer h2 {
+  font-size: 16px;
+  margin-bottom: 8px;
+}
+#completedBookingDetails .contentContainer .btnContainer2 {
+  display: flex;
+  gap: 10px;
+}
+#completedBookingDetails .contentContainer .btnContainer2 button {
+  border: none;
+  border: 1px solid #a3c7c7;
+  filter: drop-shadow(0px 4px 8px rgba(163, 199, 199, 0.3));
+  border-radius: 8px;
+  padding: 5px 16px;
+  background: transparent;
+}
+#completedBookingDetails .contentContainer .btnContainer2 .highlight {
+  background: #a3c7c7;
+}
