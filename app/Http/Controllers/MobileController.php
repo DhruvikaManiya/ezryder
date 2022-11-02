@@ -731,7 +731,7 @@ class MobileController extends Controller
     public function rider()
     {
 //        return view('mobile.rider.pickup-old');
-        return view('mobile.taxi-rider.dropLocation2');
+        return view('mobile.taxi-rider.dropLocation');
     }
 
     public function rider_store(Request $request)
